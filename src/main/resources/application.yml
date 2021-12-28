@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: ${MYSQL_PASSWORD:asdf}
+    url: ${MYSQL_URL:asdf}
+    username: ${MYSQL_USERNAME:asdf}
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  jpa:
+    generate-ddl: false
+    show-sql: false
+  redis:
+    host: ${REDIS_HOST:asdf}
+    port: ${REDIS_PORT:asdf}
+    password: ${REDIS_PASSWORD:asdf}
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_ADDRESS:asdf}
+    password: ${EMAIL_PASSWORD:asdf}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+cloud:
+  aws:
+    s3:
+      bucket: ${AWS_BUCKET:asdf}
+    region:
+      static: ${AWS_REGION:asdf}
+    stack:
+      auto: false
+    credentials:
+      instanceProfile: true
+      accessKey: ${AWS_ACCESS:asdf}
+      secretKey: ${AWS_SECRET:asdf}
