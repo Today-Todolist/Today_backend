@@ -16,32 +16,32 @@ import todolist.today.today.global.error.exception.BasicException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleException(Exception e) {
+    public ResponseEntity<BasicErrorResponse> handleException(Exception e) {
         e.printStackTrace();
         final BasicErrorResponse response = BasicErrorResponse.from(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ValidErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         final ValidErrorResponse response = ValidErrorResponse.from(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ResponseEntity<?> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
+    public ResponseEntity<JsonErrorResponse> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         final JsonErrorResponse response = JsonErrorResponse.from(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+    public ResponseEntity<JsonErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
         final JsonErrorResponse response = JsonErrorResponse.from(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(BasicException.class)
-    public ResponseEntity<?> handleBasicException(BasicException e) {
+    public ResponseEntity<BasicErrorResponse> handleBasicException(BasicException e) {
         final BasicErrorResponse response = BasicErrorResponse.from(e);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
