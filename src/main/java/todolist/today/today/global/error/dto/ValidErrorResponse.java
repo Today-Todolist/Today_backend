@@ -19,9 +19,7 @@ public class ValidErrorResponse extends BasicErrorResponse {
 
         List<FieldError> fieldErrors = e.getFieldErrors();
         this.reason = new HashMap<>(fieldErrors.size());
-        e.getFieldErrors().forEach(fieldError -> {
-            reason.put(fieldError.getField(), fieldError.getDefaultMessage());
-        });
+        e.getFieldErrors().forEach(fieldError -> reason.put(fieldError.getField(), fieldError.getDefaultMessage()));
     }
 
     public static ValidErrorResponse from(MethodArgumentNotValidException e) {
