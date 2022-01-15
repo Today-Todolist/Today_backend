@@ -1,16 +1,14 @@
 package todolist.today.today.global.error.exception;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import todolist.today.today.global.error.ErrorCode;
+import todolist.today.today.global.error.dto.BasicErrorResponse;
 
 @Getter
-public class BasicException extends RuntimeException {
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+public class BasicException extends RuntimeException implements GlobalException<BasicErrorResponse> {
 
-    private final ErrorCode errorCode;
-
-    public BasicException (ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
+    private final BasicErrorResponse errorResponse;
 
 }
