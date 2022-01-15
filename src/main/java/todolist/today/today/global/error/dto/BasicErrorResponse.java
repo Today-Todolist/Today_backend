@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Getter;
 import todolist.today.today.global.error.ErrorCode;
-import todolist.today.today.global.error.exception.BasicException;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -34,10 +33,6 @@ public class BasicErrorResponse {
 
     public static BasicErrorResponse from(ErrorCode errorCode) {
         return new BasicErrorResponse(errorCode);
-    }
-
-    public static BasicErrorResponse from(BasicException e) {
-        return new BasicErrorResponse(e.getErrorCode());
     }
 
 }
