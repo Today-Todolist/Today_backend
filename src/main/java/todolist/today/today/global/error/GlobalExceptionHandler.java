@@ -26,7 +26,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<BasicErrorResponse> handleException(Exception e) {
         e.printStackTrace();
-        final BasicErrorResponse response = BasicErrorResponse.from(ErrorCode.INTERNAL_SERVER_ERROR);
+        final BasicErrorResponse response = new BasicErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
         Map<String, String> reasons = new HashMap<>(fieldErrors.size());
         e.getFieldErrors().forEach(fieldError -> reasons.put(fieldError.getField(), fieldError.getDefaultMessage()));
 
-        final InvoluteErrorResponse response = InvoluteErrorResponse.from(ErrorCode.MISSING_REQUEST, reasons);
+        final InvoluteErrorResponse response = new InvoluteErrorResponse(ErrorCode.MISSING_REQUEST, reasons);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -44,13 +44,13 @@ public class GlobalExceptionHandler {
     public ResponseEntity<SimpleErrorResponse> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
         String reason = "The content type must be application/json. But request content type is " + e.getContentType();
 
-        final SimpleErrorResponse response = SimpleErrorResponse.from(ErrorCode.NOT_IN_JSON_FORMAT, reason);
+        final SimpleErrorResponse response = new SimpleErrorResponse(ErrorCode.NOT_IN_JSON_FORMAT, reason);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<SimpleErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException e) {
-        final SimpleErrorResponse response = SimpleErrorResponse.from(ErrorCode.WRONG_JSON_FORMAT, e.getMessage());
+        final SimpleErrorResponse response = new SimpleErrorResponse(ErrorCode.WRONG_JSON_FORMAT, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
