@@ -24,15 +24,11 @@ public class BasicErrorResponse {
     @JsonProperty("message")
     private final String message;
 
-    protected BasicErrorResponse(ErrorCode errorCode) {
+    public BasicErrorResponse(ErrorCode errorCode) {
         this.timestamp = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         this.status = errorCode.getStatus();
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
-    }
-
-    public static BasicErrorResponse from(ErrorCode errorCode) {
-        return new BasicErrorResponse(errorCode);
     }
 
 }
