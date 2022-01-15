@@ -1,11 +1,12 @@
 package todolist.today.today.global.error;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
 public enum ErrorCode {
+
     INTERNAL_SERVER_ERROR(500, "S001", "Internal Server Error"),
 
     NOT_IN_JSON_FORMAT(415, "C001", "Not In Json Format"),
