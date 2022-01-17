@@ -6,7 +6,7 @@ import todolist.today.today.global.error.exception.SimpleException;
 
 public class SimpleTestException extends SimpleException {
 
-    protected SimpleTestException() {
+    public SimpleTestException() {
         super(new SimpleErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR, "test simple exception"));
     }
 

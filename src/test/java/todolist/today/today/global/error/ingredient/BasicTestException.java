@@ -6,7 +6,7 @@ import todolist.today.today.global.error.exception.BasicException;
 
 public class BasicTestException extends BasicException {
 
-    protected BasicTestException() {
+    public BasicTestException() {
         super(new BasicErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR));
     }
 
