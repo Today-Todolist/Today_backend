@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -54,9 +55,18 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<SimpleErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+        String reason = "Request method " + e.getMethod() + " not supported";
+
+        final SimpleErrorResponse response = new SimpleErrorResponse(ErrorCode.WRONG_HTTP_METHOD, reason);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+
     @ExceptionHandler({BasicException.class, InvoluteException.class, SimpleException.class})
     public <T extends GlobalException<R>, R extends BasicErrorResponse> ResponseEntity<BasicErrorResponse> handleGlobalException(T e) {
-        R response = e.getErrorResponse();
+        final R response = e.getErrorResponse();
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
