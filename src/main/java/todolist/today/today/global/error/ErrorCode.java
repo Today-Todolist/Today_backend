@@ -11,7 +11,8 @@ public enum ErrorCode {
 
     NOT_IN_JSON_FORMAT(415, "C001", "Not In Json Format"),
     MISSING_REQUEST(400, "C002", "Missing Request"),
-    WRONG_JSON_FORMAT(415, "C003", "Wrong Json Format");
+    WRONG_JSON_FORMAT(415, "C003", "Wrong Json Format"),
+    WRONG_HTTP_METHOD(405, "C004", "Wrong Http Method");
 
     private final int status;
     private final String code;
