@@ -24,6 +24,11 @@ spring:
           auth: true
           starttls:
             enable: true
+auth:
+  jwt:
+    access-exp: ${JWT_EXP_ACCESS:1234}
+    refresh-exp: ${JWT_EXP_REFRESH:1234}
+    secret: ${JWT_SECRET_KEY:asdf}
 cloud:
   aws:
     s3:
