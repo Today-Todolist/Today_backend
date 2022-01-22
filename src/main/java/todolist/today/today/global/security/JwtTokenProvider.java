@@ -1,7 +1,6 @@
 package todolist.today.today.global.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import todolist.today.today.global.error.exception.security.InvalidTokenException;
 import todolist.today.today.global.security.auth.AuthDetailsService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +48,11 @@ public class JwtTokenProvider {
         return Optional.empty();
     }
 
-    public Authentication getAuthentication(String id) {
-        UserDetails details = authDetailsService.loadUserByUsername(id);
+    public Authentication getAuthentication(Claims body) {
+        if(isAccess(body)) {
+            throw new InvalidTokenException();
+        }
+        UserDetails details = authDetailsService.loadUserByUsername(getId(body));
         return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
     }
 
@@ -57,11 +60,11 @@ public class JwtTokenProvider {
         try {
             return Jwts.parser().setSigningKey(jwtProperties.getSecret()).parseClaimsJws(token).getBody();
         } catch (Exception e) {
-            return null;
+            throw new InvalidTokenException();
         }
     }
 
-    public boolean isAccess(Claims body) {
+    private boolean isAccess(Claims body) {
         return body.get("type", String.class).equals("access");
     }
 
