@@ -66,6 +66,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
 
     // lombok
+    implementation 'org.projectlombok:lombok'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
