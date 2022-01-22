@@ -9,6 +9,8 @@ public enum ErrorCode {
 
     INTERNAL_SERVER_ERROR(500, "S001", "Internal Server Error"),
 
+    INVALID_TOKEN(401, "A001", "Invalid Token"),
+
     NOT_IN_JSON_FORMAT(415, "C001", "Not In Json Format"),
     MISSING_REQUEST(400, "C002", "Missing Request"),
     WRONG_JSON_FORMAT(415, "C003", "Wrong Json Format"),
