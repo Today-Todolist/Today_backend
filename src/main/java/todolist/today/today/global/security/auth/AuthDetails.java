@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import todolist.today.today.global.entity.User;
 
 import java.util.Collection;
+import java.util.Collections;
 
 @Getter
 @AllArgsConstructor
@@ -16,7 +17,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
