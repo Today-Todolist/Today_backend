@@ -30,7 +30,7 @@ public class ExceptionHandlerFilter extends OncePerRequestFilter {
         }
     }
 
-    private <R extends BasicErrorResponse> int getStatus(R errorResponse) throws IOException {
+    private <R extends BasicErrorResponse> int getStatus(R errorResponse) {
         return errorResponse.getStatus();
     }
 
