@@ -16,7 +16,6 @@ public class JwtProperties {
     private final Long refreshExp;
 
     public JwtProperties(String secret, Long accessExp, Long refreshExp) {
-        System.out.println("테스트 " + secret + accessExp + refreshExp);
         this.secret = Base64.getEncoder().encodeToString(secret.getBytes());
         this.accessExp = accessExp;
         this.refreshExp = refreshExp;
