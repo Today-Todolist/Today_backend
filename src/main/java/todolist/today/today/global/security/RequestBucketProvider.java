@@ -3,12 +3,14 @@ package todolist.today.today.global.security;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+@Component
 public class RequestBucketProvider {
 
     private final Map<String, Bucket> requestBuckets = new ConcurrentHashMap<>();

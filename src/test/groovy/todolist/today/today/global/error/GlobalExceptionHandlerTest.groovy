@@ -4,12 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 import todolist.today.today.global.error.ingredient.TestController
 import todolist.today.today.global.error.ingredient.TestDto
+import todolist.today.today.global.security.JwtTokenProvider
+import todolist.today.today.global.security.RequestBucketProvider
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -23,6 +26,12 @@ class GlobalExceptionHandlerTest extends Specification {
 
     @Autowired
     private MockMvc mvc
+
+    @MockBean
+    private JwtTokenProvider jwtTokenProvider
+
+    @MockBean
+    private RequestBucketProvider requestBucketProvider
 
     @Autowired
     private ObjectMapper objectMapper
