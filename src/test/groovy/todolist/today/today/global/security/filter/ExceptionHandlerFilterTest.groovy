@@ -27,6 +27,7 @@ class ExceptionHandlerFilterTest extends Specification {
     def "test handleException" () {
         given:
         chain.doFilter(request, response) >> { throw exception }
+
         when:
         exceptionHandlerFilter.doFilterInternal(request, response, chain)
 
