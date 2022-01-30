@@ -24,7 +24,7 @@ class ExceptionHandlerFilterTest extends Specification {
         objectMapper.writeValueAsString(_) >> "json"
     }
 
-    def "test handleException" () {
+    def "test handle exception" () {
         given:
         chain.doFilter(request, response) >> { throw exception }
 

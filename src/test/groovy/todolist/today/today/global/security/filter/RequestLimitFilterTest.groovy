@@ -20,7 +20,7 @@ class RequestLimitFilterTest extends Specification {
         requestLimitFilter = new RequestLimitFilter(new RequestBucketProvider())
     }
 
-    def "test preventManyRequest" () {
+    def "test prevent many request" () {
         given:
         request.getRemoteAddr() >> "client ip"
 
@@ -34,7 +34,7 @@ class RequestLimitFilterTest extends Specification {
         thrown(TooManyRequestException)
     }
 
-    def "test impossibleClientIp" () {
+    def "test impossible get client ip" () {
         given:
         request.getHeader("X-Forwarded-For") >> ip
         request.getRemoteAddr() >> ip
