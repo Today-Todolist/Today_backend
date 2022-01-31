@@ -28,7 +28,6 @@ public class User {
     @Column(nullable = false)
     private String profile;
 
-    @Column(nullable = false)
-    private String changePossible;
+    private boolean changePossible;
 
 }
