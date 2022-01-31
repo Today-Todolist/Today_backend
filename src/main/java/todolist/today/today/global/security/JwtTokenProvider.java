@@ -68,6 +68,11 @@ public class JwtTokenProvider {
         return body.get("type", String.class).equals("access");
     }
 
+    public boolean isRefresh(String token) {
+        Claims body = getBody(token);
+        return body.get("type", String.class).equals("refresh");
+    }
+
     public String getId(Claims body) {
         return body.getSubject();
     }
