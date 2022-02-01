@@ -98,12 +98,33 @@ jacocoTestReport {
     reports {
         xml.enabled true
         xml.destination file("${buildDir}/reports/jacoco/report.xml")
-        html.enabled false
+        html.enabled true
+        html.destination file("${buildDir}/reports/jacoco/report.html")
+    }
+
+    afterEvaluate {
+        classDirectories.setFrom(
+                files(classDirectories.files.collect {
+                    fileTree(dir: it, excludes: ['**/TodayApplication.**', '**/AuthDetails.**'])
+                })
+        )
+    }
+
+    finalizedBy 'jacocoTestCoverageVerification'
+}
+
+//check.dependsOn jacocoTestReport
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            excludes = ['**/TodayApplication.**', '**/AuthDetails.**', '**/*Request.**', '**/*Response.**']
+        }
     }
 }
 
-check.dependsOn jacocoTestReport
-
 test {
     useJUnitPlatform()
+    finalizedBy 'jacocoTestReport'
 }
