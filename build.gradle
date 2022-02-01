@@ -105,15 +105,14 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
-                    fileTree(dir: it, excludes: ['**/TodayApplication.**', '**/AuthDetails.**'])
+                    fileTree(dir: it,
+                            excludes: ['**/TodayApplication.**', '**/AuthDetails.**', '**/*Request.**', '**/*Response.**'])
                 })
         )
     }
 
     finalizedBy 'jacocoTestCoverageVerification'
 }
-
-//check.dependsOn jacocoTestReport
 
 jacocoTestCoverageVerification {
     violationRules {
