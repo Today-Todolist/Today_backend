@@ -49,7 +49,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(Claims body) {
-        if(isAccess(body)) {
+        if(!isAccess(body)) {
             throw new InvalidTokenException();
         }
         UserDetails details = authDetailsService.loadUserByUsername(getId(body));
