@@ -15,13 +15,21 @@ class ExceptionHandlerFilterTest extends Specification {
     private ExceptionHandlerFilter exceptionHandlerFilter
     private HttpServletRequest request = Stub(HttpServletRequest)
     private HttpServletResponse response = Mock(HttpServletResponse)
-    private FilterChain chain = Stub(FilterChain)
+    private FilterChain chain = Mock(FilterChain)
     private PrintWriter printWriter = Stub(PrintWriter)
 
     def setup() {
         ObjectMapper objectMapper = Stub(ObjectMapper)
         exceptionHandlerFilter = new ExceptionHandlerFilter(objectMapper)
         objectMapper.writeValueAsString(_) >> "json"
+    }
+
+    def "test not handle exception" () {
+        when:
+        exceptionHandlerFilter.doFilterInternal(request, response, chain)
+
+        then:
+        1 * chain.doFilter(request, response)
     }
 
     def "test handle exception" () {
