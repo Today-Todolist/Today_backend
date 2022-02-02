@@ -20,10 +20,10 @@ public class RequestLimitFilter  extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
         Bucket bucket = requestBucketProvider.resolveBucket(request);
-        if (bucket.tryConsume(1)) {
-            chain.doFilter(request,response);
+        if (!bucket.tryConsume(1)) {
+            throw new TooManyRequestException(bucket.getAvailableTokens());
         }
-        throw new TooManyRequestException(bucket.getAvailableTokens());
+        chain.doFilter(request,response);
     }
 
 }

@@ -4,6 +4,7 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import org.springframework.stereotype.Component;
+import todolist.today.today.global.error.exception.security.ImpossibleToGetIpException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.Duration;
@@ -17,11 +18,13 @@ public class RequestBucketProvider {
 
     private String getClientIp(HttpServletRequest request) {
         String ip = request.getHeader("X-Forwarded-For");
-        return ip != null ? ip : request.getRemoteAddr();
+        return ip == null || ip.isBlank() ? request.getRemoteAddr() : ip;
     }
 
-    public Bucket resolveBucket(HttpServletRequest httpServletRequest) {
-        return requestBuckets.putIfAbsent(getClientIp(httpServletRequest), newBucket());
+    public Bucket resolveBucket(HttpServletRequest request) {
+        String ip = getClientIp(request);
+        if (ip == null || ip.isBlank()) throw new ImpossibleToGetIpException();
+        return requestBuckets.computeIfAbsent(ip, ignore -> newBucket());
     }
 
     private Bucket newBucket() {

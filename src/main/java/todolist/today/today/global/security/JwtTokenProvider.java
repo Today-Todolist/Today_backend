@@ -49,7 +49,7 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(Claims body) {
-        if(isAccess(body)) {
+        if(!isAccess(body)) {
             throw new InvalidTokenException();
         }
         UserDetails details = authDetailsService.loadUserByUsername(getId(body));
@@ -66,6 +66,11 @@ public class JwtTokenProvider {
 
     private boolean isAccess(Claims body) {
         return body.get("type", String.class).equals("access");
+    }
+
+    public boolean isRefresh(String token) {
+        Claims body = getBody(token);
+        return body.get("type", String.class).equals("refresh");
     }
 
     public String getId(Claims body) {
