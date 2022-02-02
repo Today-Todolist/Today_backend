@@ -1,3 +1,13 @@
+buildscript {
+    ext {
+        exclusionList = ['**/TodayApplication.**',
+                         '**/AuthDetails.**',
+                         '**/*Request.**',
+                         '**/*Response.**',
+                         '**/entity/**']
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.6.2'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -91,6 +101,7 @@ sonarqube {
         property "sonar.projectKey", "Today-Todolist_Today_backend"
         property "sonar.organization", "today-todolist"
         property "sonar.host.url", "https://sonarcloud.io"
+        property 'sonar.coverage.exclusions', exclusionList
     }
 }
 
@@ -105,8 +116,7 @@ jacocoTestReport {
     afterEvaluate {
         classDirectories.setFrom(
                 files(classDirectories.files.collect {
-                    fileTree(dir: it,
-                            excludes: ['**/TodayApplication.**', '**/AuthDetails.**', '**/*Request.**', '**/*Response.**'])
+                    fileTree(dir: it, excludes: exclusionList)
                 })
         )
     }
@@ -118,7 +128,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             element = 'CLASS'
-            excludes = ['**/TodayApplication.**', '**/AuthDetails.**', '**/*Request.**', '**/*Response.**']
+            excludes = exclusionList
         }
     }
 }
