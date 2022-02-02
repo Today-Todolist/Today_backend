@@ -24,7 +24,7 @@ public class RequestBucketProvider {
     public Bucket resolveBucket(HttpServletRequest request) {
         String ip = getClientIp(request);
         if (ip == null || ip.isBlank()) throw new ImpossibleToGetIpException();
-        return requestBuckets.computeIfAbsent(ip, (ignore) -> newBucket());
+        return requestBuckets.computeIfAbsent(ip, ignore -> newBucket());
     }
 
     private Bucket newBucket() {
