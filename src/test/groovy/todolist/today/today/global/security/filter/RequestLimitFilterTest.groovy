@@ -22,7 +22,7 @@ class RequestLimitFilterTest extends Specification {
 
     def "test prevent many request" () {
         given:
-        request.getRemoteAddr() >> "client ip"
+        request.getHeader("X-Forwarded-For") >> "client ip"
 
         when:
         120.times {
