@@ -17,7 +17,9 @@ public enum ErrorCode {
     MISSING_REQUEST(400, "C002", "Missing Request"),
     WRONG_JSON_FORMAT(415, "C003", "Wrong Json Format"),
     WRONG_HTTP_METHOD(405, "C004", "Wrong Http Method"),
-    FILE_SAVE_FAILED(400,"C005",  "File Save Failed");
+    FILE_SAVE_FAILED(400,"C005",  "File Save Failed"),
+    WRONG_IMAGE_EXTENSION(400, "C006", "Wrong Image Extension"),
+    WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type");
 
     private final int status;
     private final String code;
