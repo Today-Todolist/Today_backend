@@ -1,42 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SignUpMail</title>
-    <style>
-      @font-face {
-        font-family: "EB";
-        src: url("https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/font/%EC%84%9C%EC%9A%B8%ED%95%9C%EA%B0%95%20%EC%9E%A5%EC%B2%B4EB.woff")
-          format("woff");
-        font-size: 18px;
-        line-height: 28px;
-      }
-      @font-face {
-        font-family: "BL";
-        src: url("https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/font/%EC%84%9C%EC%9A%B8%ED%95%9C%EA%B0%95%20%EC%9E%A5%EC%B2%B4BL.woff")
-          format("woff");
-      }
-    </style>
-  </head>
   <body style="margin: 0; padding: 0">
     <table align="center" bgcolor="#000000" width="442px">
       <tr>
         <td style="padding: 44px 39px">
           <img
-            src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/svg/SignUpMail.svg"
+            src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/png/SignUpMail.png"
           />
         </td>
       </tr>
       <tr>
-        <td style="color: white; padding: 0 39px; font-family: 'EB'">
-          <span
-            >안녕하세요, {NAME}님. <br />
-            투두리스트 오늘을 이용해 주셔서 진심으로 감사합니다. <br />
-            아래에 있는 회원가입 메일 인증 버튼을 클릭하여 <br />
-            회원가입을 위한 메일 인증을 완료해 주세요. 감사합니다.<br />
-          </span>
+        <td style="padding: 0 39px">
+          <img
+            src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/png/font/SignUp.png"
+          />
         </td>
       </tr>
       <tr>
@@ -49,22 +26,30 @@
                 width: 464px;
                 height: 39px;
                 border-radius: 20px;
-                margin-bottom: 27px;
+                margin-bottom: 64px;
                 border: none;
               "
             >
-              <span style="font-family: 'BL'">회원가입 메일 인증하기</span>
+              <img
+                src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/png/font/SignUpBtn.png"
+              />
             </button>
           </a>
-          <span
+          <div
             style="
-              font-family: 'EB';
-              font-size: 15px;
-              color: rgba(255, 255, 255, 0.8);
+              width: 100%;
+              background-color: white;
+              height: 0.1px;
+              margin-bottom: 23px;
             "
-            >5분내로 메일 인증을 해야 합니다.<br />
-            만약 5분이 지나면 다시 회원가입 절차를 진행해야 합니다.
-          </span>
+          ></div>
+          <img
+            src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/png/font/SignUpTime.png"
+          />
+          <br />
+          <img
+            src="https://raw.githubusercontent.com/Today-Todolist/Today_file_storage/main/png/font/TodayTodolist.png"
+          />
         </td>
       </tr>
     </table>
