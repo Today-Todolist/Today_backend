@@ -25,10 +25,12 @@ spring:
           auth: true
           starttls:
             enable: true
+    signUpLink: ${SIGN_UP_LINK}
+    changePasswordLink: ${CHANGE_PASSWORD_LINK}
 auth:
   jwt:
-    access-exp: ${JWT_EXP_ACCESS}
-    refresh-exp: ${JWT_EXP_REFRESH}
+    accessExp: ${JWT_EXP_ACCESS}
+    refreshExp: ${JWT_EXP_REFRESH}
     secret: ${JWT_SECRET_KEY}
 cloud:
   aws:

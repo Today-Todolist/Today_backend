@@ -13,9 +13,13 @@ import java.io.UnsupportedEncodingException;
 public class MailProperties {
 
     private final InternetAddress fromAddress;
+    private final StringBuilder signUpLink;
+    private final StringBuilder changePasswordLink;
 
-    public MailProperties(String fromAddress) throws UnsupportedEncodingException {
-        this.fromAddress = new InternetAddress(fromAddress, "오늘");
+    public MailProperties(String username, StringBuilder signUpLink, StringBuilder changePasswordLink) throws UnsupportedEncodingException {
+        this.fromAddress = new InternetAddress(username, "오늘");
+        this.signUpLink = signUpLink.append("?token=");
+        this.changePasswordLink = changePasswordLink.append("?token=");
     }
 
 }

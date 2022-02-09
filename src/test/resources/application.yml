@@ -22,10 +22,12 @@ spring:
           auth: true
           starttls:
             enable: true
+    signUpLink: signUp.com
+    changePasswordLink: changePassword.com
 auth:
   jwt:
-    access-exp: 1000
-    refresh-exp: 2000
+    accessExp: 1000
+    refreshExp: 2000
     secret: asdf
 cloud:
   aws:

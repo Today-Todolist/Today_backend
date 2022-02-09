@@ -8,7 +8,7 @@ import java.util.Base64;
 
 @Getter
 @ConstructorBinding
-@ConfigurationProperties(prefix = "jwt")
+@ConfigurationProperties(prefix = "auth.jwt")
 public class JwtProperties {
 
     private final String secret;
