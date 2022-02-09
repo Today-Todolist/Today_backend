@@ -1,23 +1,19 @@
 package todolist.today.today.global.mail;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import todolist.today.today.global.error.exception.mail.MailSendFailedException;
 
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 @Component
 @RequiredArgsConstructor
 public class MailSendFacade {
 
-    @Value("${spring.mail.username}")
-    private String fromAddress;
-
     private final JavaMailSender mailSender;
+    private final MailProperties mailProperties;
 
     public void sendHtmlMail(String toAddress, String title, String content) {
         try {
@@ -40,7 +36,7 @@ public class MailSendFacade {
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, false, "UTF-8");
 
         messageHelper.setTo(toAddress);
-        messageHelper.setFrom(new InternetAddress(fromAddress, "오늘"));
+        messageHelper.setFrom(mailProperties.getFromAddress());
         messageHelper.setSubject(title);
 
         messageHelper.setText(content, isHtml);
