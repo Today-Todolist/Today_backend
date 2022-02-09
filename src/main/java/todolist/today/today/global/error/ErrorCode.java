@@ -19,7 +19,8 @@ public enum ErrorCode {
     WRONG_HTTP_METHOD(405, "C004", "Wrong Http Method"),
     FILE_SAVE_FAILED(400,"C005",  "File Save Failed"),
     WRONG_IMAGE_EXTENSION(400, "C006", "Wrong Image Extension"),
-    WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type");
+    WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type"),
+    MAIL_SEND_FAILED(400, "C008", "Mail Send Failed");
 
     private final int status;
     private final String code;
