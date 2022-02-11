@@ -1,4 +1,4 @@
-package todolist.today.today.global.querydsl;
+package todolist.today.today.global.jpa;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.context.annotation.Bean;
