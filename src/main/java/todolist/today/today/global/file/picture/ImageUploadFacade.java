@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
-import todolist.today.today.global.error.exception.file.CreateImageFailException;
+import todolist.today.today.global.error.exception.file.FileSaveFailedException;
 import todolist.today.today.global.error.exception.file.WrongImageContentTypeException;
 import todolist.today.today.global.error.exception.file.WrongImageExtensionException;
 import todolist.today.today.global.file.FileUploadFacade;
@@ -52,7 +52,7 @@ public class ImageUploadFacade {
         try {
             file.transferTo(image);
         } catch (IOException e) {
-            throw new CreateImageFailException();
+            throw new FileSaveFailedException(e);
         }
         return image;
     }
