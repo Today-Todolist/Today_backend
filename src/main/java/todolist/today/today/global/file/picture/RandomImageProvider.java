@@ -23,24 +23,25 @@ public class RandomImageProvider {
     }
 
     private File createRandomImageLogic() throws IOException {
-        BufferedImage img = new BufferedImage(200, 200, BufferedImage.TYPE_INT_RGB);
+        final int IMAGE_SIZE = 200;
+        final int BLOCK_SIZE = 40;
 
-        Graphics2D graphics = img.createGraphics();
+        BufferedImage bufferedImage = new BufferedImage(IMAGE_SIZE, IMAGE_SIZE, BufferedImage.TYPE_INT_RGB);
+
+        Graphics2D graphics = bufferedImage.createGraphics();
         graphics.setColor(Color.WHITE);
-        graphics.fillRect(0, 0, 200, 200);
+        graphics.fillRect(0, 0, IMAGE_SIZE, IMAGE_SIZE);
 
         graphics.setColor(getRandomColor());
-        for (int x = 0; x <= 200; x += 40) {
-            for (int y = 0; y <= 200; y += 40) {
-                if (getRandomBoolean()) {
-                    graphics.fillRect(x, y, 40, 40);
-                }
-            }
-        }
+        int x, y;
+        for (x = 0; x <= IMAGE_SIZE; x += BLOCK_SIZE)
+            for (y = 0; y <= IMAGE_SIZE; y += BLOCK_SIZE)
+                if (getRandomBoolean())
+                    graphics.fillRect(x, y, BLOCK_SIZE, BLOCK_SIZE);
 
-        File file = new File(System.getProperty("user.dir") + "/" + UUID.randomUUID() + ".jpg");
-        ImageIO.write(img, "jpg", file);
-        return file;
+        File image = new File(System.getProperty("user.dir") + "/" + UUID.randomUUID() + ".jpg");
+        ImageIO.write(bufferedImage, "jpg", image);
+        return image;
     }
 
     private boolean getRandomBoolean() {
