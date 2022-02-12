@@ -38,21 +38,25 @@ CREATE TABLE `TODOLIST_CONTENT` (
 );
 
 CREATE TABLE `FRIEND_APPLY` (
-	`friend_email` VARCHAR(64) NOT NULL UNIQUE,
+	`friend_email` VARCHAR(64) NOT NULL,
     `user_email` VARCHAR(64) NOT NULL,
     `created_at` DATE NOT NULL,
-    PRIMARY KEY (`friend_email`),
+    PRIMARY KEY (`friend_email`, `user_email`),
+    FOREIGN KEY (`friend_email`)
+        REFERENCES `USER` (`email`) ON DELETE CASCADE,
     FOREIGN KEY (`user_email`)
 		REFERENCES `USER` (`email`) ON DELETE CASCADE
 );
 
 CREATE TABLE `FRIEND` (
-	`friend_email` VARCHAR(64) NOT NULL UNIQUE,
+	`friend_email` VARCHAR(64) NOT NULL,
     `user_email` VARCHAR(64) NOT NULL,
     `created_at` DATE NOT NULL,
-    PRIMARY KEY (`friend_email`),
+    PRIMARY KEY (`friend_email`, `user_email`),
+    FOREIGN KEY (`friend_email`)
+        REFERENCES `USER` (`email`) ON DELETE CASCADE,
     FOREIGN KEY (`user_email`)
-		REFERENCES `USER` (`email`) ON DELETE CASCADE
+        REFERENCES `USER` (`email`) ON DELETE CASCADE
 );
 
 CREATE TABLE `TEMPLATE` (
