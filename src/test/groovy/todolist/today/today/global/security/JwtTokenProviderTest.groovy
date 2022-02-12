@@ -87,7 +87,6 @@ class JwtTokenProviderTest extends Specification {
                 .password("Encrypted password example")
                 .nickname("오늘")
                 .profile("https://github.com/Today-Todolist")
-                .changePossible(false)
                 .build()
         AuthDetails authDetails = new AuthDetails(user)
         authDetailsService.loadUserByUsername(user.getEmail()) >> authDetails

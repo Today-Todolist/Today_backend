@@ -6,7 +6,6 @@ import todolist.today.today.domain.model.entity.User
 import todolist.today.today.global.error.exception.security.InvalidTokenException
 import todolist.today.today.domain.model.repository.UserRepository
 
-
 class AuthDetailsServiceTest extends Specification {
 
     private AuthDetailsService authDetailsService
@@ -23,7 +22,6 @@ class AuthDetailsServiceTest extends Specification {
                 .password("Encrypted password example")
                 .nickname("오늘")
                 .profile("https://github.com/Today-Todolist")
-                .changePossible(false)
                 .build()
         userRepository.findById(user.getEmail()) >> Optional.of(user)
 
