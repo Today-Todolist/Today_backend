@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import todolist.today.today.global.entity.User;
+import todolist.today.today.domain.model.entity.User;
 
 import java.util.Collection;
 import java.util.Collections;

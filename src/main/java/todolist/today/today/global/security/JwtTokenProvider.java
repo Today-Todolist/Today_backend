@@ -42,14 +42,14 @@ public class JwtTokenProvider {
 
     public Optional<String> resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
-        if(bearerToken != null && bearerToken.startsWith("Bearer ")) {
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return Optional.of(bearerToken.substring(7));
         }
         return Optional.empty();
     }
 
     public Authentication getAuthentication(Claims body) {
-        if(!isAccess(body)) {
+        if (!isAccess(body)) {
             throw new InvalidTokenException();
         }
         UserDetails details = authDetailsService.loadUserByUsername(getId(body));

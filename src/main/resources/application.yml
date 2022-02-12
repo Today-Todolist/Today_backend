@@ -1,43 +1,46 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: ${MYSQL_PASSWORD:asdf}
-    url: ${MYSQL_URL:asdf}
-    username: ${MYSQL_USERNAME:asdf}
+    password: ${MYSQL_PASSWORD}
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USERNAME}
   jackson:
     property-naming-strategy: SNAKE_CASE
   jpa:
     generate-ddl: false
     show-sql: false
+    open-in-view: false
   redis:
-    host: ${REDIS_HOST:asdf}
-    port: ${REDIS_PORT:asdf}
-    password: ${REDIS_PASSWORD:asdf}
+    host: ${REDIS_HOST}
+    port: ${REDIS_PORT}
+    password: ${REDIS_PASSWORD}
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${EMAIL_ADDRESS:asdf}
-    password: ${EMAIL_PASSWORD:asdf}
+    username: ${EMAIL_ADDRESS}
+    password: ${EMAIL_PASSWORD}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
+    signUpLink: ${SIGN_UP_LINK}
+    changePasswordLink: ${CHANGE_PASSWORD_LINK}
 auth:
   jwt:
-    access-exp: ${JWT_EXP_ACCESS:1234}
-    refresh-exp: ${JWT_EXP_REFRESH:1234}
-    secret: ${JWT_SECRET_KEY:asdf}
+    accessExp: ${JWT_EXP_ACCESS}
+    refreshExp: ${JWT_EXP_REFRESH}
+    secret: ${JWT_SECRET_KEY}
 cloud:
   aws:
     s3:
-      bucket: ${AWS_BUCKET:asdf}
+      bucket: ${AWS_BUCKET}
     region:
-      static: ${AWS_REGION:asdf}
+      static: ${AWS_REGION}
     stack:
       auto: false
     credentials:
       instanceProfile: true
-      accessKey: ${AWS_ACCESS:asdf}
-      secretKey: ${AWS_SECRET:asdf}
+      accessKey: ${AWS_ACCESS}
+      secretKey: ${AWS_SECRET}

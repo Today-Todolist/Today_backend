@@ -3,7 +3,7 @@ package todolist.today.today.global.security
 import io.jsonwebtoken.Claims
 import org.springframework.security.core.Authentication
 import spock.lang.Specification
-import todolist.today.today.global.entity.User
+import todolist.today.today.domain.model.entity.User
 import todolist.today.today.global.error.exception.security.InvalidTokenException
 import todolist.today.today.global.security.auth.AuthDetails
 import todolist.today.today.global.security.auth.AuthDetailsService
@@ -87,7 +87,6 @@ class JwtTokenProviderTest extends Specification {
                 .password("Encrypted password example")
                 .nickname("오늘")
                 .profile("https://github.com/Today-Todolist")
-                .changePossible(false)
                 .build()
         AuthDetails authDetails = new AuthDetails(user)
         authDetailsService.loadUserByUsername(user.getEmail()) >> authDetails
