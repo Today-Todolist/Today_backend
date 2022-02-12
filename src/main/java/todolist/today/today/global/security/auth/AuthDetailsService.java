@@ -16,9 +16,11 @@ public class AuthDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(username)
-                .map(AuthDetails::new)
-                .orElseThrow(InvalidTokenException::new);
+        if (userRepository.existsById(username)) {
+            return new AuthDetails(username);
+        } else {
+            throw new InvalidTokenException();
+        }
     }
 
 }

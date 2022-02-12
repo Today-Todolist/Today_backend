@@ -23,7 +23,7 @@ class AuthDetailsServiceTest extends Specification {
                 .nickname("오늘")
                 .profile("https://github.com/Today-Todolist")
                 .build()
-        userRepository.findById(user.getEmail()) >> Optional.of(user)
+        userRepository.existsById(user.getEmail()) >> true
 
         when:
         UserDetails userDetails = authDetailsService.loadUserByUsername(user.getEmail())
@@ -36,7 +36,7 @@ class AuthDetailsServiceTest extends Specification {
     def "test throw InvalidTokenException" () {
         given:
         final String EMAIL = "today043149@gmail.com"
-        userRepository.findById(EMAIL) >> Optional.empty()
+        userRepository.existsById(EMAIL) >> false
 
         when:
         authDetailsService.loadUserByUsername(EMAIL)

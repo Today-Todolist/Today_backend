@@ -28,15 +28,15 @@ class JwtTokenProviderTest extends Specification {
 
     def "test generateAccessToken and getBody and getId" () {
         given:
-        final String id = "today"
+        final String ID = "today"
 
         when:
-        String accessToken = jwtTokenProvider.generateAccessToken(id)
+        String accessToken = jwtTokenProvider.generateAccessToken(ID)
         Claims body= jwtTokenProvider.getBody(accessToken)
         String tokenId = jwtTokenProvider.getId(body)
 
         then:
-        tokenId == id
+        tokenId == ID
     }
 
     def "test generateRefreshToken and getBody and isRefresh and getId" () {
@@ -82,17 +82,12 @@ class JwtTokenProviderTest extends Specification {
 
     def "test generateAccessToken and generategetAuthentication and isAccess when access token" () {
         given:
-        User user = User.builder()
-                .email("today043149@gmail.com")
-                .password("Encrypted password example")
-                .nickname("오늘")
-                .profile("https://github.com/Today-Todolist")
-                .build()
-        AuthDetails authDetails = new AuthDetails(user)
-        authDetailsService.loadUserByUsername(user.getEmail()) >> authDetails
+        final String EMAIL = "today043149@gmail.com"
+        AuthDetails authDetails = new AuthDetails(EMAIL)
+        authDetailsService.loadUserByUsername(EMAIL) >> authDetails
 
         when:
-        String token = jwtTokenProvider.generateAccessToken(user.getEmail())
+        String token = jwtTokenProvider.generateAccessToken(EMAIL)
         Claims body = jwtTokenProvider.getBody(token)
         Authentication authentication = jwtTokenProvider.getAuthentication(body)
 
@@ -103,11 +98,8 @@ class JwtTokenProviderTest extends Specification {
     }
 
     def "test generateRefreshToken and generategetAuthentication and isAccess when refresh token" () {
-        given:
-        final String id = "today"
-
         when:
-        String token = jwtTokenProvider.generateRefreshToken(id)
+        String token = jwtTokenProvider.generateRefreshToken("today")
         Claims body = jwtTokenProvider.getBody(token)
         jwtTokenProvider.getAuthentication(body)
 
