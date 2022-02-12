@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import todolist.today.today.global.error.exception.file.FileDeleteFailedException;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @Component
 @RequiredArgsConstructor
@@ -21,10 +24,7 @@ public class AwsS3UploadFacade implements FileUploadFacade {
     @Override
     public String uploadFile(File file, String fileName) {
         amazonS3.putObject(bucket, fileName, file);
-        boolean deleteSuccess = file.delete();
-        if (deleteSuccess) {
-           throw new FileDeleteFailedException(file.getPath());
-        }
+        cleanUp(file.toPath());
         return getFileUrl(fileName);
     }
     
@@ -36,6 +36,14 @@ public class AwsS3UploadFacade implements FileUploadFacade {
 
     private String getFileUrl(String fileName) {
         return amazonS3.getUrl(bucket, fileName).toString();
+    }
+
+    private void cleanUp(Path path) {
+        try {
+            Files.delete(path);
+        } catch (IOException e) {
+            throw new FileDeleteFailedException(path.toString());
+        }
     }
 
 }
