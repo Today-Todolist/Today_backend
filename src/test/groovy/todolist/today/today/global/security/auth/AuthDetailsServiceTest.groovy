@@ -2,9 +2,9 @@ package todolist.today.today.global.security.auth
 
 import org.springframework.security.core.userdetails.UserDetails
 import spock.lang.Specification
-import todolist.today.today.global.entity.User
+import todolist.today.today.domain.model.entity.User
 import todolist.today.today.global.error.exception.security.InvalidTokenException
-import todolist.today.today.global.repository.UserRepository
+import todolist.today.today.domain.model.repository.UserRepository
 
 
 class AuthDetailsServiceTest extends Specification {

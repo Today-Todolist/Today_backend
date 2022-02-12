@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import todolist.today.today.global.error.exception.security.InvalidTokenException;
-import todolist.today.today.global.repository.UserRepository;
+import todolist.today.today.domain.model.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor

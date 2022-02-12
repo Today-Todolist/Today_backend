@@ -1,7 +1,7 @@
-package todolist.today.today.global.repository;
+package todolist.today.today.domain.model.repository;
 
 import org.springframework.data.repository.CrudRepository;
-import todolist.today.today.global.entity.User;
+import todolist.today.today.domain.model.entity.User;
 
 import java.util.Optional;
 
