@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import todolist.today.today.domain.model.entity.User;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -13,7 +12,7 @@ import java.util.Collections;
 @AllArgsConstructor
 public class AuthDetails implements UserDetails {
 
-    private final String email;
+    private final String id;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -27,7 +26,7 @@ public class AuthDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return null;
     }
 
     @Override

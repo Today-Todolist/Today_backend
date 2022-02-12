@@ -2,9 +2,8 @@ package todolist.today.today.global.security.auth
 
 import org.springframework.security.core.userdetails.UserDetails
 import spock.lang.Specification
-import todolist.today.today.domain.model.entity.User
-import todolist.today.today.global.error.exception.security.InvalidTokenException
 import todolist.today.today.domain.model.repository.UserRepository
+import todolist.today.today.global.error.exception.security.InvalidTokenException
 
 class AuthDetailsServiceTest extends Specification {
 
@@ -17,19 +16,14 @@ class AuthDetailsServiceTest extends Specification {
 
     def "test return UserDetails" () {
         given:
-        User user = User.builder()
-                .email("today043149@gmail.com")
-                .password("Encrypted password example")
-                .nickname("오늘")
-                .profile("https://github.com/Today-Todolist")
-                .build()
-        userRepository.existsById(user.getEmail()) >> true
+        final String EMAIL = "today043149@gmail.com"
+        userRepository.existsById(EMAIL) >> true
 
         when:
-        UserDetails userDetails = authDetailsService.loadUserByUsername(user.getEmail())
+        UserDetails userDetails = authDetailsService.loadUserByUsername(EMAIL)
 
         then:
-        userDetails.getUsername() == user.getEmail()
+        userDetails.getId() == EMAIL
         userDetails.getAuthorities().isEmpty()
     }
 
