@@ -1,12 +1,13 @@
 package todolist.today.today.global.error.exception.security;
 
-import todolist.today.today.global.error.ErrorCode;
 import todolist.today.today.global.error.exception.BasicException;
+
+import static todolist.today.today.global.error.ErrorCode.INVALID_TOKEN;
 
 public class InvalidTokenException extends BasicException {
 
     public InvalidTokenException() {
-        super(ErrorCode.INVALID_TOKEN);
+        super(INVALID_TOKEN);
     }
 
 }
