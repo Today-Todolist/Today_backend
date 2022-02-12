@@ -12,7 +12,7 @@ import javax.annotation.PreDestroy;
 @RequiredArgsConstructor
 public class EmbeddedRedisConfig {
 
-    private static RedisServer redisServer;
+    private RedisServer redisServer;
 
     @Value("${spring.redis.port}")
     private Integer port;

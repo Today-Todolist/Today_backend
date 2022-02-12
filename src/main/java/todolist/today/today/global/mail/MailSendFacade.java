@@ -6,6 +6,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 import todolist.today.today.global.error.exception.mail.MailSendFailedException;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 @Component
@@ -31,7 +32,7 @@ public class MailSendFacade {
         }
     }
 
-    private void sendMail(String toAddress, String title, String content, boolean isHtml) throws Exception {
+    private void sendMail(String toAddress, String title, String content, boolean isHtml) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, false, "UTF-8");
 

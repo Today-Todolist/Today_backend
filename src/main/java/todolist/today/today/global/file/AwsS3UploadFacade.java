@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import todolist.today.today.global.error.exception.file.FileDeleteFailedException;
 
 import java.io.File;
 
@@ -20,7 +21,10 @@ public class AwsS3UploadFacade implements FileUploadFacade {
     @Override
     public String uploadFile(File file, String fileName) {
         amazonS3.putObject(bucket, fileName, file);
-        file.delete();
+        boolean deleteSuccess = file.delete();
+        if (deleteSuccess) {
+           throw new FileDeleteFailedException(file.getPath());
+        }
         return getFileUrl(fileName);
     }
     

@@ -13,9 +13,9 @@ public class MailContentProvider {
 
     public MailContentProvider(MailProperties mailProperties) throws IOException {
         signUpTemplate = getResourceByPath("static/SignUpMail.html")
-                .replaceAll("\\{LINK}", mailProperties.getSignUpLink() + "?token={TOKEN}");
+                .replace("{LINK}", mailProperties.getSignUpLink() + "?token={TOKEN}");
         changePasswordTemplate = getResourceByPath("static/ChangePasswordMail.html")
-                .replaceAll("\\{LINK}", mailProperties.getChangePasswordLink() + "?token={TOKEN}");
+                .replace("{LINK}", mailProperties.getChangePasswordLink() + "?token={TOKEN}");
     }
 
     private String getResourceByPath(String path) throws IOException {
@@ -25,12 +25,12 @@ public class MailContentProvider {
 
     public String createSignUpContent(String token) {
         return signUpTemplate
-                .replaceAll("\\{TOKEN}", token);
+                .replace("{TOKEN}", token);
     }
 
     public String createChangePasswordContent(String token) {
         return changePasswordTemplate
-                .replaceAll("\\{TOKEN}", token);
+                .replace("{TOKEN}", token);
     }
 
 }

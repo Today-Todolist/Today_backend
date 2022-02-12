@@ -5,9 +5,9 @@ import todolist.today.today.global.error.ErrorCode;
 import todolist.today.today.global.error.exception.BasicException;
 
 @Slf4j
-public class CreateImageFailException extends BasicException {
+public class CreateImageFailedException extends BasicException {
 
-    public CreateImageFailException() {
+    public CreateImageFailedException() {
         super(ErrorCode.CREATE_RANDOM_IMAGE_FAILED);
         log.error("Create Random Image Failed");
     }

@@ -1,7 +1,7 @@
 package todolist.today.today.global.file.picture;
 
 import org.springframework.stereotype.Component;
-import todolist.today.today.global.error.exception.file.CreateImageFailException;
+import todolist.today.today.global.error.exception.file.CreateImageFailedException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -14,11 +14,13 @@ import java.util.UUID;
 @Component
 public class RandomImageProvider {
 
+    private final Random random = new Random();
+
     public File createRandomImage() {
         try {
             return createRandomImageLogic();
         } catch (IOException e) {
-            throw new CreateImageFailException();
+            throw new CreateImageFailedException();
         }
     }
 
@@ -45,11 +47,11 @@ public class RandomImageProvider {
     }
 
     private boolean getRandomBoolean() {
-        return new Random().nextBoolean();
+        return random.nextBoolean();
     }
 
     private int getRandomInt(int start, int end) {
-        return new Random().nextInt(end - start) + start;
+        return random.nextInt(end - start) + start;
     }
 
     private Color getRandomColor() {
