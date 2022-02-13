@@ -24,7 +24,7 @@ public class AwsS3UploadFacade implements FileUploadFacade {
     @Override
     public String uploadFile(File file, String fileName) {
         amazonS3.putObject(bucket, fileName, file);
-        cleanUp(file.toPath());
+        cleanUpLocalFile(file.toPath());
         return getFileUrl(fileName);
     }
     
@@ -38,7 +38,7 @@ public class AwsS3UploadFacade implements FileUploadFacade {
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 
-    private void cleanUp(Path path) {
+    private void cleanUpLocalFile(Path path) {
         try {
             Files.delete(path);
         } catch (IOException e) {
