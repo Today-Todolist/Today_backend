@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import todolist.today.today.global.security.filter.FilterConfig;
+import todolist.today.today.global.security.service.JwtTokenProvider;
+import todolist.today.today.global.security.service.RequestBucketProvider;
 
 @Configuration
 @EnableWebSecurity

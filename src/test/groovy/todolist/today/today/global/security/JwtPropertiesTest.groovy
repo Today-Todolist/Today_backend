@@ -1,6 +1,7 @@
 package todolist.today.today.global.security
 
 import spock.lang.Specification
+import todolist.today.today.global.security.service.properties.JwtProperties
 
 
 class JwtPropertiesTest extends Specification {

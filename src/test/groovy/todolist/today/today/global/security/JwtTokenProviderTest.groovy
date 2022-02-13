@@ -3,10 +3,11 @@ package todolist.today.today.global.security
 import io.jsonwebtoken.Claims
 import org.springframework.security.core.Authentication
 import spock.lang.Specification
-import todolist.today.today.domain.model.entity.User
-import todolist.today.today.global.error.exception.security.InvalidTokenException
 import todolist.today.today.global.security.auth.AuthDetails
 import todolist.today.today.global.security.auth.AuthDetailsService
+import todolist.today.today.global.security.exception.InvalidTokenException
+import todolist.today.today.global.security.service.properties.JwtProperties
+import todolist.today.today.global.security.service.JwtTokenProvider
 
 import javax.servlet.http.HttpServletRequest
 
