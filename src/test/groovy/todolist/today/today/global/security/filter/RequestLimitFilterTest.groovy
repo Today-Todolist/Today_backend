@@ -1,9 +1,9 @@
 package todolist.today.today.global.security.filter
 
 import spock.lang.Specification
-import todolist.today.today.global.error.exception.security.ImpossibleToGetIpException
-import todolist.today.today.global.error.exception.security.TooManyRequestException
-import todolist.today.today.global.security.RequestBucketProvider
+import todolist.today.today.global.security.exception.ImpossibleToGetIpException
+import todolist.today.today.global.security.exception.TooManyRequestException
+import todolist.today.today.global.security.service.RequestBucketProvider
 
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest

@@ -6,8 +6,8 @@ import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import todolist.today.today.global.security.JwtTokenProvider;
-import todolist.today.today.global.security.RequestBucketProvider;
+import todolist.today.today.global.security.service.JwtTokenProvider;
+import todolist.today.today.global.security.service.RequestBucketProvider;
 
 @RequiredArgsConstructor
 public class FilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

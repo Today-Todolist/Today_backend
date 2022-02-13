@@ -3,8 +3,8 @@ package todolist.today.today.global.security.filter;
 import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.filter.OncePerRequestFilter;
-import todolist.today.today.global.error.exception.security.TooManyRequestException;
-import todolist.today.today.global.security.RequestBucketProvider;
+import todolist.today.today.global.security.exception.TooManyRequestException;
+import todolist.today.today.global.security.service.RequestBucketProvider;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

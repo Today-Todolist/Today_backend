@@ -11,8 +11,8 @@ import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
 import todolist.today.today.global.error.ingredient.TestController
 import todolist.today.today.global.error.ingredient.TestDto
-import todolist.today.today.global.security.JwtTokenProvider
-import todolist.today.today.global.security.RequestBucketProvider
+import todolist.today.today.global.security.service.JwtTokenProvider
+import todolist.today.today.global.security.service.RequestBucketProvider
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post

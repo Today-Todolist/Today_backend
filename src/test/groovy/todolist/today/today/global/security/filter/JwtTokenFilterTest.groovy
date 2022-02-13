@@ -4,8 +4,8 @@ import io.jsonwebtoken.Claims
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContextHolder
 import spock.lang.Specification
-import todolist.today.today.global.error.exception.security.InvalidTokenException
-import todolist.today.today.global.security.JwtTokenProvider
+import todolist.today.today.global.security.exception.InvalidTokenException
+import todolist.today.today.global.security.service.JwtTokenProvider
 
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest

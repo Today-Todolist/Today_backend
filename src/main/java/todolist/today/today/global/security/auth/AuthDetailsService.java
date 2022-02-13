@@ -5,8 +5,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import todolist.today.today.global.error.exception.security.InvalidTokenException;
-import todolist.today.today.domain.model.repository.UserRepository;
+import todolist.today.today.global.security.exception.InvalidTokenException;
+import todolist.today.today.domain.user.dao.UserRepository;
 
 @Service
 @RequiredArgsConstructor
@@ -16,9 +16,11 @@ public class AuthDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findById(username)
-                .map(AuthDetails::new)
-                .orElseThrow(InvalidTokenException::new);
+        if (userRepository.existsById(username)) {
+            return new AuthDetails(username);
+        } else {
+            throw new InvalidTokenException();
+        }
     }
 
 }
