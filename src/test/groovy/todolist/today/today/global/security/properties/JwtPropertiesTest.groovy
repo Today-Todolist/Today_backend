@@ -1,4 +1,4 @@
-package todolist.today.today.global.security
+package todolist.today.today.global.security.properties
 
 import spock.lang.Specification
 import todolist.today.today.global.security.service.properties.JwtProperties
