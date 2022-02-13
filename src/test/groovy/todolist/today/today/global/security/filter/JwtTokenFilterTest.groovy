@@ -53,7 +53,7 @@ class JwtTokenFilterTest extends Specification {
         given:
         jwtTokenProvider.resolveToken(request) >> Optional.of("token")
         jwtTokenProvider.getBody("token") >> body
-        jwtTokenProvider.getAuthentication(body) >> { throw new InvalidTokenException()}
+        jwtTokenProvider.getAuthentication(body) >> { throw new InvalidTokenException() }
 
         when:
         jwtTokenFilter.doFilterInternal(request, response, chain)
