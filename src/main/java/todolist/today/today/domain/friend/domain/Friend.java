@@ -5,27 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import todolist.today.today.domain.friend.domain.id.FriendRelation;
 import todolist.today.today.domain.user.domain.User;
-import todolist.today.today.global.domain.BaseCreatedAt;
+import todolist.today.today.global.domain.BaseFriend;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor
 @Entity @Table(name = "FRIEND")
-public class Friend extends BaseCreatedAt {
-
-    @EmbeddedId
-    private FriendRelation id;
-
-    @ManyToOne
-    @MapsId("friendEmail")
-    @JoinColumn(name = "friend_email")
-    private User friend;
-
-    @ManyToOne
-    @MapsId("userEmail")
-    @JoinColumn(name = "user_email")
-    private User user;
+public class Friend extends BaseFriend {
 
     @Builder
     public Friend(User friend, User user) {
