@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Getter
 @MappedSuperclass
-public class BaseFriend extends BaseCreatedAt {
+public abstract class BaseFriend extends BaseCreatedAt {
 
     @EmbeddedId
     protected FriendRelation id;
