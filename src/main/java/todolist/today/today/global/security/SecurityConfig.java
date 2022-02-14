@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsUtils;
 import todolist.today.today.global.security.filter.FilterConfig;
 import todolist.today.today.global.security.service.JwtTokenProvider;
 import todolist.today.today.global.security.service.RequestBucketProvider;
@@ -28,9 +29,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .sessionManagement().disable()
-                .formLogin().disable()
-                .cors().and()
-                .authorizeRequests()
+                .formLogin().disable().cors()
+                .and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointImpl())
+                .and().authorizeRequests()
+                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().permitAll()
                 .and().apply(new FilterConfig(jwtTokenProvider, requestBucketProvider, objectMapper));
     }
