@@ -1,4 +1,4 @@
-package todolist.today.today.global.security
+package todolist.today.today.global.security.service
 
 import io.jsonwebtoken.Claims
 import org.springframework.security.core.Authentication

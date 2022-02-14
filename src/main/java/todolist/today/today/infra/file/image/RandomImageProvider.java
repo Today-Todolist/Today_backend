@@ -1,4 +1,4 @@
-package todolist.today.today.infra.file.picture;
+package todolist.today.today.infra.file.image;
 
 import org.springframework.stereotype.Component;
 import todolist.today.today.infra.file.exception.CreateImageFailedException;

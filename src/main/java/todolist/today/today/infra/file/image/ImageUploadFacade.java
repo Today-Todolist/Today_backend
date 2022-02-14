@@ -1,4 +1,4 @@
-package todolist.today.today.infra.file.picture;
+package todolist.today.today.infra.file.image;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.io.FilenameUtils;
@@ -58,7 +58,7 @@ public class ImageUploadFacade {
     }
 
     private String createFileName(String extension) {
-        return "Image_" + UUID.randomUUID().toString() + "." + extension;
+        return "Image_" + UUID.randomUUID() + "." + extension;
     }
 
 }

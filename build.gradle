@@ -4,7 +4,7 @@ buildscript {
                          '**/AuthDetails.**',
                          '**/*Request.**',
                          '**/*Response.**',
-                         '**/entity/**',
+                         '**/domain/**',
                          '**/*Config.**',
                          '**/*Exception.**']
     }
