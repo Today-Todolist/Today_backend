@@ -14,6 +14,7 @@ public enum ErrorCode {
 
     INVALID_TOKEN(401, "A001", "Invalid Token"),
     TOO_MANY_REQUEST(429, "A002", "Too Many Request"),
+    UNAUTHORIZED_REQUEST(401, "A003", "Unauthorized Request"),
 
     NOT_IN_JSON_FORMAT(415, "C001", "Not In Json Format"),
     MISSING_REQUEST(400, "C002", "Missing Request"),

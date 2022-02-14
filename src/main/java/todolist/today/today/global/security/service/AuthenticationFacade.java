@@ -13,7 +13,7 @@ public class AuthenticationFacade {
     }
 
     public String getUserId() {
-        return ((AuthDetails)getAuthentication().getDetails()).getId();
+        return ((AuthDetails)getAuthentication().getPrincipal()).getId();
     }
 
 }
