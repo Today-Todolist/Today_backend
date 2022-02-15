@@ -25,7 +25,8 @@ public enum ErrorCode {
     WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type"),
     MAIL_SEND_FAILED(400, "C008", "Mail Send Failed"),
 
-    LOGIN_FAILED(401, "E001", "Login Failed");
+    LOGIN_FAILED(401, "E001", "Login Failed"),
+    TOKEN_REFRESH_FAILED(401, "E002", "Token Refresh");
 
     private final int status;
     private final String code;
