@@ -23,7 +23,9 @@ public enum ErrorCode {
     FILE_SAVE_FAILED(400,"C005",  "File Save Failed"),
     WRONG_IMAGE_EXTENSION(400, "C006", "Wrong Image Extension"),
     WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type"),
-    MAIL_SEND_FAILED(400, "C008", "Mail Send Failed");
+    MAIL_SEND_FAILED(400, "C008", "Mail Send Failed"),
+
+    LOGIN_FAILED(401, "E001", "Login Failed");
 
     private final int status;
     private final String code;
