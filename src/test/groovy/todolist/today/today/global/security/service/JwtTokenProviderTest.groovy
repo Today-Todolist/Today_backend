@@ -47,7 +47,7 @@ class JwtTokenProviderTest extends Specification {
         when:
         String refreshToken = jwtTokenProvider.generateRefreshToken(id)
         Claims body= jwtTokenProvider.getBody(refreshToken)
-        boolean isRefresh = jwtTokenProvider.isRefresh(refreshToken)
+        boolean isRefresh = jwtTokenProvider.isRefresh(body)
         String tokenId = jwtTokenProvider.getId(body)
 
         then:
