@@ -14,12 +14,14 @@ public class CustomUserRepositoryImpl {
 
     public String findPasswordById(String userId) {
         return query.select(user.password)
+                .from(user)
                 .where(user.email.eq(userId))
                 .fetchOne();
     }
 
-    public String findNickNameById(String userId) {
+    public String findNicknameById(String userId) {
         return query.select(user.nickname)
+                .from(user)
                 .where(user.email.eq(userId))
                 .fetchOne();
     }

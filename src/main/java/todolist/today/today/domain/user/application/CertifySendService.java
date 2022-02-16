@@ -58,7 +58,7 @@ public class CertifySendService {
     public void sendChangePasswordCertify(ChangePasswordCertifySendRequest request) {
         String userId = request.getEmail();
 
-        String nickname = customUserRepository.findNickNameById(userId);
+        String nickname = customUserRepository.findNicknameById(userId);
         if (nickname == null) {
             throw new UserNotFoundException(userId);
         }
