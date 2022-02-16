@@ -10,8 +10,9 @@ import todolist.today.today.domain.user.domain.redis.ChangePasswordCertify;
 import todolist.today.today.domain.user.domain.redis.SignUpCertify;
 import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest;
 import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest;
-import todolist.today.today.domain.user.exception.EmailAlreadyExistException;
+import todolist.today.today.domain.user.exception.UserAlreadyExistException;
 import todolist.today.today.domain.user.exception.NicknameAlreadyExistException;
+import todolist.today.today.domain.user.exception.UserNotFoundException;
 import todolist.today.today.infra.mail.MailContentProvider;
 import todolist.today.today.infra.mail.MailSendFacade;
 
@@ -29,7 +30,9 @@ public class CertifySendService {
 
     public void sendSignUpCertify(SignUpCertifySendRequest request) {
         String userId = request.getEmail();
-        checkOverlapEmail(userId);
+        if (signUpCertifyRepository.existsByEmail(userId) || userRepository.existsById(userId)) {
+            throw new UserAlreadyExistException(userId);
+        }
 
         String nickname = request.getNickname();
         if (signUpCertifyRepository.existsByNickname(nickname) || userRepository.existsByNickname(nickname)) {
@@ -49,7 +52,9 @@ public class CertifySendService {
 
     public void sendChangePasswordCertify(ChangePasswordCertifySendRequest request) {
         String userId = request.getEmail();
-        checkOverlapEmail(userId);
+        if (!signUpCertifyRepository.existsByEmail(userId) || !userRepository.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
 
         ChangePasswordCertify changePasswordCertify = ChangePasswordCertify.builder()
                 .email(userId)
@@ -59,12 +64,6 @@ public class CertifySendService {
 
         String content = mailContentProvider.createChangePasswordContent(String.valueOf(changePasswordCertify.getId()));
         mailSendFacade.sendHtmlMail(userId, "비밀번호 재설정 인증이 도착했습니다", content);
-    }
-
-    private void checkOverlapEmail(String email) {
-        if (signUpCertifyRepository.existsByEmail(email) || userRepository.existsById(email)) {
-            throw new EmailAlreadyExistException(email);
-        }
     }
 
 }
