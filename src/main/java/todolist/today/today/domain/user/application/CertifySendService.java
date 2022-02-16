@@ -32,7 +32,7 @@ public class CertifySendService {
         checkOverlapEmail(userId);
 
         String nickname = request.getNickname();
-        if (userRepository.existsByNickname(nickname) || signUpCertifyRepository.existsByNickname(nickname)) {
+        if (signUpCertifyRepository.existsByNickname(nickname) || userRepository.existsByNickname(nickname)) {
             throw new NicknameAlreadyExistException(nickname);
         }
 
@@ -62,7 +62,7 @@ public class CertifySendService {
     }
 
     private void checkOverlapEmail(String email) {
-        if (userRepository.existsById(email) || signUpCertifyRepository.existsByEmail(email)) {
+        if (signUpCertifyRepository.existsByEmail(email) || userRepository.existsById(email)) {
             throw new EmailAlreadyExistException(email);
         }
     }
