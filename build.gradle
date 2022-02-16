@@ -5,7 +5,8 @@ buildscript {
                          '**/*Request.**',
                          '**/*Response.**',
                          '**/domain/*/domain/**',
-                         '**/global/*/domain/**',
+                         '**/domain/*/dao/*Repository.**',
+                         '**/global/domain/**',
                          '**/*Config.**',
                          '**/*Exception.**']
     }
