@@ -25,7 +25,7 @@ public class ChangePasswordCertify {
     private String password;
 
     @Builder
-    public ChangePasswordCertify(String email, String password, String nickname) {
+    public ChangePasswordCertify(String email, String password) {
         this.email = email;
         this.password = password;
     }

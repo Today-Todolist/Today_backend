@@ -4,8 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.user.dao.UserRepository;
+import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
+import todolist.today.today.domain.user.domain.redis.ChangePasswordCertify;
 import todolist.today.today.domain.user.domain.redis.SignUpCertify;
+import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest;
 import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest;
 import todolist.today.today.domain.user.exception.EmailAlreadyExistException;
 import todolist.today.today.domain.user.exception.NicknameAlreadyExistException;
@@ -18,6 +21,7 @@ import todolist.today.today.infra.mail.MailSendFacade;
 public class CertifySendService {
 
     private final SignUpCertifyRepository signUpCertifyRepository;
+    private final ChangePasswordCertifyRepository changePasswordCertifyRepository;
     private final UserRepository userRepository;
 
     private final MailContentProvider mailContentProvider;
@@ -25,9 +29,7 @@ public class CertifySendService {
 
     public void sendSignUpCertify(SignUpCertifySendRequest request) {
         String userId = request.getEmail();
-        if (userRepository.existsById(userId) || signUpCertifyRepository.existsByEmail(userId)) {
-            throw new EmailAlreadyExistException(userId);
-        }
+        checkOverlapEmail(userId);
 
         String nickname = request.getNickname();
         if (userRepository.existsByNickname(nickname) || signUpCertifyRepository.existsByNickname(nickname)) {
@@ -43,6 +45,26 @@ public class CertifySendService {
 
         String content = mailContentProvider.createSignUpContent(String.valueOf(signUpCertify.getId()));
         mailSendFacade.sendHtmlMail(userId, nickname + "님을 위한 오늘 회원가입 인증이 도착했습니다", content);
+    }
+
+    public void sendChangePasswordCertify(ChangePasswordCertifySendRequest request) {
+        String userId = request.getEmail();
+        checkOverlapEmail(userId);
+
+        ChangePasswordCertify changePasswordCertify = ChangePasswordCertify.builder()
+                .email(userId)
+                .password(request.getNewPassword())
+                .build();
+        changePasswordCertifyRepository.save(changePasswordCertify);
+
+        String content = mailContentProvider.createChangePasswordContent(String.valueOf(changePasswordCertify.getId()));
+        mailSendFacade.sendHtmlMail(userId, "비밀번호 재설정 인증이 도착했습니다", content);
+    }
+
+    private void checkOverlapEmail(String email) {
+        if (userRepository.existsById(email) || signUpCertifyRepository.existsByEmail(email)) {
+            throw new EmailAlreadyExistException(email);
+        }
     }
 
 }
