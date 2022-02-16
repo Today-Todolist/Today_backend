@@ -43,6 +43,7 @@ class GlobalExceptionHandlerTest extends Specification {
         when:
         ResultActions result = mvc.perform(post("/exception")
                 .contentType(MediaType.APPLICATION_JSON)
+                .param("test", "test")
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
@@ -58,6 +59,7 @@ class GlobalExceptionHandlerTest extends Specification {
         when:
         ResultActions result = mvc.perform(post("/exception")
                 .contentType(MediaType.APPLICATION_JSON)
+                .param("test", "test")
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
@@ -65,6 +67,22 @@ class GlobalExceptionHandlerTest extends Specification {
         result.andExpect(status().isBadRequest())
         checkBasicErrorResponse(result, ErrorCode.MISSING_REQUEST)
         result.andExpect(jsonPath("reasons").isMap())
+    }
+
+    def "test handleMissingServletRequestParameterException" () {
+        given:
+        TestDto request = new TestDto("test")
+
+        when:
+        ResultActions result = mvc.perform(post("/exception")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().isBadRequest())
+        checkBasicErrorResponse(result, ErrorCode.MISSING_REQUEST)
+        result.andExpect(jsonPath("reason").isString())
     }
 
     def "test handleHttpMediaTypeNotSupportedException" () {
