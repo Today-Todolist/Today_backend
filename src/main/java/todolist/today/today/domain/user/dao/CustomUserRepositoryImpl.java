@@ -18,4 +18,10 @@ public class CustomUserRepositoryImpl {
                 .fetchOne();
     }
 
+    public String findNickNameById(String userId) {
+        return query.select(user.nickname)
+                .where(user.email.eq(userId))
+                .fetchOne();
+    }
+
 }

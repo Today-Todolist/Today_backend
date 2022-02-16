@@ -3,6 +3,7 @@ package todolist.today.today.domain.user.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
@@ -24,6 +25,7 @@ public class CertifySendService {
     private final SignUpCertifyRepository signUpCertifyRepository;
     private final ChangePasswordCertifyRepository changePasswordCertifyRepository;
     private final UserRepository userRepository;
+    private final CustomUserRepositoryImpl customUserRepository;
 
     private final MailContentProvider mailContentProvider;
     private final MailSendFacade mailSendFacade;
@@ -52,7 +54,9 @@ public class CertifySendService {
 
     public void sendChangePasswordCertify(ChangePasswordCertifySendRequest request) {
         String userId = request.getEmail();
-        if (!signUpCertifyRepository.existsByEmail(userId) || !userRepository.existsById(userId)) {
+
+        String nickname = customUserRepository.findNickNameById(userId);
+        if (nickname == null) {
             throw new UserNotFoundException(userId);
         }
 
@@ -63,7 +67,7 @@ public class CertifySendService {
         changePasswordCertifyRepository.save(changePasswordCertify);
 
         String content = mailContentProvider.createChangePasswordContent(String.valueOf(changePasswordCertify.getId()));
-        mailSendFacade.sendHtmlMail(userId, "비밀번호 재설정 인증이 도착했습니다", content);
+        mailSendFacade.sendHtmlMail(userId, nickname + "님을 위한 오늘 비밀번호 재설정 인증이 도착했습니다", content);
     }
 
 }
