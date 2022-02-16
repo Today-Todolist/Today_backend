@@ -1,6 +1,7 @@
 package todolist.today.today.domain.user.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
@@ -30,6 +31,8 @@ public class CertifySendService {
     private final MailContentProvider mailContentProvider;
     private final MailSendFacade mailSendFacade;
 
+    private final PasswordEncoder passwordEncoder;
+
     public void sendSignUpCertify(SignUpCertifySendRequest request) {
         String userId = request.getEmail();
         if (signUpCertifyRepository.existsByEmail(userId) || userRepository.existsById(userId)) {
@@ -44,7 +47,7 @@ public class CertifySendService {
         SignUpCertify signUpCertify = SignUpCertify.builder()
                 .email(userId)
                 .nickname(nickname)
-                .password(request.getPassword())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
         signUpCertifyRepository.save(signUpCertify);
 
@@ -62,7 +65,7 @@ public class CertifySendService {
 
         ChangePasswordCertify changePasswordCertify = ChangePasswordCertify.builder()
                 .email(userId)
-                .password(request.getNewPassword())
+                .password(passwordEncoder.encode(request.getNewPassword()))
                 .build();
         changePasswordCertifyRepository.save(changePasswordCertify);
 
