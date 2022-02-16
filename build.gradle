@@ -4,7 +4,9 @@ buildscript {
                          '**/AuthDetails.**',
                          '**/*Request.**',
                          '**/*Response.**',
-                         '**/domain/**',
+                         '**/domain/*/domain/**',
+                         '**/domain/*/dao/*Repository.**',
+                         '**/global/domain/**',
                          '**/*Config.**',
                          '**/*Exception.**']
     }

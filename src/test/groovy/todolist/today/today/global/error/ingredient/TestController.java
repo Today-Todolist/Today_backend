@@ -1,9 +1,6 @@
 package todolist.today.today.global.error.ingredient;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -11,7 +8,7 @@ import javax.validation.Valid;
 public class TestController {
 
     @PostMapping("/exception")
-    public void exceptionTesting(@Valid @RequestBody TestDto dto) throws Exception {
+    public void exceptionTesting(@Valid @RequestBody TestDto dto, @RequestParam("test") String test) throws Exception {
         throw new Exception();
     }
 

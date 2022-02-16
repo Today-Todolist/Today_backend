@@ -23,7 +23,14 @@ public enum ErrorCode {
     FILE_SAVE_FAILED(400,"C005",  "File Save Failed"),
     WRONG_IMAGE_EXTENSION(400, "C006", "Wrong Image Extension"),
     WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type"),
-    MAIL_SEND_FAILED(400, "C008", "Mail Send Failed");
+    MAIL_SEND_FAILED(400, "C008", "Mail Send Failed"),
+
+    LOGIN_FAILED(401, "E001", "Login Failed"),
+    TOKEN_REFRESH_FAILED(401, "E002", "Token Refresh"),
+    USER_ALREADY_EXIST(409, "E003", "Email Already Exist"),
+    NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist"),
+    WRONG_CERTIFY(401, "E005", "Wrong Certify"),
+    USER_NOT_FOUND(404, "E006", "User Not Found");
 
     private final int status;
     private final String code;
