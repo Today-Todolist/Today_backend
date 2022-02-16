@@ -26,7 +26,9 @@ public enum ErrorCode {
     MAIL_SEND_FAILED(400, "C008", "Mail Send Failed"),
 
     LOGIN_FAILED(401, "E001", "Login Failed"),
-    TOKEN_REFRESH_FAILED(401, "E002", "Token Refresh");
+    TOKEN_REFRESH_FAILED(401, "E002", "Token Refresh"),
+    EMAIL_ALREADY_EXIST(409, "E003", "Email Already Exist"),
+    NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist");
 
     private final int status;
     private final String code;
