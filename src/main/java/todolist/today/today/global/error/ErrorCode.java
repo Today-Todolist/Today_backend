@@ -28,7 +28,8 @@ public enum ErrorCode {
     LOGIN_FAILED(401, "E001", "Login Failed"),
     TOKEN_REFRESH_FAILED(401, "E002", "Token Refresh"),
     EMAIL_ALREADY_EXIST(409, "E003", "Email Already Exist"),
-    NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist");
+    NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist"),
+    WRONG_CERTIFY(401, "E005", "Wrong Certify");
 
     private final int status;
     private final String code;
