@@ -13,7 +13,6 @@ import todolist.today.today.domain.user.dto.response.LoginResponse;
 import todolist.today.today.domain.user.dto.response.TokenRefreshResponse;
 import todolist.today.today.domain.user.exception.LoginFailedException;
 import todolist.today.today.domain.user.exception.TokenRefreshException;
-import todolist.today.today.global.security.exception.InvalidTokenException;
 import todolist.today.today.global.security.service.JwtTokenProvider;
 
 @Service
