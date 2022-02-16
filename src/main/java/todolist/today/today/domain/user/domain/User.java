@@ -42,6 +42,9 @@ public class User {
         this.profile = profile;
         this.changePossible = false;
     }
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
+    }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Todolist> todolists;

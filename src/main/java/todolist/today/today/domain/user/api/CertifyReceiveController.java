@@ -25,4 +25,11 @@ public class CertifyReceiveController {
         certifyReceiveService.receiveSignUpCertify(email, token);
     }
 
+    @PostMapping("/reset-password")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void receiveChangePasswordCertify(@RequestParam("email") @Email @Size(min = 1, max = 64) String email,
+                                     @RequestParam("token") @Positive long token) {
+        certifyReceiveService.receiveChangePasswordCertify(email, token);
+    }
+
 }
