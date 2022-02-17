@@ -10,6 +10,10 @@ class AuthenticationFacadeTest extends Specification {
 
     private AuthenticationFacade authenticationFacade = new AuthenticationFacade()
 
+    def cleanup() {
+        SecurityContextHolder.clearContext()
+    }
+
     def "test getUserId" () {
         given:
         final String USER_ID = "today"

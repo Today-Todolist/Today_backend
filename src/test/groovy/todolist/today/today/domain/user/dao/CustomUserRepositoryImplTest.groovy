@@ -24,6 +24,10 @@ class CustomUserRepositoryImplTest extends Specification {
         customUserRepository = new CustomUserRepositoryImpl(new JPAQueryFactory(em))
     }
 
+    def cleanup() {
+        userRepository.deleteAll()
+    }
+
     def "test findPasswordById" () {
         given:
         User user = User.builder()
