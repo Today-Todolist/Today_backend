@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 public class BasicErrorResponse {
 
     @JsonProperty("timestamp")
-    private final String timestamp;
+    private final ZonedDateTime timestamp;
 
     @JsonProperty("status")
     private final int status;
@@ -25,7 +25,7 @@ public class BasicErrorResponse {
     private final String message;
 
     public BasicErrorResponse(ErrorCode errorCode) {
-        this.timestamp = ZonedDateTime.now(ZoneId.of("Asia/Seoul")).toString();
+        this.timestamp = ZonedDateTime.now(ZoneId.of("Asia/Seoul"));
         this.status = errorCode.getStatus();
         this.code = errorCode.getCode();
         this.message = errorCode.getMessage();
