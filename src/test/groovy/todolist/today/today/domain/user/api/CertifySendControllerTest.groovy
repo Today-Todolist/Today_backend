@@ -52,6 +52,7 @@ class CertifySendControllerTest extends Specification {
     def cleanup() {
         signUpCertifyRepository.deleteAll()
         changePasswordCertifyRepository.deleteAll()
+        userRepository.deleteAll()
     }
 
     def "test sendSignUpCertify" () {
