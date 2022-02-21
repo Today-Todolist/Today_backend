@@ -28,7 +28,7 @@ class RequestUtil {
         return request
     }
 
-    static SignUpCertifySendRequest makeSignUpCertifySendRequest(String email, String password, nickname) {
+    static SignUpCertifySendRequest makeSignUpCertifySendRequest(String email, String password, String nickname) {
         SignUpCertifySendRequest request = new SignUpCertifySendRequest()
         inputField(request, "email", email)
         inputField(request, "password", password)
