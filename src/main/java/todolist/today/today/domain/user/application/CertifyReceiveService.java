@@ -22,7 +22,7 @@ public class CertifyReceiveService {
     private final ChangePasswordCertifyRepository changePasswordCertifyRepository;
     private final UserRepository userRepository;
 
-    private ImageUploadFacade imageUploadFacade;
+    private final ImageUploadFacade imageUploadFacade;
 
     public void receiveSignUpCertify(String email, long token) {
         SignUpCertify signUpCertify = signUpCertifyRepository.findById(token)

@@ -25,6 +25,10 @@ class JwtTokenFilterTest extends Specification {
         jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider)
     }
 
+    def cleanup() {
+        SecurityContextHolder.clearContext()
+    }
+
     def "test tokenExists" () {
         given:
         jwtTokenProvider.resolveToken(request) >> Optional.of("token")

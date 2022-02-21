@@ -2,13 +2,13 @@ buildscript {
     ext {
         exclusionList = ['**/TodayApplication.**',
                          '**/AuthDetails.**',
-                         '**/*Request.**',
-                         '**/*Response.**',
+                         '**Request.**',
+                         '**Response.**',
                          '**/domain/*/domain/**',
-                         '**/domain/*/dao/*Repository.**',
+                         '**/domain/*/dao/**Repository.**',
                          '**/global/domain/**',
-                         '**/*Config.**',
-                         '**/*Exception.**']
+                         '**Config.**',
+                         '**Exception.**']
     }
 }
 

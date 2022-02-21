@@ -17,7 +17,7 @@ public class ChangePasswordCertify {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Indexed
     private String email;

@@ -1,6 +1,5 @@
 package todolist.today.today.global.config;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import redis.embedded.RedisServer;
@@ -9,10 +8,9 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 @Configuration
-@RequiredArgsConstructor
 public class EmbeddedRedisConfig {
 
-    private RedisServer redisServer;
+    private static RedisServer redisServer;
 
     @Value("${spring.redis.port}")
     private Integer port;
