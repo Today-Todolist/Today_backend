@@ -3,13 +3,10 @@ package todolist.today.today.domain.user.application
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
-import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
 import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest
 import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest
-import todolist.today.today.domain.user.exception.NicknameAlreadyExistException
-import todolist.today.today.domain.user.exception.UserAlreadyExistException
 import todolist.today.today.domain.user.exception.UserNotFoundException
 import todolist.today.today.infra.mail.MailContentProvider
 import todolist.today.today.infra.mail.MailSendFacade
@@ -17,13 +14,12 @@ import todolist.today.today.infra.mail.MailSendFacade
 import static todolist.today.today.RequestUtil.makeChangePasswordCertifySendRequest
 import static todolist.today.today.RequestUtil.makeSignUpCertifySendRequest
 
-
 class CertifySendServiceTest extends Specification {
 
     private CertifySendService certifySendService
+    private CheckService checkService = Stub(CheckService)
     private SignUpCertifyRepository signUpCertifyRepository = Stub(SignUpCertifyRepository)
     private ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub(ChangePasswordCertifyRepository)
-    private UserRepository userRepository = Stub(UserRepository)
     private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
     private MailContentProvider mailContentProvider = Stub(MailContentProvider)
     private MailSendFacade mailSendFacade = Stub(MailSendFacade)
@@ -31,9 +27,9 @@ class CertifySendServiceTest extends Specification {
 
     def setup() {
         certifySendService = new CertifySendService(
+                checkService,
                 signUpCertifyRepository,
                 changePasswordCertifyRepository,
-                userRepository,
                 customUserRepository,
                 mailContentProvider,
                 mailSendFacade,
@@ -49,42 +45,6 @@ class CertifySendServiceTest extends Specification {
 
         then:
         noExceptionThrown()
-    }
-
-    def "test sendSignUpCertify UserAlreadyExistException" () {
-        given:
-        final String EMAIL = "today043149@gmail.com"
-
-        SignUpCertifySendRequest request = makeSignUpCertifySendRequest(EMAIL, "", "")
-        signUpCertifyRepository.existsByEmail(EMAIL) >> existsEmail
-        userRepository.existsById(EMAIL) >> true
-
-        when:
-        certifySendService.sendSignUpCertify(request)
-
-        then:
-        thrown(UserAlreadyExistException)
-
-        where:
-        existsEmail << [false, true]
-    }
-
-    def "test sendSignUpCertify NicknameAlreadyExistException" () {
-        given:
-        final String NICKNAME = "today"
-
-        SignUpCertifySendRequest request = makeSignUpCertifySendRequest("", "", NICKNAME)
-        signUpCertifyRepository.existsByNickname(NICKNAME) >> existsNickname
-        userRepository.existsByNickname(NICKNAME) >> true
-
-        when:
-        certifySendService.sendSignUpCertify(request)
-
-        then:
-        thrown(NicknameAlreadyExistException)
-
-        where:
-        existsNickname << [false, true]
     }
 
     def "test sendChangePasswordCertify" () {

@@ -5,15 +5,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
-import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
 import todolist.today.today.domain.user.domain.redis.ChangePasswordCertify;
 import todolist.today.today.domain.user.domain.redis.SignUpCertify;
 import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest;
 import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest;
-import todolist.today.today.domain.user.exception.UserAlreadyExistException;
-import todolist.today.today.domain.user.exception.NicknameAlreadyExistException;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
 import todolist.today.today.infra.mail.MailContentProvider;
 import todolist.today.today.infra.mail.MailSendFacade;
@@ -23,9 +20,10 @@ import todolist.today.today.infra.mail.MailSendFacade;
 @Transactional
 public class CertifySendService {
 
+    private final CheckService checkService;
+
     private final SignUpCertifyRepository signUpCertifyRepository;
     private final ChangePasswordCertifyRepository changePasswordCertifyRepository;
-    private final UserRepository userRepository;
     private final CustomUserRepositoryImpl customUserRepository;
 
     private final MailContentProvider mailContentProvider;
@@ -35,14 +33,10 @@ public class CertifySendService {
 
     public void sendSignUpCertify(SignUpCertifySendRequest request) {
         String userId = request.getEmail();
-        if (signUpCertifyRepository.existsByEmail(userId) || userRepository.existsById(userId)) {
-            throw new UserAlreadyExistException(userId);
-        }
+        checkService.checkEmail(userId);
 
         String nickname = request.getNickname();
-        if (signUpCertifyRepository.existsByNickname(nickname) || userRepository.existsByNickname(nickname)) {
-            throw new NicknameAlreadyExistException(nickname);
-        }
+        checkService.checkNickname(nickname);
 
         SignUpCertify signUpCertify = SignUpCertify.builder()
                 .email(userId)
