@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable()
                 .sessionManagement().disable()
                 .formLogin().disable().cors()
-                .and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPointImpl())
+                .and().exceptionHandling()
                 .and().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().permitAll()

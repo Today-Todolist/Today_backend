@@ -1,5 +1,7 @@
 package todolist.today.today.global.error.ingredient;
 
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,6 +27,11 @@ public class TestController {
     @GetMapping("/simple")
     public void simpleExceptionTesting() {
         throw new SimpleTestException();
+    }
+
+    @GetMapping("/auth")
+    public void authTesting() {
+        throw new AccessDeniedException("test");
     }
 
 }
