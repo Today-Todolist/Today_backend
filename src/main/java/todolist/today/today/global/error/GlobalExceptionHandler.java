@@ -3,6 +3,7 @@ package todolist.today.today.global.error;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -31,6 +32,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<BasicErrorResponse> handleException(Exception e) {
         e.printStackTrace();
         final BasicErrorResponse response = new BasicErrorResponse(INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<BasicErrorResponse> handleAccessDeniedException(AccessDeniedException e) {
+        final BasicErrorResponse response = new BasicErrorResponse(UNAUTHORIZED_REQUEST);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

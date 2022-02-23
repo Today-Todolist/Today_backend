@@ -39,13 +39,13 @@ public class CheckService {
 
     public void checkPassword(String userId, String password) {
         String userPassword = customUserRepository.findPasswordById(userId);
-        if(userPassword == null || !passwordEncoder.matches(password, userPassword)) {
+        if (userPassword == null || !passwordEncoder.matches(password, userPassword)) {
             throw new AuthenticationFailedException();
         }
     }
 
     public void checkTemplateTitle(String userId, String title) {
-        if(templateRepository.existsByUserEmailAndTitle(userId, title)) {
+        if (templateRepository.existsByUserEmailAndTitle(userId, title)) {
             throw new TemplateAlreadyExistException(title);
         }
     }

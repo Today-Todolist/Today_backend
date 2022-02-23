@@ -52,6 +52,17 @@ class GlobalExceptionHandlerTest extends Specification {
         checkBasicErrorResponse(result, ErrorCode.INTERNAL_SERVER_ERROR)
     }
 
+    def "test handleAccessDeniedException" () {
+        when:
+        ResultActions result = mvc.perform(get("/auth")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().isUnauthorized())
+        checkBasicErrorResponse(result, ErrorCode.UNAUTHORIZED_REQUEST)
+    }
+
     def "test handleMethodArgumentNotValidException" () {
         given:
         TestDto request = new TestDto(null)
