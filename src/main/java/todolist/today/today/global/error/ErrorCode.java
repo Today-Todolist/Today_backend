@@ -30,7 +30,8 @@ public enum ErrorCode {
     USER_ALREADY_EXIST(409, "E003", "Email Already Exist"),
     NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist"),
     WRONG_CERTIFY(401, "E005", "Wrong Certify"),
-    USER_NOT_FOUND(404, "E006", "User Not Found");
+    USER_NOT_FOUND(404, "E006", "User Not Found"),
+    TEMPLATE_AlREADY_EXIST(409, "E007", "Template Already Exist");
 
     private final int status;
     private final String code;

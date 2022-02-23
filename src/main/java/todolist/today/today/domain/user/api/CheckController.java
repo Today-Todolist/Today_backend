@@ -33,4 +33,9 @@ public class CheckController {
         checkService.checkPassword(authenticationFacade.getUserId(), request.getPassword());
     }
 
+    @GetMapping("/{title}/template-availability") @PreAuthorize("isAuthenticated()")
+    public void checkTemplateTitle(@PathVariable @Size(min = 1, max = 9) String title) {
+        checkService.checkTemplateTitle(authenticationFacade.getUserId(), title);
+    }
+
 }

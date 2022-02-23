@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.template.dao.TemplateRepository;
+import todolist.today.today.domain.template.exception.TemplateAlreadyExistException;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
@@ -19,6 +21,7 @@ public class CheckService {
     private final SignUpCertifyRepository signUpCertifyRepository;
     private final UserRepository userRepository;
     private final CustomUserRepositoryImpl customUserRepository;
+    private final TemplateRepository templateRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -38,6 +41,12 @@ public class CheckService {
         String userPassword = customUserRepository.findPasswordById(userId);
         if(userPassword == null || !passwordEncoder.matches(password, userPassword)) {
             throw new AuthenticationFailedException();
+        }
+    }
+
+    public void checkTemplateTitle(String userId, String title) {
+        if(templateRepository.existsByUserEmailAndTitle(userId, title)) {
+            throw new TemplateAlreadyExistException(title);
         }
     }
 
