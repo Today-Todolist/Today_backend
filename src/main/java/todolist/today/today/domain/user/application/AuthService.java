@@ -2,16 +2,13 @@ package todolist.today.today.domain.user.application;
 
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dto.request.LoginRequest;
 import todolist.today.today.domain.user.dto.request.TokenRefreshRequest;
 import todolist.today.today.domain.user.dto.response.LoginResponse;
 import todolist.today.today.domain.user.dto.response.TokenRefreshResponse;
-import todolist.today.today.domain.user.exception.LoginFailedException;
 import todolist.today.today.domain.user.exception.TokenRefreshException;
 import todolist.today.today.global.security.service.JwtTokenProvider;
 
@@ -20,19 +17,15 @@ import todolist.today.today.global.security.service.JwtTokenProvider;
 @Transactional(readOnly = true)
 public class AuthService {
 
-    private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final CheckService checkService;
     private final UserRepository userRepository;
-    private final CustomUserRepositoryImpl customUserRepository;
 
     public LoginResponse login(LoginRequest request) {
         String userId = request.getEmail();
 
-        String password = customUserRepository.findPasswordById(userId);
-        if(password == null || !passwordEncoder.matches(request.getPassword(), password)) {
-            throw new LoginFailedException();
-        }
+        checkService.checkPassword(userId, request.getPassword());
 
         String access = jwtTokenProvider.generateAccessToken(userId);
         String refresh = jwtTokenProvider.generateRefreshToken(userId);
