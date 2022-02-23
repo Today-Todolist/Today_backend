@@ -1,6 +1,7 @@
 package todolist.today.today
 
 import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest
+import todolist.today.today.domain.user.dto.request.CheckPasswordRequest
 import todolist.today.today.domain.user.dto.request.LoginRequest
 import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest
 import todolist.today.today.domain.user.dto.request.TokenRefreshRequest
@@ -9,7 +10,7 @@ import java.lang.reflect.Field
 
 class RequestUtil {
 
-    public static <T> void inputField(T object, String name, Object value) {
+    static <T> void inputField(T object, String name, Object value) {
         Field field = object.getClass().getDeclaredField(name)
         field.setAccessible(true)
         field.set(object, value)
@@ -40,6 +41,12 @@ class RequestUtil {
         ChangePasswordCertifySendRequest request = new ChangePasswordCertifySendRequest()
         inputField(request, "email", email)
         inputField(request, "newPassword", newPassword)
+        return request
+    }
+
+    static CheckPasswordRequest makeCheckPasswordRequest(String password) {
+        CheckPasswordRequest request = new CheckPasswordRequest()
+        inputField(request, "password", password)
         return request
     }
 
