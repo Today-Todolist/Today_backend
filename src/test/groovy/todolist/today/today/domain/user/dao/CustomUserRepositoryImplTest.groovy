@@ -24,10 +24,6 @@ class CustomUserRepositoryImplTest extends Specification {
         customUserRepository = new CustomUserRepositoryImpl(new JPAQueryFactory(em))
     }
 
-    def cleanup() {
-        userRepository.deleteAll()
-    }
-
     def "test findPasswordById" () {
         given:
         User user = User.builder()
@@ -56,10 +52,10 @@ class CustomUserRepositoryImplTest extends Specification {
         userRepository.save(user)
 
         when:
-        String password = customUserRepository.findNicknameById(user.getEmail())
+        String nickname = customUserRepository.findNicknameById(user.getEmail())
 
         then:
-        password == user.getNickname()
+        nickname == user.getNickname()
     }
 
 }
