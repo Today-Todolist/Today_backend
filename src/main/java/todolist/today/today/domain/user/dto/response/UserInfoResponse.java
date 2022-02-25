@@ -2,26 +2,26 @@ package todolist.today.today.domain.user.dto.response;
 
 import lombok.Getter;
 import lombok.Setter;
-import todolist.today.today.domain.user.dto.response.template.MyInfoTemplateResponse;
+import todolist.today.today.domain.user.dto.response.template.UserInfoTemplateResponse;
 
 import java.util.List;
 
 @Getter
-public class MyInfoResponse {
+public class UserInfoResponse {
 
-    private String email;
     private String nickname;
     private String profile;
     private long friendsAmount;
+    private int status;
 
     @Setter
-    private List<MyInfoTemplateResponse> templates;
+    private List<UserInfoTemplateResponse> templates;
 
-    public MyInfoResponse(String email, String nickname, String profile, long friendsAmount) {
-        this.email = email;
+    public UserInfoResponse(String nickname, String profile, long friendsAmount, int status) {
         this.nickname = nickname;
         this.profile = profile;
         this.friendsAmount = friendsAmount;
+        this.status = status;
     }
 
 }

@@ -1,12 +1,18 @@
 package todolist.today.today.domain.user.dao;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import todolist.today.today.domain.user.dto.response.MyInfoResponse;
+import todolist.today.today.domain.user.dto.response.UserInfoResponse;
 import todolist.today.today.domain.user.dto.response.template.MyInfoTemplateResponse;
+import todolist.today.today.domain.user.dto.response.template.UserInfoTemplateResponse;
+
+import java.util.Collections;
+import java.util.List;
 
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.template.domain.QTemplate.template;
@@ -33,23 +39,56 @@ public class CustomUserRepositoryImpl {
     }
 
     public MyInfoResponse getMyInfo(String userId) {
-        return query.select(Projections.constructor(MyInfoResponse.class,
-                        user.email,
-                        user.nickname,
-                        user.profile,
-                        friend1.count(),
-                        JPAExpressions.select(Projections.constructor(MyInfoTemplateResponse.class,
-                                        template.templateId,
-                                        template.title,
-                                        template.profile))
-                                .from(template)
-                                .where(template.user.email.eq(userId))
-                        ))
-                .from(user)
-                .join(friend1)
-                .where(user.email.eq(userId))
-                .on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
-                .fetchOne();
+        List<MyInfoTemplateResponse> templates =
+                query.select(Projections.constructor(MyInfoTemplateResponse.class,
+                                template.templateId,
+                                template.title,
+                                template.profile))
+                        .from(template)
+                        .where(template.user.email.eq(userId))
+                        .fetch();
+
+        MyInfoResponse response =
+                query.select(Projections.constructor(MyInfoResponse.class,
+                                user.email,
+                                user.nickname,
+                                user.profile,
+                                friend1.count()))
+                        .from(user)
+                        .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
+                        .where(user.email.eq(userId))
+                        .fetchOne();
+
+        response.setTemplates(templates);
+        return response;
+    }
+
+    public UserInfoResponse getUserInfo(String userId, String myId) {
+        List<UserInfoTemplateResponse> templates =
+                query.select(Projections.constructor(UserInfoTemplateResponse.class,
+                                template.templateId,
+                                template.title,
+                                template.profile))
+                        .from(template)
+                        .where(template.user.email.eq(userId))
+                        .fetch();
+
+        UserInfoResponse response =
+                query.select(Projections.constructor(UserInfoResponse.class,
+                                user.nickname,
+                                user.profile,
+                                friend1.count(),
+                                new CaseBuilder()
+                                        .when(user.email.eq(myId)).then(2)
+                                        .when(friend1.friend.email.contains(myId).or(friend1.user.email.contains(myId))).then(1)
+                                        .otherwise(0)))
+                        .from(user)
+                        .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
+                        .where(user.email.eq(userId))
+                        .fetchOne();
+
+        response.setTemplates(templates);
+        return response;
     }
 
 }
