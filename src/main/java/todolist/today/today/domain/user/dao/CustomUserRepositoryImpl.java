@@ -38,6 +38,13 @@ public class CustomUserRepositoryImpl {
                 .fetchOne();
     }
 
+    public Boolean findChangePossibleById(String userId) {
+        return query.select(user.changePossible)
+                .from(user)
+                .where(user.email.eq(userId))
+                .fetchOne();
+    }
+
     public MyInfoResponse getMyInfo(String userId) {
         List<MyInfoTemplateResponse> templates =
                 query.select(Projections.constructor(MyInfoTemplateResponse.class,

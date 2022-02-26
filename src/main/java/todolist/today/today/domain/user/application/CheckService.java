@@ -11,6 +11,7 @@ import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
 import todolist.today.today.domain.user.exception.AuthenticationFailedException;
 import todolist.today.today.domain.user.exception.NicknameAlreadyExistException;
+import todolist.today.today.domain.user.exception.TodolistChangeImpossibleException;
 import todolist.today.today.domain.user.exception.UserAlreadyExistException;
 
 @Service
@@ -47,6 +48,12 @@ public class CheckService {
     public void checkTemplateTitle(String userId, String title) {
         if (templateRepository.existsByUserEmailAndTitle(userId, title)) {
             throw new TemplateAlreadyExistException(title);
+        }
+    }
+
+    public void checkEditAvailability(String userId) {
+        if (!customUserRepository.findChangePossibleById(userId)) {
+            throw new TodolistChangeImpossibleException();
         }
     }
 

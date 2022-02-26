@@ -31,7 +31,8 @@ public enum ErrorCode {
     NICKNAME_ALREADY_EXIST(409, "E004", "Nickname Already Exist"),
     WRONG_CERTIFY(401, "E005", "Wrong Certify"),
     USER_NOT_FOUND(404, "E006", "User Not Found"),
-    TEMPLATE_AlREADY_EXIST(409, "E007", "Template Already Exist");
+    TEMPLATE_AlREADY_EXIST(409, "E007", "Template Already Exist"),
+    TODOLIST_CHANGE_IMPOSSIBLE(409, "E008", "Todolist Change Impossible");
 
     private final int status;
     private final String code;
