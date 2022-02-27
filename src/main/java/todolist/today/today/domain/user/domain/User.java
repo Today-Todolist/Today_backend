@@ -51,6 +51,10 @@ public class User {
         this.profile = newProfile;
     }
 
+    public void changeNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Todolist> todolists;
 
