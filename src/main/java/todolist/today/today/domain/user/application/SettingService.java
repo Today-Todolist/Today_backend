@@ -9,6 +9,7 @@ import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
 import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
+import todolist.today.today.domain.user.dto.request.DeleteUserRequest;
 import todolist.today.today.domain.user.dto.request.ResetTodolistRequest;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
 import todolist.today.today.infra.file.image.ImageUploadFacade;
@@ -58,6 +59,11 @@ public class SettingService {
     public void resetTodolist(String userId, ResetTodolistRequest request) {
         checkService.checkPassword(userId, request.getPassword());
         todolistRepository.deleteByUserEmail(userId);
+    }
+
+    public void deleteUser(String userId, DeleteUserRequest request) {
+        checkService.checkPassword(userId, request.getPassword());
+        userRepository.deleteById(userId);
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import todolist.today.today.domain.user.application.SettingService;
 import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
 import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
+import todolist.today.today.domain.user.dto.request.DeleteUserRequest;
 import todolist.today.today.domain.user.dto.request.ResetTodolistRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
@@ -54,6 +55,12 @@ public class SettingController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void resetTodolist(@Valid @RequestBody ResetTodolistRequest request) {
         settingService.resetTodolist(authenticationFacade.getUserId(), request);
+    }
+
+    @PostMapping("/delete-user") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteUser(@Valid @RequestBody DeleteUserRequest request) {
+        settingService.deleteUser(authenticationFacade.getUserId(), request);
     }
 
 }
