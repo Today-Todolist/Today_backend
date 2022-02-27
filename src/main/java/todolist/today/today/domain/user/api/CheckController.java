@@ -38,4 +38,9 @@ public class CheckController {
         checkService.checkTemplateTitle(authenticationFacade.getUserId(), title);
     }
 
+    @GetMapping("/edit-availability") @PreAuthorize("isAuthenticated()")
+    public void checkEditAvailability() {
+        checkService.checkEditAvailability(authenticationFacade.getUserId());
+    }
+
 }

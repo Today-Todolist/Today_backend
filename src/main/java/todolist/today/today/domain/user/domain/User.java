@@ -40,10 +40,23 @@ public class User {
         this.password = password;
         this.nickname = nickname;
         this.profile = profile;
-        this.changePossible = false;
+        this.changePossible = true;
     }
+
     public void changePassword(String newPassword) {
         this.password = newPassword;
+    }
+
+    public void changeProfile(String newProfile) {
+        this.profile = newProfile;
+    }
+
+    public void changeNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
+
+    public void changeChangePossible(boolean newChangePossible) {
+        this.changePossible = newChangePossible;
     }
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
