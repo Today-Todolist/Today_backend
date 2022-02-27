@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import todolist.today.today.domain.user.application.SettingService;
 import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
+import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -21,13 +22,19 @@ public class SettingController {
     @PutMapping("/profile") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void changeProfile(@RequestPart(value = "file") MultipartFile file) {
-        settingService.changeProfile(file, authenticationFacade.getUserId());
+        settingService.changeProfile(authenticationFacade.getUserId(), file);
     }
 
     @PutMapping("/nickname") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void changeNickname(@Valid @RequestBody ChangeNicknameRequest request) {
-        settingService.changeNickname(request, authenticationFacade.getUserId());
+        settingService.changeNickname(authenticationFacade.getUserId(), request);
+    }
+
+    @PutMapping("/password") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changePassword(@Valid @RequestBody ChangePasswordRequest request) {
+        settingService.changePassword(authenticationFacade.getUserId(), request);
     }
 
 }
