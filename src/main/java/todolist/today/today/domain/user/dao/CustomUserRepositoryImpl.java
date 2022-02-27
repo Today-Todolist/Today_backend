@@ -2,7 +2,6 @@ package todolist.today.today.domain.user.dao;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,7 +10,6 @@ import todolist.today.today.domain.user.dto.response.UserInfoResponse;
 import todolist.today.today.domain.user.dto.response.template.MyInfoTemplateResponse;
 import todolist.today.today.domain.user.dto.response.template.UserInfoTemplateResponse;
 
-import java.util.Collections;
 import java.util.List;
 
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
@@ -38,11 +36,11 @@ public class CustomUserRepositoryImpl {
                 .fetchOne();
     }
 
-    public Boolean findChangePossibleById(String userId) {
-        return query.select(user.changePossible)
+    public boolean findChangePossibleById(String userId) {
+        return Boolean.TRUE.equals(query.select(user.changePossible)
                 .from(user)
                 .where(user.email.eq(userId))
-                .fetchOne();
+                .fetchOne());
     }
 
     public MyInfoResponse getMyInfo(String userId) {
