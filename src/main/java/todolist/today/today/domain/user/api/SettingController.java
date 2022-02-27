@@ -37,4 +37,16 @@ public class SettingController {
         settingService.changePassword(authenticationFacade.getUserId(), request);
     }
 
+    @PostMapping("/edit-availability/on") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeEditAvailabilityOn() {
+        settingService.changeEditAvailability(authenticationFacade.getUserId(), true);
+    }
+
+    @PostMapping("/edit-availability/off") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeEditAvailabilityOff() {
+        settingService.changeEditAvailability(authenticationFacade.getUserId(), false);
+    }
+
 }

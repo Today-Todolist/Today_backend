@@ -45,4 +45,10 @@ public class SettingService {
         user.changePassword(request.getNewPassword());
     }
 
+    public void changeEditAvailability(String userId, boolean availability) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        user.changeChangePossible(availability);
+    }
+
 }
