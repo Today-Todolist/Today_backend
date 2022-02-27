@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
 import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
+import todolist.today.today.domain.user.dto.request.ResetTodolistRequest;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
 import todolist.today.today.infra.file.image.ImageUploadFacade;
 
@@ -17,6 +19,8 @@ import todolist.today.today.infra.file.image.ImageUploadFacade;
 public class SettingService {
 
     private final UserRepository userRepository;
+    private final TodolistRepository todolistRepository;
+
     private final ImageUploadFacade imageUploadFacade;
     private final CheckService checkService;
 
@@ -49,6 +53,11 @@ public class SettingService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
         user.changeChangePossible(availability);
+    }
+
+    public void resetTodolist(String userId, ResetTodolistRequest request) {
+        checkService.checkPassword(userId, request.getPassword());
+        todolistRepository.deleteByUserEmail(userId);
     }
 
 }

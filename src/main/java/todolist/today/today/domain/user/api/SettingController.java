@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import todolist.today.today.domain.user.application.SettingService;
 import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
 import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
+import todolist.today.today.domain.user.dto.request.ResetTodolistRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -47,6 +48,12 @@ public class SettingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void changeEditAvailabilityOff() {
         settingService.changeEditAvailability(authenticationFacade.getUserId(), false);
+    }
+
+    @PostMapping("/reset-todolist") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void resetTodolist(@Valid @RequestBody ResetTodolistRequest request) {
+        settingService.resetTodolist(authenticationFacade.getUserId(), request);
     }
 
 }
