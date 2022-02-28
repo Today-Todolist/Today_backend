@@ -9,6 +9,7 @@ import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
 import todolist.today.today.domain.user.exception.AuthenticationFailedException
 import todolist.today.today.domain.user.exception.NicknameAlreadyExistException
+import todolist.today.today.domain.user.exception.TodolistChangeImpossibleException
 import todolist.today.today.domain.user.exception.UserAlreadyExistException
 
 class CheckServiceTest extends Specification {
@@ -129,6 +130,30 @@ class CheckServiceTest extends Specification {
 
         then:
         thrown(TemplateAlreadyExistException)
+    }
+
+    def "test checkEditAvailability" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        customUserRepository.findChangePossibleById(USER_ID) >> true
+
+        when:
+        checkService.checkEditAvailability(USER_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkEditAvailability TodolistChangeImpossibleExceptio" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        customUserRepository.findChangePossibleById(USER_ID) >> false
+
+        when:
+        checkService.checkEditAvailability(USER_ID)
+
+        then:
+        thrown(TodolistChangeImpossibleException)
     }
 
 }
