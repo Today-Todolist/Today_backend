@@ -3,7 +3,6 @@ package todolist.today.today.domain.user.api
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
@@ -42,8 +41,6 @@ class InfoControllerTest extends Specification {
 
     def cleanup() {
         userRepository.deleteAll()
-        friendRepository.deleteAll()
-        templateRepository.deleteAll()
     }
 
     def "test getMyInfo" () {
@@ -74,7 +71,6 @@ class InfoControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(get("/info")
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 
@@ -110,7 +106,6 @@ class InfoControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(get("/{email}/info", requestEmail)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 

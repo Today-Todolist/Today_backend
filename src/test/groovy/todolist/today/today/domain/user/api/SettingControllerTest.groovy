@@ -31,10 +31,7 @@ import static org.mockito.BDDMockito.given
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import static todolist.today.today.RequestUtil.makeChangeNicknameRequest
-import static todolist.today.today.RequestUtil.makeChangePasswordRequest
-import static todolist.today.today.RequestUtil.makeDeleteUserRequest
-import static todolist.today.today.RequestUtil.makeResetTodolistRequest
+import static todolist.today.today.RequestUtil.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -67,7 +64,6 @@ class SettingControllerTest extends Specification {
 
     def cleanup() {
         userRepository.deleteAll()
-        todolistRepository.deleteAll()
     }
 
     def "test changeProfile" () {
@@ -119,8 +115,8 @@ class SettingControllerTest extends Specification {
         when:
         ResultActions result = mvc.perform(put("/nickname")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
-                .header("Authorization", "Bearer " + token))
+                .header("Authorization", "Bearer " + token)
+                .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
         then:
@@ -148,8 +144,8 @@ class SettingControllerTest extends Specification {
         when:
         ResultActions result = mvc.perform(put("/password")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
-                .header("Authorization", "Bearer " + token))
+                .header("Authorization", "Bearer " + token)
+                .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
         then:
@@ -174,7 +170,6 @@ class SettingControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(post("/edit-availability/{changePossible}", requestChangePossible)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 
@@ -209,8 +204,8 @@ class SettingControllerTest extends Specification {
         when:
         ResultActions result = mvc.perform(post("/reset-todolist")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
-                .header("Authorization", "Bearer " + token))
+                .header("Authorization", "Bearer " + token)
+                .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
         then:
@@ -238,8 +233,8 @@ class SettingControllerTest extends Specification {
         when:
         ResultActions result = mvc.perform(post("/delete-user")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request))
-                .header("Authorization", "Bearer " + token))
+                .header("Authorization", "Bearer " + token)
+                .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
 
         then:

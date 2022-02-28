@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
-import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
@@ -46,7 +45,6 @@ class CertifyReceiveControllerTest extends Specification {
 
     def cleanup() {
         signUpCertifyRepository.deleteAll()
-        changePasswordCertifyRepository.deleteAll()
         userRepository.deleteAll()
     }
 
@@ -63,7 +61,6 @@ class CertifyReceiveControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(post("/sign-up")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("email", email)
                 .param("token", token as String))
                 .andDo(print())
@@ -97,7 +94,6 @@ class CertifyReceiveControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(post("/reset-password")
-                .contentType(MediaType.APPLICATION_JSON)
                 .param("email", requestEmail)
                 .param("token", token as String))
                 .andDo(print())
