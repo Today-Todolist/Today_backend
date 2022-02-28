@@ -166,4 +166,32 @@ class CheckControllerTest extends Specification {
         TEMPLATE_TITLE || 409
     }
 
+    def "test checkEditAvailability" () {
+        given:
+        User user = User.builder()
+                .email(EMAIL)
+                .password("password")
+                .nickname("today")
+                .profile("profile")
+                .build()
+        user.changeChangePossible(changePossible)
+        userRepository.save(user)
+
+        String token = jwtTokenProvider.generateAccessToken(EMAIL)
+
+        when:
+        ResultActions result = mvc.perform(get("/edit-availability")
+                .contentType(MediaType.APPLICATION_JSON)
+                .header("Authorization", "Bearer " + token))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().is(status))
+
+        where:
+        changePossible || status
+        true || 200
+        false || 409
+    }
+
 }
