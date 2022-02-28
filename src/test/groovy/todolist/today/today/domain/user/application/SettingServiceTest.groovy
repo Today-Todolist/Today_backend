@@ -2,7 +2,6 @@ package todolist.today.today.domain.user.application
 
 import org.springframework.web.multipart.MultipartFile
 import spock.lang.Specification
-import todolist.today.today.RequestUtil
 import todolist.today.today.domain.todolist.dao.TodolistRepository
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
@@ -13,11 +12,7 @@ import todolist.today.today.domain.user.dto.request.ResetTodolistRequest
 import todolist.today.today.domain.user.exception.UserNotFoundException
 import todolist.today.today.infra.file.image.ImageUploadFacade
 
-import static todolist.today.today.RequestUtil.makeChangeNicknameRequest
-import static todolist.today.today.RequestUtil.makeChangepasswordRequest
-import static todolist.today.today.RequestUtil.makeDeleteUserRequest
-import static todolist.today.today.RequestUtil.makeResetTodolistRequest
-
+import static todolist.today.today.RequestUtil.*
 
 class SettingServiceTest extends Specification {
 
@@ -88,7 +83,7 @@ class SettingServiceTest extends Specification {
     def "test changePassword" () {
         given:
         final String USER_ID = "today043149@gmail.com"
-        ChangePasswordRequest request = makeChangepasswordRequest("", "")
+        ChangePasswordRequest request = makeChangePasswordRequest("", "")
         userRepository.findById(USER_ID) >> Optional.of(new User())
 
         when:
@@ -101,7 +96,7 @@ class SettingServiceTest extends Specification {
     def "test changePassword UserNotFoundException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
-        ChangePasswordRequest request = makeChangepasswordRequest("", "")
+        ChangePasswordRequest request = makeChangePasswordRequest("", "")
         userRepository.findById(USER_ID) >> Optional.empty()
 
         when:

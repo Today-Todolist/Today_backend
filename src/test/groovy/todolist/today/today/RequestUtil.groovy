@@ -52,7 +52,7 @@ class RequestUtil {
         return request
     }
 
-    static ChangePasswordRequest makeChangepasswordRequest(String password, String newPassword) {
+    static ChangePasswordRequest makeChangePasswordRequest(String password, String newPassword) {
         ChangePasswordRequest request = new ChangePasswordRequest()
         inputField(request, "password", password)
         inputField(request, "newPassword", newPassword)
