@@ -51,7 +51,6 @@ class CheckControllerTest extends Specification {
 
     def cleanup() {
         userRepository.deleteAll()
-        templateRepository.deleteAll()
     }
 
     def "test checkEmail" () {
@@ -65,8 +64,7 @@ class CheckControllerTest extends Specification {
         userRepository.save(user)
 
         when:
-        ResultActions result = mvc.perform(get("/{email}/email-availability", requestEmail)
-                .contentType(MediaType.APPLICATION_JSON))
+        ResultActions result = mvc.perform(get("/{email}/email-availability", requestEmail))
                 .andDo(print())
 
         then:
@@ -89,8 +87,7 @@ class CheckControllerTest extends Specification {
         userRepository.save(user)
 
         when:
-        ResultActions result = mvc.perform(get("/{email}/nickname-availability", requestNickname)
-                .contentType(MediaType.APPLICATION_JSON))
+        ResultActions result = mvc.perform(get("/{email}/nickname-availability", requestNickname))
                 .andDo(print())
 
         then:
@@ -153,7 +150,6 @@ class CheckControllerTest extends Specification {
 
         when:
         ResultActions result = mvc.perform(get("/{title}/template-availability", requestTitle)
-                .contentType(MediaType.APPLICATION_JSON)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 
@@ -164,6 +160,33 @@ class CheckControllerTest extends Specification {
         requestTitle || status
         "wrongTitle" || 200
         TEMPLATE_TITLE || 409
+    }
+
+    def "test checkEditAvailability" () {
+        given:
+        User user = User.builder()
+                .email(EMAIL)
+                .password("password")
+                .nickname("today")
+                .profile("profile")
+                .build()
+        user.changeChangePossible(changePossible)
+        userRepository.save(user)
+
+        String token = jwtTokenProvider.generateAccessToken(EMAIL)
+
+        when:
+        ResultActions result = mvc.perform(get("/edit-availability")
+                .header("Authorization", "Bearer " + token))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().is(status))
+
+        where:
+        changePossible || status
+        true || 200
+        false || 409
     }
 
 }

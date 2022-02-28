@@ -1,10 +1,6 @@
 package todolist.today.today
 
-import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest
-import todolist.today.today.domain.user.dto.request.CheckPasswordRequest
-import todolist.today.today.domain.user.dto.request.LoginRequest
-import todolist.today.today.domain.user.dto.request.SignUpCertifySendRequest
-import todolist.today.today.domain.user.dto.request.TokenRefreshRequest
+import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
 
@@ -46,6 +42,31 @@ class RequestUtil {
 
     static CheckPasswordRequest makeCheckPasswordRequest(String password) {
         CheckPasswordRequest request = new CheckPasswordRequest()
+        inputField(request, "password", password)
+        return request
+    }
+
+    static ChangeNicknameRequest makeChangeNicknameRequest(String newNickname) {
+        ChangeNicknameRequest request = new ChangeNicknameRequest()
+        inputField(request, "newNickname", newNickname)
+        return request
+    }
+
+    static ChangePasswordRequest makeChangePasswordRequest(String password, String newPassword) {
+        ChangePasswordRequest request = new ChangePasswordRequest()
+        inputField(request, "password", password)
+        inputField(request, "newPassword", newPassword)
+        return request
+    }
+
+    static ResetTodolistRequest makeResetTodolistRequest(String password) {
+        ResetTodolistRequest request = new ResetTodolistRequest()
+        inputField(request, "password", password)
+        return request
+    }
+
+    static DeleteUserRequest makeDeleteUserRequest(String password) {
+        DeleteUserRequest request = new DeleteUserRequest()
         inputField(request, "password", password)
         return request
     }
