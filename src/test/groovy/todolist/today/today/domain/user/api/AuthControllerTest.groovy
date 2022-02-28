@@ -52,8 +52,8 @@ class AuthControllerTest extends Specification {
     def "test login" () {
         given:
         User user = User.builder()
-                .email(email)
-                .password(passwordEncoder.encode(password))
+                .email(EMAIL)
+                .password(passwordEncoder.encode(PASSWORD))
                 .nickname("today")
                 .profile("profile")
                 .build()
@@ -71,10 +71,10 @@ class AuthControllerTest extends Specification {
         result.andExpect(status().is(status))
 
         where:
-        email | password | requestEmail | requestPassword || status
-        EMAIL | PASSWORD | EMAIL | PASSWORD || 200
-        EMAIL | PASSWORD | "tomorrow043149@gmail.com" | "asdfasdf" || 401
-        EMAIL | PASSWORD | EMAIL | "asdfasdf" || 401
+        requestEmail | requestPassword || status
+        EMAIL | PASSWORD || 200
+        "tomorrow043149@gmail.com" | "asdfasdf" || 401
+        EMAIL | "asdfasdf" || 401
     }
 
     def "test tokenRefresh" () {
