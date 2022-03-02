@@ -9,6 +9,7 @@ import todolist.today.today.domain.friend.dao.FriendRepository;
 import todolist.today.today.domain.friend.domain.Friend;
 import todolist.today.today.domain.friend.domain.FriendApply;
 import todolist.today.today.domain.friend.domain.id.FriendRelation;
+import todolist.today.today.domain.user.application.CheckService;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
@@ -22,6 +23,8 @@ public class FriendSettingService {
     private final CustomFriendRepositoryImpl customFriendRepository;
     private final FriendRepository friendRepository;
     private final FriendApplyRepository friendApplyRepository;
+
+    private final CheckService checkService;
 
     public void makeFriendApply(String userId, String myId) {
         User friend = userRepository.findById(userId)
@@ -37,6 +40,7 @@ public class FriendSettingService {
     }
 
     public void deleteFriend(String userId, String myId) {
+        checkService.checkNotExistsUser(userId);
         customFriendRepository.deleteFriend(userId, myId);
     }
 
@@ -54,9 +58,7 @@ public class FriendSettingService {
     }
 
     public void deleteFriendApply(String userId, String myId) {
-        if (!userRepository.existsById(userId)) {
-            throw new UserNotFoundException(userId);
-        }
+        checkService.checkNotExistsUser(userId);
         FriendRelation friendId = new FriendRelation(myId, userId);
         friendApplyRepository.deleteById(friendId);
     }

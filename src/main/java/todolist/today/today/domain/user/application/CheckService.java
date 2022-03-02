@@ -9,10 +9,7 @@ import todolist.today.today.domain.template.exception.TemplateAlreadyExistExcept
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
-import todolist.today.today.domain.user.exception.AuthenticationFailedException;
-import todolist.today.today.domain.user.exception.NicknameAlreadyExistException;
-import todolist.today.today.domain.user.exception.TodolistChangeImpossibleException;
-import todolist.today.today.domain.user.exception.UserAlreadyExistException;
+import todolist.today.today.domain.user.exception.*;
 
 @Service
 @RequiredArgsConstructor
@@ -54,6 +51,12 @@ public class CheckService {
     public void checkEditAvailability(String userId) {
         if (!customUserRepository.findChangePossibleById(userId)) {
             throw new TodolistChangeImpossibleException();
+        }
+    }
+
+    public void checkNotExistsUser(String userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException(userId);
         }
     }
 

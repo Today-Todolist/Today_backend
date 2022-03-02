@@ -7,10 +7,7 @@ import todolist.today.today.domain.template.exception.TemplateAlreadyExistExcept
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
-import todolist.today.today.domain.user.exception.AuthenticationFailedException
-import todolist.today.today.domain.user.exception.NicknameAlreadyExistException
-import todolist.today.today.domain.user.exception.TodolistChangeImpossibleException
-import todolist.today.today.domain.user.exception.UserAlreadyExistException
+import todolist.today.today.domain.user.exception.*
 
 class CheckServiceTest extends Specification {
 
@@ -154,6 +151,30 @@ class CheckServiceTest extends Specification {
 
         then:
         thrown(TodolistChangeImpossibleException)
+    }
+
+    def "test checkNotExistsUser" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        userRepository.existsById(USER_ID) >> true
+
+        when:
+        checkService.checkNotExistsUser(USER_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkNotExistsUser UserNotFoundException" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        userRepository.existsById(USER_ID) >> false
+
+        when:
+        checkService.checkNotExistsUser(USER_ID)
+
+        then:
+        thrown(UserNotFoundException)
     }
 
 }
