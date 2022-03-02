@@ -29,7 +29,7 @@ public class FriendSettingController {
         friendSettingService.deleteFriend(email, authenticationFacade.getUserId());
     }
 
-    @DeleteMapping("/friend/{email}") @PreAuthorize("isAuthenticated()")
+    @PostMapping("/friend/{email}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void makeFriend(@PathVariable @Email @Size(min = 1, max = 64) String email) {
         friendSettingService.makeFriend(email, authenticationFacade.getUserId());
