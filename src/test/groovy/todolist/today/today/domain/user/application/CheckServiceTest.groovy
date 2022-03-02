@@ -7,10 +7,7 @@ import todolist.today.today.domain.template.exception.TemplateAlreadyExistExcept
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
-import todolist.today.today.domain.user.exception.AuthenticationFailedException
-import todolist.today.today.domain.user.exception.NicknameAlreadyExistException
-import todolist.today.today.domain.user.exception.TodolistChangeImpossibleException
-import todolist.today.today.domain.user.exception.UserAlreadyExistException
+import todolist.today.today.domain.user.exception.*
 
 class CheckServiceTest extends Specification {
 
@@ -30,22 +27,22 @@ class CheckServiceTest extends Specification {
                 passwordEncoder)
     }
 
-    def "test checkEmail" () {
+    def "test checkExistsEmail" () {
         when:
-        checkService.checkEmail("today043149@gmail.com")
+        checkService.checkExistsEmail("today043149@gmail.com")
 
         then:
         noExceptionThrown()
     }
 
-    def "test checkEmail UserAlreadyExistException" () {
+    def "test checkExistsEmail UserAlreadyExistException" () {
         given:
         final String EMAIL = "today043149@gmail.com"
         signUpCertifyRepository.existsByEmail(EMAIL) >> existsByEmail
         userRepository.existsById(EMAIL) >> true
 
         when:
-        checkService.checkEmail(EMAIL)
+        checkService.checkExistsEmail(EMAIL)
 
         then:
         thrown(UserAlreadyExistException)
@@ -54,22 +51,22 @@ class CheckServiceTest extends Specification {
         existsByEmail << [true, false]
     }
 
-    def "test checkNickname" () {
+    def "test checkExistsNickname" () {
         when:
-        checkService.checkNickname("today")
+        checkService.checkExistsNickname("today")
 
         then:
         noExceptionThrown()
     }
 
-    def "test checkNickname NicknameAlreadyExistException" () {
+    def "test checkExistsNickname NicknameAlreadyExistException" () {
         given:
         final String NICKNAME = "today"
         signUpCertifyRepository.existsByNickname(NICKNAME) >> existsByNickname
         userRepository.existsByNickname(NICKNAME) >> true
 
         when:
-        checkService.checkNickname(NICKNAME)
+        checkService.checkExistsNickname(NICKNAME)
 
         then:
         thrown(NicknameAlreadyExistException)
@@ -111,22 +108,22 @@ class CheckServiceTest extends Specification {
         password << [null, "password"]
     }
 
-    def "test checkTemplateTitle" () {
+    def "test checkExistsTemplateTitle" () {
         when:
-        checkService.checkTemplateTitle("today043149@gmail.com", "title")
+        checkService.checkExistsTemplateTitle("today043149@gmail.com", "title")
 
         then:
         noExceptionThrown()
     }
 
-    def "test checkTemplateTitle TemplateAlreadyExistException" () {
+    def "test checkExistsTemplateTitle TemplateAlreadyExistException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
         final String TITLE = "title"
         templateRepository.existsByUserEmailAndTitle(USER_ID, TITLE) >> true
 
         when:
-        checkService.checkTemplateTitle(USER_ID, TITLE)
+        checkService.checkExistsTemplateTitle(USER_ID, TITLE)
 
         then:
         thrown(TemplateAlreadyExistException)
@@ -154,6 +151,30 @@ class CheckServiceTest extends Specification {
 
         then:
         thrown(TodolistChangeImpossibleException)
+    }
+
+    def "test checkNotExistsUser" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        userRepository.existsById(USER_ID) >> true
+
+        when:
+        checkService.checkNotExistsUser(USER_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkNotExistsUser UserNotFoundException" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        userRepository.existsById(USER_ID) >> false
+
+        when:
+        checkService.checkNotExistsUser(USER_ID)
+
+        then:
+        thrown(UserNotFoundException)
     }
 
 }

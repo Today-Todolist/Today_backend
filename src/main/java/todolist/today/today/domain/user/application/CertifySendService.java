@@ -33,10 +33,10 @@ public class CertifySendService {
 
     public void sendSignUpCertify(SignUpCertifySendRequest request) {
         String userId = request.getEmail();
-        checkService.checkEmail(userId);
+        checkService.checkExistsEmail(userId);
 
         String nickname = request.getNickname();
-        checkService.checkNickname(nickname);
+        checkService.checkExistsNickname(nickname);
 
         SignUpCertify signUpCertify = SignUpCertify.builder()
                 .email(userId)

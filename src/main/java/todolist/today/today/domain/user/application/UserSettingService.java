@@ -35,7 +35,7 @@ public class UserSettingService {
 
     public void changeNickname(String userId, ChangeNicknameRequest request) {
         String newNickname = request.getNewNickname();
-        checkService.checkNickname(newNickname);
+        checkService.checkExistsNickname(newNickname);
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));

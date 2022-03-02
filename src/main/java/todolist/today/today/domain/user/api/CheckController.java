@@ -19,13 +19,13 @@ public class CheckController {
     private final CheckService checkService;
 
     @GetMapping("/{email}/email-availability")
-    public void checkEmail(@PathVariable @Email @Size(min = 1, max = 64) String email) {
-        checkService.checkEmail(email);
+    public void checkExistsEmail(@PathVariable @Email @Size(min = 1, max = 64) String email) {
+        checkService.checkExistsEmail(email);
     }
 
     @GetMapping("/{nickname}/nickname-availability")
-    public void checkNickname(@PathVariable @Size(min = 1, max = 9) String nickname) {
-        checkService.checkNickname(nickname);
+    public void checkExistsNickname(@PathVariable @Size(min = 1, max = 9) String nickname) {
+        checkService.checkExistsNickname(nickname);
     }
 
     @PostMapping("/validation-password") @PreAuthorize("isAuthenticated()")
@@ -34,8 +34,8 @@ public class CheckController {
     }
 
     @GetMapping("/{title}/template-availability") @PreAuthorize("isAuthenticated()")
-    public void checkTemplateTitle(@PathVariable @Size(min = 1, max = 9) String title) {
-        checkService.checkTemplateTitle(authenticationFacade.getUserId(), title);
+    public void checkExistsTemplateTitle(@PathVariable @Size(min = 1, max = 9) String title) {
+        checkService.checkExistsTemplateTitle(authenticationFacade.getUserId(), title);
     }
 
     @GetMapping("/edit-availability") @PreAuthorize("isAuthenticated()")
