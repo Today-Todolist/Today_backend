@@ -26,13 +26,13 @@ public class CheckService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public void checkEmail(String email) {
+    public void checkExistsEmail(String email) {
         if (signUpCertifyRepository.existsByEmail(email) || userRepository.existsById(email)) {
             throw new UserAlreadyExistException(email);
         }
     }
 
-    public void checkNickname(String nickname) {
+    public void checkExistsNickname(String nickname) {
         if (signUpCertifyRepository.existsByNickname(nickname) || userRepository.existsByNickname(nickname)) {
             throw new NicknameAlreadyExistException(nickname);
         }
@@ -45,7 +45,7 @@ public class CheckService {
         }
     }
 
-    public void checkTemplateTitle(String userId, String title) {
+    public void checkExistsTemplateTitle(String userId, String title) {
         if (templateRepository.existsByUserEmailAndTitle(userId, title)) {
             throw new TemplateAlreadyExistException(title);
         }
