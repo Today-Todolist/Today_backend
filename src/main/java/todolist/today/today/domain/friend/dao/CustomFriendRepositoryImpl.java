@@ -9,7 +9,6 @@ import todolist.today.today.domain.friend.dto.response.UserFriendResponse;
 import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.user.domain.QUser.user;

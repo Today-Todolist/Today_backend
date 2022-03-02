@@ -1,0 +1,11 @@
+package todolist.today.today.domain.friend.dao;
+
+import org.springframework.data.repository.CrudRepository;
+import todolist.today.today.domain.friend.domain.FriendApply;
+import todolist.today.today.domain.friend.domain.id.FriendRelation;
+
+public interface FriendApplyRepository extends CrudRepository<FriendApply, FriendRelation> {
+
+    long countByFriendEmailOrUserEmail(String friendEmail, String userEmail);
+
+}
