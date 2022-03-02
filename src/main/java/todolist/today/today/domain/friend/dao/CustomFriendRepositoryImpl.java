@@ -21,11 +21,16 @@ public class CustomFriendRepositoryImpl {
     private final JPAQueryFactory query;
 
     public List<UserFriendResponse> getUserFriends(String userId, String myId, PagingRequest request) {
-        List<UserFriendResponse> response1 =
-                query.select(Projections.constructor(UserFriendResponse.class,
-                                user.email,
-                                user.nickname,
-                                user.profile,
+        return query.select(Projections.constructor(UserFriendResponse.class,
+                                new CaseBuilder()
+                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.email)
+                                        .otherwise(friend1.friend.email),
+                                new CaseBuilder()
+                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.nickname)
+                                        .otherwise(friend1.friend.nickname),
+                                new CaseBuilder()
+                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.profile)
+                                        .otherwise(friend1.friend.profile),
                                 new CaseBuilder()
                                         .when(user.email.eq(myId)).then(2)
                                         .when(user.receiveFriends.any().friend.email.eq(userId)
@@ -34,28 +39,11 @@ public class CustomFriendRepositoryImpl {
                                         .otherwise(0)
                         ))
                         .from(friend1)
-                        .leftJoin(friend1.user, user)
-                        .where(friend1.user.email.eq(userId))
+                        .where(friend1.friend.email.eq(userId).or(friend1.user.email.eq(userId)))
+                        .orderBy(friend1.createdAt.desc())
+                        .offset(request.getPage())
+                        .limit(request.getSize())
                         .fetch();
-
-        List<UserFriendResponse> response2 =
-                query.select(Projections.constructor(UserFriendResponse.class,
-                                user.email,
-                                user.nickname,
-                                user.profile,
-                                new CaseBuilder()
-                                        .when(user.email.eq(myId)).then(2)
-                                        .when(user.receiveFriends.any().friend.email.eq(userId)
-                                                .or(user.sendFriends.any().friend.email.eq(userId)))
-                                        .then(1)
-                                        .otherwise(0)
-                        ))
-                        .from(friend1)
-                        .leftJoin(friend1.friend, user)
-                        .where(friend1.friend.email.eq(userId))
-                        .fetch();
-
-        return Stream.concat(response1.stream(), response2.stream()).toList();
     }
 
 }
