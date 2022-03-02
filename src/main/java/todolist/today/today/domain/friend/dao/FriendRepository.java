@@ -5,4 +5,7 @@ import todolist.today.today.domain.friend.domain.Friend;
 import todolist.today.today.domain.friend.domain.id.FriendRelation;
 
 public interface FriendRepository extends CrudRepository<Friend, FriendRelation> {
+
+    long countByFriendEmailOrUserEmail(String friendEmail, String userEmail);
+
 }
