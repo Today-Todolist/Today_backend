@@ -85,7 +85,7 @@ public class CustomUserRepositoryImpl {
                                 friend1.count(),
                                 new CaseBuilder()
                                         .when(user.email.eq(myId)).then(2)
-                                        .when(friend1.friend.email.contains(myId).or(friend1.user.email.contains(myId))).then(1)
+                                        .when(friend1.friend.email.eq(myId).or(friend1.user.email.eq(myId))).then(1)
                                         .otherwise(0)))
                         .from(user)
                         .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))

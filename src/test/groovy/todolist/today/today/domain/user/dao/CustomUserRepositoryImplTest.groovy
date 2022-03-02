@@ -138,8 +138,16 @@ class CustomUserRepositoryImplTest extends Specification {
                 .build()
         user = userRepository.save(user)
 
+        User friendUser = User.builder()
+                .email("tomorrow043149@gmail.com")
+                .password("")
+                .nickname("")
+                .profile("")
+                .build()
+        friendUser = userRepository.save(friendUser)
+
         Friend friend = Friend.builder()
-                .friend(user)
+                .friend(friendUser)
                 .user(user)
                 .build()
         friendRepository.save(friend)
@@ -153,13 +161,13 @@ class CustomUserRepositoryImplTest extends Specification {
         templateRepository.save(template)
 
         when:
-        UserInfoResponse response = customUserRepository.getUserInfo(user.getEmail(), user.getEmail())
+        UserInfoResponse response = customUserRepository.getUserInfo(user.getEmail(), friendUser.getEmail())
 
         then:
         response.getNickname() == user.getNickname()
         response.getProfile() == user.getProfile()
         response.getFriendsAmount() == 1L
-        response.getStatus() == 2
+        response.getStatus() == 1
         response.getTemplates().size() == 1
         response.getTemplates().get(0).getId() == template.getTemplateId().toString()
         response.getTemplates().get(0).getTitle() == template.getTitle()

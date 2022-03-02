@@ -12,7 +12,7 @@ import todolist.today.today.domain.user.exception.UserNotFoundException;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class InfoService {
+public class UserInfoService {
 
     private final CustomUserRepositoryImpl customUserRepository;
     private final UserRepository userRepository;
