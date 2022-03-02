@@ -16,4 +16,9 @@ public class InvoluteException extends RuntimeException implements GlobalExcepti
         this.errorResponse = new InvoluteErrorResponse(errorCode, reason);
     }
 
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return null;
+    }
+
 }
