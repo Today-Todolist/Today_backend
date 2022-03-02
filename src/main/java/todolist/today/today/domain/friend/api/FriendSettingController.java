@@ -3,10 +3,7 @@ package todolist.today.today.domain.friend.api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.friend.application.FriendSettingService;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
@@ -24,6 +21,12 @@ public class FriendSettingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void applyFriend(@PathVariable @Email @Size(min = 1, max = 64) String email) {
         friendSettingService.applyFriend(email, authenticationFacade.getUserId());
+    }
+
+    @DeleteMapping("/friend/{email}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFriend(@PathVariable @Email @Size(min = 1, max = 64) String email) {
+        friendSettingService.deleteFriend(email, authenticationFacade.getUserId());
     }
 
 }

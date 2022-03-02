@@ -45,4 +45,11 @@ public class CustomFriendRepositoryImpl {
                         .fetch();
     }
 
+    public void deleteFriend(String userId, String myId) {
+        query.delete(friend1)
+                .where(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))
+                        .or(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))))
+                .execute();
+    }
+
 }
