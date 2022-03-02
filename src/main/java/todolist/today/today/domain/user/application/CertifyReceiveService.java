@@ -36,6 +36,7 @@ public class CertifyReceiveService {
                 .profile(imageUploadFacade.uploadRandomImage())
                 .build();
         userRepository.save(user);
+        signUpCertifyRepository.delete(signUpCertify);
     }
 
     public void receiveChangePasswordCertify(String email, long token) {
@@ -46,6 +47,7 @@ public class CertifyReceiveService {
         User user = userRepository.findById(email)
                 .orElseThrow(() -> new UserNotFoundException(email));
         user.changePassword(changePasswordCertify.getPassword());
+        changePasswordCertifyRepository.delete(changePasswordCertify);
     }
 
 }
