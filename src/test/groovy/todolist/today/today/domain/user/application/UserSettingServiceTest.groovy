@@ -14,16 +14,16 @@ import todolist.today.today.infra.file.image.ImageUploadFacade
 
 import static todolist.today.today.RequestUtil.*
 
-class SettingServiceTest extends Specification {
+class UserSettingServiceTest extends Specification {
 
-    private SettingService settingService
+    private UserSettingService userSettingService
     private UserRepository userRepository = Stub(UserRepository)
     private TodolistRepository todolistRepository = Stub(TodolistRepository)
     private ImageUploadFacade imageUploadFacade = Stub(ImageUploadFacade)
     private CheckService checkService = Stub(CheckService)
 
     def setup() {
-        settingService = new SettingService(
+        userSettingService = new UserSettingService(
                 userRepository,
                 todolistRepository,
                 imageUploadFacade,
@@ -36,7 +36,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.of(new User())
 
         when:
-        settingService.changeProfile(USER_ID, Stub(MultipartFile))
+        userSettingService.changeProfile(USER_ID, Stub(MultipartFile))
 
         then:
         noExceptionThrown()
@@ -48,7 +48,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.empty()
 
         when:
-        settingService.changeProfile(USER_ID, Stub(MultipartFile))
+        userSettingService.changeProfile(USER_ID, Stub(MultipartFile))
 
         then:
         thrown(UserNotFoundException)
@@ -61,7 +61,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.of(new User())
 
         when:
-        settingService.changeNickname(USER_ID, request)
+        userSettingService.changeNickname(USER_ID, request)
 
         then:
         noExceptionThrown()
@@ -74,7 +74,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.empty()
 
         when:
-        settingService.changeNickname(USER_ID, request)
+        userSettingService.changeNickname(USER_ID, request)
 
         then:
         thrown(UserNotFoundException)
@@ -87,7 +87,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.of(new User())
 
         when:
-        settingService.changePassword(USER_ID, request)
+        userSettingService.changePassword(USER_ID, request)
 
         then:
         noExceptionThrown()
@@ -100,7 +100,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.empty()
 
         when:
-        settingService.changePassword(USER_ID, request)
+        userSettingService.changePassword(USER_ID, request)
 
         then:
         thrown(UserNotFoundException)
@@ -112,7 +112,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.of(new User())
 
         when:
-        settingService.changeEditAvailability(USER_ID, true)
+        userSettingService.changeEditAvailability(USER_ID, true)
 
         then:
         noExceptionThrown()
@@ -124,7 +124,7 @@ class SettingServiceTest extends Specification {
         userRepository.findById(USER_ID) >> Optional.empty()
 
         when:
-        settingService.changeEditAvailability(USER_ID, true)
+        userSettingService.changeEditAvailability(USER_ID, true)
 
         then:
         thrown(UserNotFoundException)
@@ -135,7 +135,7 @@ class SettingServiceTest extends Specification {
         ResetTodolistRequest request = makeResetTodolistRequest("")
 
         when:
-        settingService.resetTodolist("", request)
+        userSettingService.resetTodolist("", request)
 
         then:
         noExceptionThrown()
@@ -146,7 +146,7 @@ class SettingServiceTest extends Specification {
         DeleteUserRequest request = makeDeleteUserRequest("")
 
         when:
-        settingService.deleteUser("", request)
+        userSettingService.deleteUser("", request)
 
         then:
         noExceptionThrown()

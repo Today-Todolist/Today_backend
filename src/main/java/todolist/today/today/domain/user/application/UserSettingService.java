@@ -17,7 +17,7 @@ import todolist.today.today.infra.file.image.ImageUploadFacade;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class SettingService {
+public class UserSettingService {
 
     private final UserRepository userRepository;
     private final TodolistRepository todolistRepository;

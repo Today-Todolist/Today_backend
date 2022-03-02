@@ -35,7 +35,7 @@ import static todolist.today.today.RequestUtil.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class SettingControllerTest extends Specification {
+class UserSettingControllerTest extends Specification {
 
     @Autowired
     private MockMvc mvc
