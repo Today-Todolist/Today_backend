@@ -18,14 +18,14 @@ public class CustomFriendApplyRepositoryImpl {
 
     private final JPAQueryFactory query;
 
-    public List<UserFriendApplyResponse> getUserFriendApply(String userid, PagingRequest request) {
+    public List<UserFriendApplyResponse> getUserFriendApply(String userId, PagingRequest request) {
         return query.select(Projections.constructor(UserFriendApplyResponse.class,
                         user.email,
                         user.nickname,
                         user.profile))
                 .from(friendApply)
                 .leftJoin(friendApply.user, user)
-                .where(friendApply.friend.email.eq(userid))
+                .where(friendApply.friend.email.eq(userId))
                 .orderBy(friendApply.createdAt.desc())
                 .offset(request.getPage())
                 .limit(request.getSize())
