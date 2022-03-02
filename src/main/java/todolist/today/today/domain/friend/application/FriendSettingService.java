@@ -54,6 +54,9 @@ public class FriendSettingService {
     }
 
     public void deleteFriendApply(String userId, String myId) {
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException(userId);
+        }
         FriendRelation friendId = new FriendRelation(myId, userId);
         friendApplyRepository.deleteById(friendId);
     }
