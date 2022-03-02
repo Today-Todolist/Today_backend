@@ -19,8 +19,8 @@ public class FriendSettingController {
 
     @PostMapping("/friend-apply/{email}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    public void applyFriend(@PathVariable @Email @Size(min = 1, max = 64) String email) {
-        friendSettingService.applyFriend(email, authenticationFacade.getUserId());
+    public void makeFriendApply(@PathVariable @Email @Size(min = 1, max = 64) String email) {
+        friendSettingService.makeFriendApply(email, authenticationFacade.getUserId());
     }
 
     @DeleteMapping("/friend/{email}") @PreAuthorize("isAuthenticated()")
@@ -33,6 +33,12 @@ public class FriendSettingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void makeFriend(@PathVariable @Email @Size(min = 1, max = 64) String email) {
         friendSettingService.makeFriend(email, authenticationFacade.getUserId());
+    }
+
+    @DeleteMapping("/friend-apply/{email}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteFriendApply(@PathVariable @Email @Size(min = 1, max = 64) String email) {
+        friendSettingService.deleteFriendApply(email, authenticationFacade.getUserId());
     }
 
 }
