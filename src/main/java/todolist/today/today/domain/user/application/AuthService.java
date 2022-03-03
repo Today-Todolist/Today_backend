@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.CheckService;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dto.request.LoginRequest;
 import todolist.today.today.domain.user.dto.request.TokenRefreshRequest;

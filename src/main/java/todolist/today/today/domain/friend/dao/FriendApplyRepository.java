@@ -6,6 +6,6 @@ import todolist.today.today.domain.friend.domain.id.FriendRelation;
 
 public interface FriendApplyRepository extends CrudRepository<FriendApply, FriendRelation> {
 
-    long countByFriendEmailOrUserEmail(String friendEmail, String userEmail);
+    long countByFriendEmail(String userEmail);
 
 }

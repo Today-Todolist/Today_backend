@@ -14,4 +14,9 @@ public class SimpleException extends RuntimeException implements GlobalException
         this.errorResponse = new SimpleErrorResponse(errorCode, reason);
     }
 
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return null;
+    }
+
 }

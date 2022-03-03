@@ -14,4 +14,9 @@ public class BasicException extends RuntimeException implements GlobalException<
         this.errorResponse = new BasicErrorResponse(errorCode);
     }
 
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return null;
+    }
+
 }

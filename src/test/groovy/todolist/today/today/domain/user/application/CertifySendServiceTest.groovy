@@ -2,6 +2,7 @@ package todolist.today.today.domain.user.application
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
+import todolist.today.today.domain.CheckService
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository

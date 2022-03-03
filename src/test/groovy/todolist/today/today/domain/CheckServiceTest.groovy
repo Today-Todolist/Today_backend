@@ -1,7 +1,12 @@
-package todolist.today.today.domain.user.application
+package todolist.today.today.domain
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
+import todolist.today.today.domain.CheckService
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl
+import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
+import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException
+import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
@@ -16,6 +21,8 @@ class CheckServiceTest extends Specification {
     private UserRepository userRepository = Stub(UserRepository)
     private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
     private TemplateRepository templateRepository = Stub(TemplateRepository)
+    private CustomFriendRepositoryImpl customFriendRepository = Stub(CustomFriendRepositoryImpl)
+    private CustomFriendApplyRepositoryImpl customFriendApplyRepository = Stub(CustomFriendApplyRepositoryImpl)
     private PasswordEncoder passwordEncoder = Stub(PasswordEncoder)
 
     def setup() {
@@ -24,6 +31,8 @@ class CheckServiceTest extends Specification {
                 userRepository,
                 customUserRepository,
                 templateRepository,
+                customFriendRepository,
+                customFriendApplyRepository,
                 passwordEncoder)
     }
 
@@ -175,6 +184,58 @@ class CheckServiceTest extends Specification {
 
         then:
         thrown(UserNotFoundException)
+    }
+
+    def "test checkExistsFriendApply" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> false
+
+        when:
+        checkService.checkExistsFriendApply(USER_ID, MY_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkExistsFriendApply FriendApplyAlreadyExistsException" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> true
+
+        when:
+        checkService.checkExistsFriendApply(USER_ID, MY_ID)
+
+        then:
+        thrown(FriendApplyAlreadyExistsException)
+    }
+
+    def "test checkExistsFriend" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendRepository.existsFriend(USER_ID, MY_ID) >> false
+
+        when:
+        checkService.checkExistsFriend(USER_ID, MY_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkExistsFriend FriendAlreadyExistsException" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendRepository.existsFriend(USER_ID, MY_ID) >> true
+
+        when:
+        checkService.checkExistsFriend(USER_ID, MY_ID)
+
+        then:
+        thrown(FriendAlreadyExistsException)
     }
 
 }

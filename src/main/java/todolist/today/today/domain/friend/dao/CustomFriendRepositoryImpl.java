@@ -21,23 +21,20 @@ public class CustomFriendRepositoryImpl {
 
     public List<UserFriendResponse> getUserFriends(String userId, String myId, PagingRequest request) {
         return query.select(Projections.constructor(UserFriendResponse.class,
+                                user.email,
+                                user.nickname,
+                                user.profile,
                                 new CaseBuilder()
-                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.email)
-                                        .otherwise(friend1.friend.email),
-                                new CaseBuilder()
-                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.nickname)
-                                        .otherwise(friend1.friend.nickname),
-                                new CaseBuilder()
-                                        .when(friend1.friend.email.eq(userId)).then(friend1.user.profile)
-                                        .otherwise(friend1.friend.profile),
-                                new CaseBuilder()
-                                        .when(user.email.eq(myId)).then(2)
-                                        .when(user.receiveFriends.any().friend.email.eq(userId)
-                                                .or(user.sendFriends.any().friend.email.eq(userId)))
+                                        .when(user.email.eq(myId))
+                                        .then(2)
+                                        .when(friend1.friend.email.eq(myId))
                                         .then(1)
-                                        .otherwise(0)
+                                        .otherwise(0).as("status")
                         ))
-                        .from(friend1)
+                        .from(user)
+                        .rightJoin(user.receiveFriends, friend1)
+                        .on((user.email.eq(friend1.friend.email).or(user.email.eq(friend1.user.email)))
+                                .and(user.email.ne(userId)))
                         .where(friend1.friend.email.eq(userId).or(friend1.user.email.eq(userId)))
                         .orderBy(friend1.createdAt.desc())
                         .offset(request.getPage())
@@ -50,6 +47,13 @@ public class CustomFriendRepositoryImpl {
                 .where(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))
                         .or(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))))
                 .execute();
+    }
+
+    public boolean existsFriend(String userId, String myId) {
+        return query.selectFrom(friend1)
+                .where(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))
+                        .or(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))))
+                .fetchFirst() != null;
     }
 
 }
