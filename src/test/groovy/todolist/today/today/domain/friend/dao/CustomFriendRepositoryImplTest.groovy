@@ -44,7 +44,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friendUser = User.builder()
                 .email("tomorrow043149@gmail.com")
@@ -52,7 +52,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("nickname")
                 .profile("profile")
                 .build()
-        userRepository.save(friendUser)
+        friendUser = userRepository.save(friendUser)
 
         Friend friend = Friend.builder()
                 .friend(user)
@@ -75,7 +75,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friendUser = User.builder()
                 .email("tomorrow043149@gmail.com")
@@ -83,7 +83,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("nickname")
                 .profile("profile")
                 .build()
-        userRepository.save(friendUser)
+        friendUser = userRepository.save(friendUser)
 
         Friend friend = Friend.builder()
                 .friend(user)
@@ -106,7 +106,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friendUser = User.builder()
                 .email("tomorrow043149@gmail.com")
@@ -114,7 +114,7 @@ class CustomFriendRepositoryImplTest extends Specification {
                 .nickname("nickname")
                 .profile("profile")
                 .build()
-        userRepository.save(friendUser)
+        friendUser = userRepository.save(friendUser)
 
         Friend friend = Friend.builder()
                 .friend(user)

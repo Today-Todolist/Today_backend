@@ -43,7 +43,7 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friend = User.builder()
                 .email("today043149@gmail.com")
@@ -51,7 +51,7 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
                 .nickname("nickname")
                 .profile("profile")
                 .build()
-        userRepository.save(friend)
+        friend = userRepository.save(friend)
 
         FriendApply friendApply = FriendApply.builder()
                 .friend(user)
@@ -77,7 +77,7 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friend = User.builder()
                 .email("tomorrow043149@gmail.com")
@@ -85,7 +85,7 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
                 .nickname("nickname")
                 .profile("profile")
                 .build()
-        userRepository.save(friend)
+        friend = userRepository.save(friend)
 
         FriendApply friendApply = FriendApply.builder()
                 .friend(user)

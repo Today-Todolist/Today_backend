@@ -52,7 +52,7 @@ class FriendInfoControllerTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friendUser = User.builder()
                 .email(FRIEND_ID)
@@ -60,7 +60,7 @@ class FriendInfoControllerTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(friendUser)
+        friendUser = userRepository.save(friendUser)
 
         Friend friend = Friend.builder()
                 .friend(user)
@@ -89,7 +89,7 @@ class FriendInfoControllerTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(user)
+        user = userRepository.save(user)
 
         User friend = User.builder()
                 .email(FRIEND_ID)
@@ -97,7 +97,7 @@ class FriendInfoControllerTest extends Specification {
                 .nickname("")
                 .profile("")
                 .build()
-        userRepository.save(friend)
+        friend = userRepository.save(friend)
 
         FriendApply friendApply = FriendApply.builder()
                 .friend(user)
