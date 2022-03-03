@@ -5,10 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
+import todolist.today.today.global.config.ValidatedConfig
 import todolist.today.today.global.error.ingredient.TestController
 import todolist.today.today.global.error.ingredient.TestDto
 import todolist.today.today.global.security.service.JwtTokenProvider
@@ -22,6 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(controllers = TestController)
+@Import(ValidatedConfig)
 class GlobalExceptionHandlerTest extends Specification {
 
     @Autowired
@@ -78,6 +81,23 @@ class GlobalExceptionHandlerTest extends Specification {
         result.andExpect(status().isBadRequest())
         checkBasicErrorResponse(result, ErrorCode.MISSING_REQUEST)
         result.andExpect(jsonPath("reasons").isMap())
+    }
+
+    def "test handleConstraintViolationException" () {
+        given:
+        TestDto request = new TestDto("test")
+
+        when:
+        ResultActions result = mvc.perform(post("/exception")
+                .contentType(MediaType.APPLICATION_JSON)
+                .param("test", "-1")
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().isBadRequest())
+        checkBasicErrorResponse(result, ErrorCode.MISSING_REQUEST)
+        result.andExpect(jsonPath("reason").isString())
     }
 
     def "test handleMissingServletRequestParameterException" () {

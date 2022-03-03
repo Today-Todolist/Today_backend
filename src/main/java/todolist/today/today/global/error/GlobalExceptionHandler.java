@@ -19,6 +19,7 @@ import todolist.today.today.global.error.exception.GlobalException;
 import todolist.today.today.global.error.exception.InvoluteException;
 import todolist.today.today.global.error.exception.SimpleException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +49,12 @@ public class GlobalExceptionHandler {
         e.getFieldErrors().forEach(fieldError -> reasons.put(fieldError.getField(), fieldError.getDefaultMessage()));
 
         final InvoluteErrorResponse response = new InvoluteErrorResponse(MISSING_REQUEST, reasons);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<SimpleErrorResponse> handleConstraintViolationException(ConstraintViolationException e) {
+        final SimpleErrorResponse response = new SimpleErrorResponse(MISSING_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

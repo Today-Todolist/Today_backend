@@ -2,15 +2,17 @@ package todolist.today.today.global.error.ingredient;
 
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
-@RestController
+@RestController @Validated
 public class TestController {
 
     @PostMapping("/exception")
-    public void exceptionTesting(@Valid @RequestBody TestDto dto, @RequestParam("test") String test) throws Exception {
+    public void exceptionTesting(@Valid @RequestBody TestDto dto, @RequestParam("test") @Positive int test) throws Exception {
         throw new Exception();
     }
 
