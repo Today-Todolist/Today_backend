@@ -4,7 +4,7 @@ import spock.lang.Specification
 import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
 import todolist.today.today.domain.friend.dao.FriendApplyRepository
 import todolist.today.today.domain.friend.dao.FriendRepository
-import todolist.today.today.domain.user.application.CheckService
+import todolist.today.today.domain.CheckService
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.domain.user.exception.UserNotFoundException

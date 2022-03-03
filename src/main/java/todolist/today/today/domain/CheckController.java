@@ -1,10 +1,9 @@
-package todolist.today.today.domain.user.api;
+package todolist.today.today.domain;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import todolist.today.today.domain.user.application.CheckService;
 import todolist.today.today.domain.user.dto.request.CheckPasswordRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 

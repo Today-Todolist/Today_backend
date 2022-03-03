@@ -2,6 +2,7 @@ package todolist.today.today.domain.user.application
 
 import io.jsonwebtoken.Claims
 import spock.lang.Specification
+import todolist.today.today.domain.CheckService
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dto.request.LoginRequest
 import todolist.today.today.domain.user.dto.request.TokenRefreshRequest

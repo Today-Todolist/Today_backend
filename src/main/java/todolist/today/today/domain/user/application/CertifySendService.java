@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.CheckService;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
