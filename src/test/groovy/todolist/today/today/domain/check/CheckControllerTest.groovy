@@ -1,4 +1,4 @@
-package todolist.today.today.domain
+package todolist.today.today.domain.check
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.beans.factory.annotation.Autowired
