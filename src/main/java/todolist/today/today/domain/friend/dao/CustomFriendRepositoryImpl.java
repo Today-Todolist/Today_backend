@@ -49,4 +49,11 @@ public class CustomFriendRepositoryImpl {
                 .execute();
     }
 
+    public boolean existsFriend(String userId, String myId) {
+        return query.selectFrom(friend1)
+                .where(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))
+                        .or(friend1.friend.email.eq(userId).and(friend1.user.email.eq(myId))))
+                .fetchFirst() != null;
+    }
+
 }

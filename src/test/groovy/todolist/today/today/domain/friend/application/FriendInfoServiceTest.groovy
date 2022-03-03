@@ -51,7 +51,7 @@ class FriendInfoServiceTest extends Specification {
         final String USER_ID = "today043149@gmail.com"
         PagingRequest request = new PagingRequest(0, 1)
 
-        friendApplyRepository.countByFriendEmailOrUserEmail(USER_ID, USER_ID) >> count
+        friendApplyRepository.countByFriendEmail(USER_ID) >> count
 
         when:
         PagingResponse<UserFriendApplyResponse> response = friendInfoService.getUserFriendsApply(USER_ID, request)

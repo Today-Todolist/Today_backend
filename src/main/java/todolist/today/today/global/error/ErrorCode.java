@@ -32,7 +32,9 @@ public enum ErrorCode {
     WRONG_CERTIFY(401, "E005", "Wrong Certify"),
     USER_NOT_FOUND(404, "E006", "User Not Found"),
     TEMPLATE_ALREADY_EXIST(409, "E007", "Template Already Exist"),
-    TODOLIST_CHANGE_IMPOSSIBLE(409, "E008", "Todolist Change Impossible");
+    TODOLIST_CHANGE_IMPOSSIBLE(409, "E008", "Todolist Change Impossible"),
+    FRIEND_ALREADY_EXIST(409, "E009", "Friend Already Exist"),
+    FRIEND_APPLY_ALREADY_EXIST(409, "E009", "Friend Apply Already Exist");
 
     private final int status;
     private final String code;

@@ -4,6 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl;
+import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl;
+import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException;
+import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
@@ -20,6 +24,8 @@ public class CheckService {
     private final UserRepository userRepository;
     private final CustomUserRepositoryImpl customUserRepository;
     private final TemplateRepository templateRepository;
+    private final CustomFriendRepositoryImpl customFriendRepository;
+    private final CustomFriendApplyRepositoryImpl customFriendApplyRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -57,6 +63,18 @@ public class CheckService {
     public void checkNotExistsUser(String userId) {
         if (!userRepository.existsById(userId)) {
             throw new UserNotFoundException(userId);
+        }
+    }
+
+    public void checkExistsFriendApply(String userId, String myId) {
+        if (customFriendApplyRepository.existsFriendApply(userId, myId)) {
+            throw new FriendApplyAlreadyExistsException(userId, myId);
+        }
+    }
+
+    public void checkExistsFriend(String userId, String myId) {
+        if (customFriendRepository.existsFriend(userId, myId)) {
+            throw new FriendAlreadyExistsException(userId, myId);
         }
     }
 

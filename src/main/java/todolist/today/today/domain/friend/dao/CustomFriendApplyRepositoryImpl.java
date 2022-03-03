@@ -9,6 +9,7 @@ import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
 
+import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.friend.domain.QFriendApply.friendApply;
 import static todolist.today.today.domain.user.domain.QUser.user;
 
@@ -30,6 +31,13 @@ public class CustomFriendApplyRepositoryImpl {
                 .offset(request.getPage())
                 .limit(request.getSize())
                 .fetch();
+    }
+
+    public boolean existsFriendApply(String userId, String myId) {
+        return query.selectFrom(friendApply)
+                .where(friendApply.friend.email.eq(userId).and(friendApply.user.email.eq(myId))
+                        .or(friendApply.friend.email.eq(userId).and(friendApply.user.email.eq(myId))))
+                .fetchFirst() != null;
     }
 
 }

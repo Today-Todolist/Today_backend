@@ -98,4 +98,32 @@ class CustomFriendRepositoryImplTest extends Specification {
         !friendRepository.existsById(new FriendRelation(friendUser.getEmail(), user.getEmail()))
     }
 
+    def "test existsFriend" () {
+        given:
+        User user = User.builder()
+                .email("today043149@gmail.com")
+                .password("")
+                .nickname("")
+                .profile("")
+                .build()
+        userRepository.save(user)
+
+        User friendUser = User.builder()
+                .email("tomorrow043149@gmail.com")
+                .password("")
+                .nickname("nickname")
+                .profile("profile")
+                .build()
+        userRepository.save(friendUser)
+
+        Friend friend = Friend.builder()
+                .friend(user)
+                .user(friendUser)
+                .build()
+        friendRepository.save(friend)
+
+        expect:
+        customFriendRepository.existsFriend(user.getEmail(), friendUser.getEmail())
+    }
+
 }

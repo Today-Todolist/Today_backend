@@ -36,7 +36,7 @@ public class FriendInfoService {
     }
 
     public PagingResponse<UserFriendApplyResponse> getUserFriendsApply(String userId, PagingRequest request) {
-        long totalElements = friendApplyRepository.countByFriendEmailOrUserEmail(userId, userId);
+        long totalElements = friendApplyRepository.countByFriendEmail(userId);
 
         List<UserFriendApplyResponse> response;
         if (totalElements >= 1) response = customFriendApplyRepository.getUserFriendApply(userId, request);

@@ -69,5 +69,33 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
         response.get(0).getProfile() == friend.getProfile()
     }
 
+    def "test existsFriendApply" () {
+        given:
+        User user = User.builder()
+                .email("today043149@gmail.com")
+                .password("")
+                .nickname("")
+                .profile("")
+                .build()
+        userRepository.save(user)
+
+        User friend = User.builder()
+                .email("tomorrow043149@gmail.com")
+                .password("")
+                .nickname("nickname")
+                .profile("profile")
+                .build()
+        userRepository.save(friend)
+
+        FriendApply friendApply = FriendApply.builder()
+                .friend(user)
+                .user(friend)
+                .build()
+        friendApplyRepository.save(friendApply)
+
+        expect:
+        customFriendApplyRepository.existsFriendApply(user.getEmail(), friend.getEmail())
+    }
+
 
 }
