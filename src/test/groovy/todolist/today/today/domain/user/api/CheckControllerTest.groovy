@@ -53,7 +53,7 @@ class CheckControllerTest extends Specification {
         userRepository.deleteAll()
     }
 
-    def "test checkEmail" () {
+    def "test checkExistsEmail" () {
         given:
         User user = User.builder()
                 .email(EMAIL)
@@ -76,7 +76,7 @@ class CheckControllerTest extends Specification {
         EMAIL || 409
     }
 
-    def "test checkNickname" () {
+    def "test checkExistsNickname" () {
         given:
         User user = User.builder()
                 .email("today043149@gmail.com")
@@ -128,7 +128,7 @@ class CheckControllerTest extends Specification {
         "wrongPassword" || 401
     }
 
-    def "test checkTemplateTitle" () {
+    def "test checkExistsTemplateTitle" () {
         given:
         User user = User.builder()
                 .email(EMAIL)
@@ -158,7 +158,7 @@ class CheckControllerTest extends Specification {
 
         where:
         requestTitle || status
-        "wrongTitle" || 200
+        "notTitle" || 200
         TEMPLATE_TITLE || 409
     }
 
