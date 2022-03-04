@@ -1,8 +1,8 @@
-package todolist.today.today.domain.check
+package todolist.today.today.domain.check.application
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
-import todolist.today.today.domain.check.CheckService
+import todolist.today.today.domain.check.application.CheckService
 import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl
 import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
 import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException

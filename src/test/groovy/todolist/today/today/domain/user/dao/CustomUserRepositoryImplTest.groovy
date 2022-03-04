@@ -7,12 +7,15 @@ import org.springframework.context.annotation.Import
 import spock.lang.Specification
 import todolist.today.today.domain.friend.dao.FriendRepository
 import todolist.today.today.domain.friend.domain.Friend
+import todolist.today.today.domain.search.dto.response.EmailSearchResponse
+import todolist.today.today.domain.search.dto.response.NicknameSearchResponse
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.domain.Template
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.domain.user.dto.response.MyInfoResponse
 import todolist.today.today.domain.user.dto.response.UserInfoResponse
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.dto.request.PagingRequest
 
 import javax.persistence.EntityManager
 
@@ -172,6 +175,48 @@ class CustomUserRepositoryImplTest extends Specification {
         response.getTemplates().get(0).getId() == template.getTemplateId().toString()
         response.getTemplates().get(0).getTitle() == template.getTitle()
         response.getTemplates().get(0).getProfile() == template.getProfile()
+    }
+
+    def "test getNicknameSearchResult" () {
+        given:
+        User user = User.builder()
+                .email("today043149@gmail.com")
+                .password("")
+                .nickname("nickname")
+                .profile("profile")
+                .build()
+        userRepository.save(user)
+
+        when:
+        List<NicknameSearchResponse> response = customUserRepository.getNicknameSearchResult(user.getEmail(), "ickn", new PagingRequest(0, 1))
+
+        then:
+        response.size() == 1
+        response.get(0).email == user.getEmail()
+        response.get(0).nickname == user.getNickname()
+        response.get(0).profile == user.getProfile()
+        response.get(0).status == 2
+    }
+
+    def "test getEmailSearchResult" () {
+        given:
+        User user = User.builder()
+                .email("today043149@gmail.com")
+                .password("")
+                .nickname("nickname")
+                .profile("profile")
+                .build()
+        userRepository.save(user)
+
+        when:
+        List<EmailSearchResponse> response = customUserRepository.getEmailSearchResult(user.getEmail(), "day0", new PagingRequest(0, 1))
+
+        then:
+        response.size() == 1
+        response.get(0).email == user.getEmail()
+        response.get(0).nickname == user.getNickname()
+        response.get(0).profile == user.getProfile()
+        response.get(0).status == 2
     }
 
 }
