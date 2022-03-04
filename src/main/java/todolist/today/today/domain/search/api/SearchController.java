@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.today.today.domain.search.application.SearchService;
+import todolist.today.today.domain.search.dto.response.SearchAmountResponse;
 import todolist.today.today.domain.search.dto.response.SearchWordResponse;
 
 import javax.validation.constraints.Size;
@@ -19,6 +20,11 @@ public class SearchController {
     @GetMapping("/search-word")
     public SearchWordResponse getSearchWord(@RequestParam("word") @Size(min = 1, max = 10) String word) {
         return searchService.getSearchWord(word);
+    }
+
+    @GetMapping("/search-amount")
+    public SearchAmountResponse getSearchAmount(@RequestParam("word") @Size(min = 1, max = 10) String word) {
+        return searchService.getSearchAmount(word);
     }
 
 }
