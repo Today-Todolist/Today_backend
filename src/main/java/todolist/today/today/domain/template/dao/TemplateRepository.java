@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface TemplateRepository extends CrudRepository<Template, UUID> {
 
     boolean existsByUserEmailAndTitle(String email, String title);
+    long countByTitleContains(String title);
 
 }
