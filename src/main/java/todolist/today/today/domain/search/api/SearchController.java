@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.today.today.domain.search.application.SearchService;
-import todolist.today.today.domain.search.dto.response.EmailSearchResponse;
-import todolist.today.today.domain.search.dto.response.NicknameSearchResponse;
-import todolist.today.today.domain.search.dto.response.SearchAmountResponse;
-import todolist.today.today.domain.search.dto.response.SearchWordResponse;
+import todolist.today.today.domain.search.dto.response.*;
 import todolist.today.today.global.dto.request.PagingRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
@@ -48,6 +45,13 @@ public class SearchController {
                                                     @RequestParam("page") @Min(0) int page,
                                                     @RequestParam("size") @Positive int size) {
         return searchService.getEmailResult(authenticationFacade.getUserId(), word, new PagingRequest(page, size));
+    }
+
+    @GetMapping("/search-result/template")
+    public List<TemplateSearchResponse> getTemplateResult(@RequestParam("word") @Size(min = 1, max = 10) String word,
+                                                          @RequestParam("page") @Min(0) int page,
+                                                          @RequestParam("size") @Positive int size) {
+        return searchService.getTemplateResult(word, new PagingRequest(page, size));
     }
 
 }

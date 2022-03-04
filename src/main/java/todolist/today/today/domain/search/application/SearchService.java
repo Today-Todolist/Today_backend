@@ -5,10 +5,8 @@ import org.springframework.stereotype.Service;
 import todolist.today.today.domain.search.dao.CustomSearchWordRepositoryImpl;
 import todolist.today.today.domain.search.dao.SearchWordRepository;
 import todolist.today.today.domain.search.domain.SearchWord;
-import todolist.today.today.domain.search.dto.response.EmailSearchResponse;
-import todolist.today.today.domain.search.dto.response.NicknameSearchResponse;
-import todolist.today.today.domain.search.dto.response.SearchAmountResponse;
-import todolist.today.today.domain.search.dto.response.SearchWordResponse;
+import todolist.today.today.domain.search.dto.response.*;
+import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
 import todolist.today.today.domain.user.dao.UserRepository;
@@ -22,6 +20,7 @@ public class SearchService {
 
     private final CustomSearchWordRepositoryImpl customSearchWordRepository;
     private final CustomUserRepositoryImpl customUserRepository;
+    private final CustomTemplateRepositoryImpl customTemplateRepository;
     private final SearchWordRepository searchWordRepository;
     private final UserRepository userRepository;
     private final TemplateRepository templateRepository;
@@ -47,5 +46,9 @@ public class SearchService {
 
     public List<EmailSearchResponse> getEmailResult(String userId, String word, PagingRequest request) {
         return customUserRepository.getEmailSearchResult(userId, word, request);
+    }
+
+    public List<TemplateSearchResponse> getTemplateResult(String word, PagingRequest request) {
+        return customTemplateRepository.getTemplateSearchResult(word, request);
     }
 }
