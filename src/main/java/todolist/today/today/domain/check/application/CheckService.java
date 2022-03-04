@@ -1,4 +1,4 @@
-package todolist.today.today.domain.check;
+package todolist.today.today.domain.check.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
