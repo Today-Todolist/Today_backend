@@ -21,7 +21,7 @@ public class SearchWord {
 
     public SearchWord(String word) {
         this.searchWord = word;
-        this.value = 1;
+        this.value = 0;
     }
 
     public void addValue() {
