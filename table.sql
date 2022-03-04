@@ -99,3 +99,9 @@ CREATE TABLE `TEMPLATE_TODOLIST_CONTENT` (
     FOREIGN KEY (`template_todolist_subject_id`)
 		REFERENCES `TEMPLATE_TODOLIST_SUBJECT` (`template_todolist_subject_id`) ON DELETE CASCADE
 );
+
+CREATE TABLE `SEARCH_WORD` (
+	`search_word` VARCHAR(10) NOT NULL UNIQUE,
+	`value` INT NOT NULL,
+	PRIMARY KEY (`search_word`)
+);

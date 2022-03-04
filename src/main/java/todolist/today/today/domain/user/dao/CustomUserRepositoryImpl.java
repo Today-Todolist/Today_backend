@@ -5,10 +5,13 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import todolist.today.today.domain.search.dto.response.EmailSearchResponse;
+import todolist.today.today.domain.search.dto.response.NicknameSearchResponse;
 import todolist.today.today.domain.user.dto.response.MyInfoResponse;
 import todolist.today.today.domain.user.dto.response.UserInfoResponse;
 import todolist.today.today.domain.user.dto.response.template.MyInfoTemplateResponse;
 import todolist.today.today.domain.user.dto.response.template.UserInfoTemplateResponse;
+import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
 
@@ -94,6 +97,42 @@ public class CustomUserRepositoryImpl {
 
         response.setTemplates(templates);
         return response;
+    }
+
+    public List<NicknameSearchResponse> getNicknameSearchResult(String userId, String word, PagingRequest request) {
+        return query.select(Projections.constructor(NicknameSearchResponse.class,
+                        user.email,
+                        user.nickname,
+                        user.profile,
+                        new CaseBuilder()
+                                .when(user.email.eq(userId)).then(2)
+                                .when(friend1.friend.email.eq(userId).or(friend1.user.email.eq(userId))).then(1)
+                                .otherwise(0)))
+                .from(user)
+                .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
+                .where(user.nickname.contains(word))
+                .orderBy(friend1.count().desc())
+                .offset(request.getPage())
+                .limit(request.getSize())
+                .fetch();
+    }
+
+    public List<EmailSearchResponse> getEmailSearchResult(String userId, String word, PagingRequest request) {
+        return query.select(Projections.constructor(EmailSearchResponse.class,
+                        user.email,
+                        user.nickname,
+                        user.profile,
+                        new CaseBuilder()
+                                .when(user.email.eq(userId)).then(2)
+                                .when(friend1.friend.email.eq(userId).or(friend1.user.email.eq(userId))).then(1)
+                                .otherwise(0)))
+                .from(user)
+                .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
+                .where(user.email.contains(word))
+                .orderBy(friend1.count().desc())
+                .offset(request.getPage())
+                .limit(request.getSize())
+                .fetch();
     }
 
 }
