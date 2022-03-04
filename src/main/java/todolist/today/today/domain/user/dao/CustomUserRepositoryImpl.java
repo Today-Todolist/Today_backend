@@ -5,6 +5,7 @@ import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import todolist.today.today.domain.search.dto.response.EmailSearchResponse;
 import todolist.today.today.domain.search.dto.response.NicknameSearchResponse;
 import todolist.today.today.domain.user.dto.response.MyInfoResponse;
 import todolist.today.today.domain.user.dto.response.UserInfoResponse;
@@ -110,6 +111,22 @@ public class CustomUserRepositoryImpl {
                 .from(user)
                 .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                 .where(user.nickname.contains(word))
+                .orderBy(friend1.count().desc())
+                .fetch();
+    }
+
+    public List<EmailSearchResponse> getEmailSearchResult(String userId, String word, PagingRequest request) {
+        return query.select(Projections.constructor(EmailSearchResponse.class,
+                        user.email,
+                        user.nickname,
+                        user.profile,
+                        new CaseBuilder()
+                                .when(user.email.eq(userId)).then(2)
+                                .when(friend1.friend.email.eq(userId).or(friend1.user.email.eq(userId))).then(1)
+                                .otherwise(0)))
+                .from(user)
+                .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
+                .where(user.email.contains(word))
                 .orderBy(friend1.count().desc())
                 .fetch();
     }

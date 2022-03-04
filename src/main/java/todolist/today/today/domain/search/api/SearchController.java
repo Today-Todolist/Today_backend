@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.today.today.domain.search.application.SearchService;
+import todolist.today.today.domain.search.dto.response.EmailSearchResponse;
 import todolist.today.today.domain.search.dto.response.NicknameSearchResponse;
 import todolist.today.today.domain.search.dto.response.SearchAmountResponse;
 import todolist.today.today.domain.search.dto.response.SearchWordResponse;
@@ -34,11 +35,19 @@ public class SearchController {
     public SearchAmountResponse getSearchAmount(@RequestParam("word") @Size(min = 1, max = 10) String word) {
         return searchService.getSearchAmount(word);
     }
+
     @GetMapping("/search-result/nickname") @PreAuthorize("isAuthenticated()")
     public List<NicknameSearchResponse> getNicknameResult(@RequestParam("word") @Size(min = 1, max = 10) String word,
                                                           @RequestParam("page") @Min(0) int page,
                                                           @RequestParam("size") @Positive int size) {
         return searchService.getNicknameResult(authenticationFacade.getUserId(), word, new PagingRequest(page, size));
+    }
+
+    @GetMapping("/search-result/email") @PreAuthorize("isAuthenticated()")
+    public List<EmailSearchResponse> getEmailResult(@RequestParam("word") @Size(min = 1, max = 10) String word,
+                                                    @RequestParam("page") @Min(0) int page,
+                                                    @RequestParam("size") @Positive int size) {
+        return searchService.getEmailResult(authenticationFacade.getUserId(), word, new PagingRequest(page, size));
     }
 
 }
