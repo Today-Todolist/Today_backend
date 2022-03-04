@@ -10,7 +10,7 @@ import static todolist.today.today.domain.search.domain.QSearchWord.searchWord1;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomSearchRepositoryImpl {
+public class CustomSearchWordRepositoryImpl {
 
     private final JPAQueryFactory query;
 
