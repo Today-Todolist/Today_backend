@@ -6,6 +6,7 @@ import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
+import todolist.today.today.domain.template.dto.response.TemplateContentResponse;
 
 import java.util.List;
 
@@ -23,6 +24,10 @@ public class TemplateInfoService {
 
     public List<MyTemplateResponse> getMyTemplate(String userId) {
         return customTemplateRepository.getMyTemplate(userId);
+    }
+
+    public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
+        return customTemplateRepository.getTemplateContent(userId, templateId, day);
     }
 
 }
