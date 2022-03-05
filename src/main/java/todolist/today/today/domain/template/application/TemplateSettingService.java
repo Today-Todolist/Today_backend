@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import todolist.today.today.domain.check.application.CheckService;
+import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.domain.Template;
 import todolist.today.today.domain.template.dto.request.TemplateCreateRequest;
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Transactional
 public class TemplateSettingService {
 
+    private final CustomTemplateRepositoryImpl customTemplateRepository;
     private final TemplateRepository templateRepository;
     private final UserRepository userRepository;
     private final ImageUploadFacade imageUploadFacade;
@@ -50,12 +52,11 @@ public class TemplateSettingService {
     }
 
     public void deleteTemplate(String userId, String templateId) {
-        Template template = templateRepository.findById(UUID.fromString(templateId))
-                .orElseThrow(() -> new TemplateNotFoundException(templateId));
-        if (template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
-        imageUploadFacade.deleteImage(template.getProfile());
-
-        templateRepository.delete(template);
+        String profile = customTemplateRepository.getTemplateProfile(userId, templateId);
+        if (profile == null) throw new TemplateNotFoundException(templateId);
+        
+        imageUploadFacade.deleteImage(profile);
+        templateRepository.deleteById(UUID.fromString(templateId));
     }
 
 }

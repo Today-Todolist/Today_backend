@@ -108,4 +108,11 @@ public class CustomTemplateRepositoryImpl {
                 .fetchOne();
     }
 
+    public String getTemplateProfile(String userId, String templateId) {
+        return query.select(template.profile)
+                .from(template)
+                .where(template.templateId.eq(UUID.fromString(templateId)).and(template.user.email.eq(userId)))
+                .fetchOne();
+    }
+
 }
