@@ -27,9 +27,15 @@ public class TemplateSettingController {
 
     @PutMapping("/template-profile/{templateId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    public void changeProfile(@PathVariable("templateId") @NotEmpty String templateId,
-                              @RequestPart("profile") MultipartFile profile) {
-        templateSettingService.changeProfile(authenticationFacade.getUserId(), templateId, profile);
+    public void changeTemplateProfile(@PathVariable("templateId") @NotEmpty String templateId,
+                                      @RequestPart("profile") MultipartFile profile) {
+        templateSettingService.changeTemplateProfile(authenticationFacade.getUserId(), templateId, profile);
+    }
+
+    @DeleteMapping("/template/{templateId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTemplate(@PathVariable("templateId") @NotEmpty String templateId) {
+        templateSettingService.deleteTemplate(authenticationFacade.getUserId(), templateId);
     }
 
 }

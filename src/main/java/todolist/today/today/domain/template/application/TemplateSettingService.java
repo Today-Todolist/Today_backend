@@ -41,12 +41,21 @@ public class TemplateSettingService {
         templateRepository.save(template);
     }
 
-    public void changeProfile(String userId, String templateId, MultipartFile profile) {
+    public void changeTemplateProfile(String userId, String templateId, MultipartFile profile) {
         Template template = templateRepository.findById(UUID.fromString(templateId))
                 .orElseThrow(() -> new TemplateNotFoundException(templateId));
         if (template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
 
         template.updateProfile(imageUploadFacade.uploadImage(profile));
+    }
+
+    public void deleteTemplate(String userId, String templateId) {
+        Template template = templateRepository.findById(UUID.fromString(templateId))
+                .orElseThrow(() -> new TemplateNotFoundException(templateId));
+        if (template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
+        imageUploadFacade.deleteImage(template.getProfile());
+
+        templateRepository.delete(template);
     }
 
 }
