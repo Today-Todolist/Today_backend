@@ -34,7 +34,8 @@ public enum ErrorCode {
     TEMPLATE_ALREADY_EXIST(409, "E007", "Template Already Exist"),
     TODOLIST_CHANGE_IMPOSSIBLE(409, "E008", "Todolist Change Impossible"),
     FRIEND_ALREADY_EXIST(409, "E009", "Friend Already Exist"),
-    FRIEND_APPLY_ALREADY_EXIST(409, "E010", "Friend Apply Already Exist");
+    FRIEND_APPLY_ALREADY_EXIST(409, "E010", "Friend Apply Already Exist"),
+    TEMPLATE_NOT_FOUND(404, "E011", "Template Not Found");
 
     private final int status;
     private final String code;

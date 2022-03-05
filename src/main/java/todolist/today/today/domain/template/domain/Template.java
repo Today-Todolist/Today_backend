@@ -42,6 +42,10 @@ public class Template extends BaseCreatedAt {
         this.profile = profile;
     }
 
+    public void updateProfile(String profile) {
+        this.profile = profile;
+    }
+
     @OneToMany(mappedBy = "template", cascade = CascadeType.REMOVE)
     private List<TemplateDay> templateDays;
 
