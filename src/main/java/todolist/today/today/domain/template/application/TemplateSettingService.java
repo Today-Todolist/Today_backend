@@ -46,7 +46,7 @@ public class TemplateSettingService {
     public void changeTemplateProfile(String userId, String templateId, MultipartFile profile) {
         Template template = templateRepository.findById(UUID.fromString(templateId))
                 .orElseThrow(() -> new TemplateNotFoundException(templateId));
-        if (template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
+        if (!template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
 
         template.updateProfile(imageUploadFacade.uploadImage(profile));
     }
@@ -54,7 +54,7 @@ public class TemplateSettingService {
     public void deleteTemplate(String userId, String templateId) {
         String profile = customTemplateRepository.getTemplateProfile(userId, templateId);
         if (profile == null) throw new TemplateNotFoundException(templateId);
-        
+
         imageUploadFacade.deleteImage(profile);
         templateRepository.deleteById(UUID.fromString(templateId));
     }

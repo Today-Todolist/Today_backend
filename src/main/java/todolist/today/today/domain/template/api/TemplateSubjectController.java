@@ -1,0 +1,28 @@
+package todolist.today.today.domain.template.api;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import todolist.today.today.domain.template.application.TemplateSubjectService;
+import todolist.today.today.domain.template.dto.request.TemplateSubjectCreateRequest;
+import todolist.today.today.global.security.service.AuthenticationFacade;
+
+import javax.validation.Valid;
+
+@RestController @Validated
+@RequiredArgsConstructor
+@RequestMapping("/template")
+public class TemplateSubjectController {
+
+    private final TemplateSubjectService templateSubjectService;
+    private final AuthenticationFacade authenticationFacade;
+
+    @PostMapping("/subject") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void makeTemplateSubject(@Valid @RequestBody TemplateSubjectCreateRequest request) {
+        templateSubjectService.makeTemplateSubject(authenticationFacade.getUserId(), request);
+    }
+
+}

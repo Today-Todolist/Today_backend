@@ -105,6 +105,7 @@ public class CustomTemplateRepositoryImpl {
                 .innerJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
                 .innerJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
                 .where(templateDay.day.eq(day).and(template.templateId.eq(UUID.fromString(templateId))))
+                .orderBy(templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetchOne();
     }
 
