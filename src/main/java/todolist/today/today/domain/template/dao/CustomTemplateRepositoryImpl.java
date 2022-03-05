@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import todolist.today.today.domain.search.dto.response.TemplateSearchResponse;
 import todolist.today.today.domain.search.dto.response.template.TemplateSearchTemplateResponse;
 import todolist.today.today.domain.search.dto.response.user.TemplateSearchUserResponse;
+import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
 import todolist.today.today.domain.template.dto.response.template.RandomTemplateTemplateResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
@@ -61,6 +62,16 @@ public class CustomTemplateRepositoryImpl {
                 .leftJoin(template.user, user)
                 .offset(random.nextInt((int) (count/size)))
                 .limit(size)
+                .fetch();
+    }
+
+    public List<MyTemplateResponse> getMyTemplate(String userId) {
+        return query.select(Projections.constructor(MyTemplateResponse.class,
+                        template.templateId,
+                        template.title,
+                        template.profile))
+                .from(template)
+                .where(template.user.email.eq(userId))
                 .fetch();
     }
 
