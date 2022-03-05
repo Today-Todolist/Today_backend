@@ -2,6 +2,7 @@ package todolist.today.today.domain.search.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.search.dao.CustomSearchWordRepositoryImpl;
 import todolist.today.today.domain.search.dao.SearchWordRepository;
 import todolist.today.today.domain.search.domain.SearchWord;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class SearchService {
 
     private final CustomSearchWordRepositoryImpl customSearchWordRepository;

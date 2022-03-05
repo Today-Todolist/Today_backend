@@ -2,6 +2,7 @@ package todolist.today.today.domain.template.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TemplateInfoService {
 
     private final CustomTemplateRepositoryImpl customTemplateRepository;
