@@ -45,8 +45,8 @@ public class TemplateSettingService {
 
     public void changeTemplateProfile(String userId, String templateId, MultipartFile profile) {
         Template template = templateRepository.findById(UUID.fromString(templateId))
+                .filter(t -> t.getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateNotFoundException(templateId));
-        if (!template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
 
         template.updateProfile(imageUploadFacade.uploadImage(profile));
     }

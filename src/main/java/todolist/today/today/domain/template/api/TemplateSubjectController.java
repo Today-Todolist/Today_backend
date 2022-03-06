@@ -6,10 +6,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.template.application.TemplateSubjectService;
+import todolist.today.today.domain.template.dto.request.TemplateSubjectChangeRequest;
 import todolist.today.today.domain.template.dto.request.TemplateSubjectCreateRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 
 @RestController @Validated
 @RequiredArgsConstructor
@@ -23,6 +25,13 @@ public class TemplateSubjectController {
     @ResponseStatus(HttpStatus.CREATED)
     public void makeTemplateSubject(@Valid @RequestBody TemplateSubjectCreateRequest request) {
         templateSubjectService.makeTemplateSubject(authenticationFacade.getUserId(), request);
+    }
+    
+    @PutMapping("/template/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeTemplateSubject(@PathVariable("subjectId") @NotEmpty String subjectId,
+                                      @Valid @RequestBody TemplateSubjectChangeRequest request) {
+        templateSubjectService.changeTemplateSubject(authenticationFacade.getUserId(), subjectId, request);
     }
 
 }

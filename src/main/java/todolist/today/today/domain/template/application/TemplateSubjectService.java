@@ -10,8 +10,10 @@ import todolist.today.today.domain.template.dao.TemplateSubjectRepository;
 import todolist.today.today.domain.template.domain.Template;
 import todolist.today.today.domain.template.domain.TemplateDay;
 import todolist.today.today.domain.template.domain.TemplateTodolistSubject;
+import todolist.today.today.domain.template.dto.request.TemplateSubjectChangeRequest;
 import todolist.today.today.domain.template.dto.request.TemplateSubjectCreateRequest;
 import todolist.today.today.domain.template.exception.TemplateNotFoundException;
+import todolist.today.today.domain.template.exception.TemplateSubjectNotFoundException;
 
 import java.util.UUID;
 
@@ -31,8 +33,8 @@ public class TemplateSubjectService {
         UUID templateUUID = UUID.fromString(templateId);
 
         Template template = templateRepository.findById(templateUUID)
+                .filter(t -> t.getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateNotFoundException(templateId));
-        if (!template.getUser().getEmail().equals(userId)) throw new TemplateNotFoundException(templateId);
 
         TemplateDay templateDay = templateDayRepository.findByTemplateTemplateIdAndDay(templateUUID, request.getDay())
                 .orElseGet(() ->
@@ -49,6 +51,13 @@ public class TemplateSubjectService {
                 .value(value + 100)
                 .build();
         templateSubjectRepository.save(templateSubject);
+    }
+
+    public void changeTemplateSubject(String userId, String subjectId, TemplateSubjectChangeRequest request) {
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+                .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
+        subject.updateSubject(request.getSubject());
     }
 
 }
