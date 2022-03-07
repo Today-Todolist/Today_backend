@@ -23,10 +23,11 @@ public class CustomTemplateContentRepositoryImpl {
                 .fetchFirst();
     }
 
-    public List<Integer> getTemplateContentValueByOrder(String contentId, int order) {
+    public List<Integer> getTemplateContentValueByOrder(UUID subjectId, String contentId, int order) {
         return query.select(templateTodolistContent.value)
                 .from(templateTodolistContent)
-                .where(templateTodolistContent.templateTodolistContentId.eq(UUID.fromString(contentId)))
+                .where(templateTodolistContent.templateTodolistContentId.ne(UUID.fromString(contentId))
+                        .and(templateTodolistContent.templateTodolistSubject.templateTodolistSubjectId.eq(subjectId)))
                 .orderBy(templateTodolistContent.value.asc())
                 .fetch().subList(order - 1, order);
     }
