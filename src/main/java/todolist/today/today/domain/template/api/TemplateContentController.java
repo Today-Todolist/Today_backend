@@ -42,4 +42,10 @@ public class TemplateContentController {
         templateContentService.changeTemplateContentOrder(authenticationFacade.getUserId(), contentId, request);
     }
 
+    @DeleteMapping("/content/{contentId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTemplateContent(@PathVariable("contentId") @NotEmpty String contentId) {
+        templateContentService.deleteTemplateContent(authenticationFacade.getUserId(), contentId);
+    }
+
 }

@@ -74,4 +74,11 @@ public class TemplateContentService {
             if (value2 - value1 <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
         }
     }
+
+    public void deleteTemplateContent(String userId, String contentId) {
+        TemplateTodolistContent content = templateContentRepository.findById(UUID.fromString(contentId))
+                .filter(c -> c.getTemplateTodolistSubject().getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TemplateContentNotFoundException(contentId));
+        templateContentRepository.delete(content);
+    }
 }
