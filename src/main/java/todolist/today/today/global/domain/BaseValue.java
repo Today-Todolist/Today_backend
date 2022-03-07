@@ -10,4 +10,8 @@ public abstract class BaseValue {
 
     protected int value;
 
+    public void updateValue(int value) {
+        this.value = value;
+    }
+
 }

@@ -15,6 +15,7 @@ import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
 
+import static com.querydsl.core.types.Projections.list;
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.template.domain.QTemplate.template;
 import static todolist.today.today.domain.user.domain.QUser.user;
@@ -47,56 +48,40 @@ public class CustomUserRepositoryImpl {
     }
 
     public MyInfoResponse getMyInfo(String userId) {
-        List<MyInfoTemplateResponse> templates =
-                query.select(Projections.constructor(MyInfoTemplateResponse.class,
-                                template.templateId,
-                                template.title,
-                                template.profile))
-                        .from(template)
-                        .where(template.user.email.eq(userId))
-                        .fetch();
-
-        MyInfoResponse response =
-                query.select(Projections.constructor(MyInfoResponse.class,
+        return query.select(Projections.constructor(MyInfoResponse.class,
                                 user.email,
                                 user.nickname,
                                 user.profile,
-                                friend1.count()))
+                                friend1.count(),
+                                list(Projections.constructor(MyInfoTemplateResponse.class,
+                                        template.templateId,
+                                        template.title,
+                                        template.profile))))
                         .from(user)
+                        .innerJoin(user.templates, template)
                         .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                         .where(user.email.eq(userId))
                         .fetchOne();
-
-        response.setTemplates(templates);
-        return response;
     }
 
     public UserInfoResponse getUserInfo(String userId, String myId) {
-        List<UserInfoTemplateResponse> templates =
-                query.select(Projections.constructor(UserInfoTemplateResponse.class,
-                                template.templateId,
-                                template.title,
-                                template.profile))
-                        .from(template)
-                        .where(template.user.email.eq(userId))
-                        .fetch();
-
-        UserInfoResponse response =
-                query.select(Projections.constructor(UserInfoResponse.class,
+        return query.select(Projections.constructor(UserInfoResponse.class,
                                 user.nickname,
                                 user.profile,
                                 friend1.count(),
                                 new CaseBuilder()
                                         .when(user.email.eq(myId)).then(2)
                                         .when(friend1.friend.email.eq(myId).or(friend1.user.email.eq(myId))).then(1)
-                                        .otherwise(0)))
+                                        .otherwise(0),
+                                list(Projections.constructor(UserInfoTemplateResponse.class,
+                                        template.templateId,
+                                        template.title,
+                                        template.profile))))
                         .from(user)
+                        .innerJoin(user.templates, template)
                         .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                         .where(user.email.eq(userId))
                         .fetchOne();
-
-        response.setTemplates(templates);
-        return response;
     }
 
     public List<NicknameSearchResponse> getNicknameSearchResult(String userId, String word, PagingRequest request) {
