@@ -46,7 +46,7 @@ public class TemplateSubjectService {
                             .day(request.getDay())
                             .build()));
         int value = customTemplateSubjectRepository.getTemplateSubjectLastValue(templateDay.getTemplateDayId());
-        if (value >= 2147483500) value = templateSortService.sortTemplateSort(templateDay);
+        if (value >= 2147483500) value = templateSortService.sortTemplateSubject(templateDay);
 
         TemplateTodolistSubject subject = TemplateTodolistSubject.builder()
                 .templateDay(templateDay)
@@ -75,16 +75,16 @@ public class TemplateSubjectService {
             int value = values.get(0);
             if (order == 0) {
                 subject.updateValue(value/2);
-                if (value <= 25) templateSortService.sortTemplateSort(subject.getTemplateDay());
+                if (value <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
             } else if (value >= 2147483500) {
-                subject.updateValue(templateSortService.sortTemplateSort(subject.getTemplateDay()) + 100);
+                subject.updateValue(templateSortService.sortTemplateSubject(subject.getTemplateDay()) + 100);
             }
         }
         else {
             int value1 = values.get(0);
             int value2 = values.get(1);
             subject.updateValue((value1 + value2) / 2);
-            if (value2 - value1 <= 25) templateSortService.sortTemplateSort(subject.getTemplateDay());
+            if (value2 - value1 <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
         }
     }
 

@@ -16,7 +16,7 @@ public class TemplateSortService {
 
     private final TemplateSubjectRepository templateSubjectRepository;
 
-    public int sortTemplateSort(TemplateDay templateDay) {
+    public int sortTemplateSubject(TemplateDay templateDay) {
         List<TemplateTodolistSubject> templateTodolistSubjects = templateDay.getTemplateTodolistSubjects();
         templateTodolistSubjects.sort((a, b) -> a.getValue() < b.getValue() ? 1 : 0);
 
