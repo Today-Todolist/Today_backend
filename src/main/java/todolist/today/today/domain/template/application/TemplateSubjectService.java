@@ -48,12 +48,12 @@ public class TemplateSubjectService {
         int value = customTemplateSubjectRepository.getTemplateSubjectLastValue(templateDay.getTemplateDayId());
         if (value >= 2147483500) value = templateSortService.sortTemplateSort(templateDay);
 
-        TemplateTodolistSubject templateSubject = TemplateTodolistSubject.builder()
+        TemplateTodolistSubject subject = TemplateTodolistSubject.builder()
                 .templateDay(templateDay)
                 .subject(request.getSubject())
                 .value(value + 100)
                 .build();
-        templateSubjectRepository.save(templateSubject);
+        templateSubjectRepository.save(subject);
     }
 
     public void changeTemplateSubject(String userId, String subjectId, TemplateSubjectChangeRequest request) {

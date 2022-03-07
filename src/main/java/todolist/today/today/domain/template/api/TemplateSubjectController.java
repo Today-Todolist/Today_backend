@@ -28,21 +28,21 @@ public class TemplateSubjectController {
         templateSubjectService.makeTemplateSubject(authenticationFacade.getUserId(), request);
     }
     
-    @PutMapping("/template/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @PutMapping("/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void changeTemplateSubject(@PathVariable("subjectId") @NotEmpty String subjectId,
                                       @Valid @RequestBody TemplateSubjectChangeRequest request) {
         templateSubjectService.changeTemplateSubject(authenticationFacade.getUserId(), subjectId, request);
     }
 
-    @PutMapping("/template/subject-order/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @PutMapping("/subject-order/{subjectId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void changeTemplateSubjectOrder(@PathVariable("subjectId") @NotEmpty String subjectId,
                                            @Valid @RequestBody TemplateSubjectOrderRequest request) {
         templateSubjectService.changeTemplateSubjectOrder(authenticationFacade.getUserId(), subjectId, request);
     }
 
-    @DeleteMapping("/template/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @DeleteMapping("/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTemplateSubject(@PathVariable("subjectId") @NotEmpty String subjectId) {
         templateSubjectService.deleteTemplateSubject(authenticationFacade.getUserId(), subjectId);
