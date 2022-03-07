@@ -42,4 +42,10 @@ public class TemplateSubjectController {
         templateSubjectService.changeTemplateSubjectOrder(authenticationFacade.getUserId(), subjectId, request);
     }
 
+    @DeleteMapping("/template/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTemplateSubject(@PathVariable("subjectId") @NotEmpty String subjectId) {
+        templateSubjectService.deleteTemplateSubject(authenticationFacade.getUserId(), subjectId);
+    }
+
 }

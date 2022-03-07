@@ -88,4 +88,11 @@ public class TemplateSubjectService {
         }
     }
 
+    public void deleteTemplateSubject(String userId, String subjectId) {
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+                .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
+        templateSubjectRepository.delete(subject);
+    }
+
 }
