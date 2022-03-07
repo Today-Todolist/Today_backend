@@ -8,6 +8,7 @@ import todolist.today.today.domain.template.dao.TemplateContentRepository;
 import todolist.today.today.domain.template.dao.TemplateSubjectRepository;
 import todolist.today.today.domain.template.domain.TemplateTodolistContent;
 import todolist.today.today.domain.template.domain.TemplateTodolistSubject;
+import todolist.today.today.domain.template.dto.request.TemplateContentChangeRequest;
 import todolist.today.today.domain.template.dto.request.TemplateContentCreateRequest;
 import todolist.today.today.domain.template.exception.TemplateSubjectNotFoundException;
 
@@ -37,6 +38,13 @@ public class TemplateContentService {
                 .value(value + 100)
                 .build();
         templateContentRepository.save(content);
+    }
+
+    public void changeTemplateContent(String userId, String contentId, TemplateContentChangeRequest request) {
+        templateContentRepository.findById(UUID.fromString(contentId))
+                .filter(c -> c.getTemplateTodolistSubject().getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TemplateSubjectNotFoundException(contentId))
+                .updateContent(request.getContent());
     }
 
 }
