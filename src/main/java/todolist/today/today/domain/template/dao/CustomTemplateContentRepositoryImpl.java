@@ -29,7 +29,7 @@ public class CustomTemplateContentRepositoryImpl {
                 .where(templateTodolistContent.templateTodolistContentId.ne(UUID.fromString(contentId))
                         .and(templateTodolistContent.templateTodolistSubject.templateTodolistSubjectId.eq(subjectId)))
                 .orderBy(templateTodolistContent.value.asc())
-                .fetch().subList(order - 1, order);
+                .fetch().subList(order - 1, order + 1);
     }
 
 }
