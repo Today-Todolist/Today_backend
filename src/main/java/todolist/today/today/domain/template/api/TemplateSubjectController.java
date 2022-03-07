@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.template.application.TemplateSubjectService;
 import todolist.today.today.domain.template.dto.request.TemplateSubjectChangeRequest;
 import todolist.today.today.domain.template.dto.request.TemplateSubjectCreateRequest;
+import todolist.today.today.domain.template.dto.request.TemplateSubjectOrderRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -32,6 +33,13 @@ public class TemplateSubjectController {
     public void changeTemplateSubject(@PathVariable("subjectId") @NotEmpty String subjectId,
                                       @Valid @RequestBody TemplateSubjectChangeRequest request) {
         templateSubjectService.changeTemplateSubject(authenticationFacade.getUserId(), subjectId, request);
+    }
+
+    @PutMapping("/template/subject-order/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeTemplateSubjectOrder(@PathVariable("subjectId") @NotEmpty String subjectId,
+                                           @Valid @RequestBody TemplateSubjectOrderRequest request) {
+        templateSubjectService.changeTemplateSubjectOrder(authenticationFacade.getUserId(), subjectId, request);
     }
 
 }

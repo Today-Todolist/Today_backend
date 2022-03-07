@@ -36,7 +36,8 @@ public enum ErrorCode {
     FRIEND_ALREADY_EXIST(409, "E009", "Friend Already Exist"),
     FRIEND_APPLY_ALREADY_EXIST(409, "E010", "Friend Apply Already Exist"),
     TEMPLATE_NOT_FOUND(404, "E011", "Template Not Found"),
-    TEMPLATE_SUBJECT_NOT_FOUND(404, "E012", "Template Subject Not Found");
+    TEMPLATE_SUBJECT_NOT_FOUND(404, "E012", "Template Subject Not Found"),
+    TEMPLATE_SUBJECT_ORDER_OUT_OF_RANGE(409, "E013", "Template Subject Order Out Of Range");
 
     private final int status;
     private final String code;
