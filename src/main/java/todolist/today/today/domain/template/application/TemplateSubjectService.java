@@ -70,7 +70,7 @@ public class TemplateSubjectService {
 
         int order = request.getOrder();
         List<Integer> values = customTemplateSubjectRepository.getTemplateSubjectValueByOrder(subjectId, request.getOrder());
-        if (values.size() == 0) throw new TemplateSubjectOrderException(order);
+        if (values.isEmpty()) throw new TemplateSubjectOrderException(order);
         else if (values.size() == 1) {
             int value = values.get(0);
             if (order == 0) {

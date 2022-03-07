@@ -12,7 +12,6 @@ import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.RandomTemplateTemplateResponse;
-import todolist.today.today.domain.template.dto.response.template.TemplateContentTemplateResponse;
 import todolist.today.today.domain.template.dto.response.template.content.TemplateContentTemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.subject.TemplateContentTemplateSubjectResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
