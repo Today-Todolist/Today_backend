@@ -1,5 +1,6 @@
 package todolist.today.today
 
+import todolist.today.today.domain.template.dto.request.TemplateCreateRequest
 import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
@@ -68,6 +69,13 @@ class RequestUtil {
     static DeleteUserRequest makeDeleteUserRequest(String password) {
         DeleteUserRequest request = new DeleteUserRequest()
         inputField(request, "password", password)
+        return request
+    }
+
+    static TemplateCreateRequest makeTemplateCreateRequest(String title, int length) {
+        TemplateCreateRequest request = new TemplateCreateRequest()
+        inputField(request, "title", title)
+        inputField(request, "length", length)
         return request
     }
 
