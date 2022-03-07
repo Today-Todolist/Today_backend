@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.template.application.TemplateContentService;
 import todolist.today.today.domain.template.dto.request.TemplateContentChangeRequest;
 import todolist.today.today.domain.template.dto.request.TemplateContentCreateRequest;
+import todolist.today.today.domain.template.dto.request.TemplateContentOrderRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -32,6 +33,13 @@ public class TemplateContentController {
     public void changeTemplateContent(@PathVariable("contentId") @NotEmpty String contentId,
                                       @Valid @RequestBody TemplateContentChangeRequest request) {
         templateContentService.changeTemplateContent(authenticationFacade.getUserId(), contentId, request);
+    }
+
+    @PutMapping("/content-order/{contentId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeTemplateContentOrder(@PathVariable("contentId") @NotEmpty String contentId,
+                                           @Valid @RequestBody TemplateContentOrderRequest request) {
+        templateContentService.changeTemplateContentOrder(authenticationFacade.getUserId(), contentId, request);
     }
 
 }

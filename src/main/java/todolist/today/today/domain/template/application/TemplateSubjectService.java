@@ -76,9 +76,8 @@ public class TemplateSubjectService {
             if (order == 0) {
                 subject.updateValue(value/2);
                 if (value <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
-            } else if (value >= 2147483500) {
-                subject.updateValue(templateSortService.sortTemplateSubject(subject.getTemplateDay()) + 100);
-            }
+            } else if (value >= 2147483500) subject.updateValue(templateSortService.sortTemplateSubject(subject.getTemplateDay()) + 100);
+            else subject.updateValue(value + 100);
         }
         else {
             int value1 = values.get(0);
