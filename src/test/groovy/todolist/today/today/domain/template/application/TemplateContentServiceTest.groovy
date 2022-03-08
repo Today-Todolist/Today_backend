@@ -139,7 +139,6 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-
         for(int i=0; i<size; i++) values.add(25)
 
         customTemplateContentRepository
