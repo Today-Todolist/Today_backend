@@ -1,5 +1,8 @@
 package todolist.today.today
 
+import todolist.today.today.domain.template.dto.request.TemplateContentChangeRequest
+import todolist.today.today.domain.template.dto.request.TemplateContentCreateRequest
+import todolist.today.today.domain.template.dto.request.TemplateContentOrderRequest
 import todolist.today.today.domain.template.dto.request.TemplateCreateRequest
 import todolist.today.today.domain.user.dto.request.*
 
@@ -76,6 +79,25 @@ class RequestUtil {
         TemplateCreateRequest request = new TemplateCreateRequest()
         inputField(request, "title", title)
         inputField(request, "length", length)
+        return request
+    }
+
+    static TemplateContentCreateRequest makeTemplateContentCreateRequest(String id, String content) {
+        TemplateContentCreateRequest request = new TemplateContentCreateRequest()
+        inputField(request, "id", id)
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TemplateContentChangeRequest makeTemplateContentChangeRequest(String content) {
+        TemplateContentChangeRequest request = new TemplateContentChangeRequest()
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TemplateContentOrderRequest makeTemplateContentOrderRequest(int order) {
+        TemplateContentOrderRequest request = new TemplateContentOrderRequest()
+        inputField(request, "order", order)
         return request
     }
 
