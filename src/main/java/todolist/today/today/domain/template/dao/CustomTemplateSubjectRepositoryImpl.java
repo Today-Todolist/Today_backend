@@ -16,11 +16,12 @@ public class CustomTemplateSubjectRepositoryImpl {
     private final JPAQueryFactory query;
 
     public int getTemplateSubjectLastValue(UUID templateDayId) {
-        return query.select(templateTodolistSubject.value)
+        Integer value = query.select(templateTodolistSubject.value)
                 .from(templateTodolistSubject)
                 .where(templateTodolistSubject.templateDay.templateDayId.eq(templateDayId))
                 .orderBy(templateTodolistSubject.value.desc())
                 .fetchFirst();
+        return value != null ? value : 0;
     }
 
     public List<Integer> getTemplateSubjectValueByOrder(UUID templateDayId, String subjectId, int order) {
@@ -29,7 +30,7 @@ public class CustomTemplateSubjectRepositoryImpl {
                 .where(templateTodolistSubject.templateTodolistSubjectId.ne(UUID.fromString(subjectId))
                         .and(templateTodolistSubject.templateDay.templateDayId.eq(templateDayId)))
                 .orderBy(templateTodolistSubject.value.asc())
-                .fetch().subList(order - 1, order + 1);
+                .fetch().subList(Math.max((order - 1), 0), order + 1);
     }
 
 }
