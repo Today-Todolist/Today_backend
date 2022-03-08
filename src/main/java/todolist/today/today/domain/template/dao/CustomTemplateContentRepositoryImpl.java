@@ -16,11 +16,12 @@ public class CustomTemplateContentRepositoryImpl {
     private final JPAQueryFactory query;
 
     public int getTemplateContentLastValue(String subjectId) {
-        return query.select(templateTodolistContent.value)
+        Integer value = query.select(templateTodolistContent.value)
                 .from(templateTodolistContent)
                 .where(templateTodolistContent.templateTodolistSubject.templateTodolistSubjectId.eq(UUID.fromString(subjectId)))
                 .orderBy(templateTodolistContent.value.desc())
                 .fetchFirst();
+        return value != null ? value : 0;
     }
 
     public List<Integer> getTemplateContentValueByOrder(UUID subjectId, String contentId, int order) {
