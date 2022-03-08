@@ -16,6 +16,7 @@ import todolist.today.today.domain.template.dto.response.template.TemplateConten
 import todolist.today.today.domain.template.dto.response.template.content.TemplateContentTemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.subject.TemplateContentTemplateSubjectResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
+import todolist.today.today.domain.template.exception.TemplateNotFoundException;
 import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
@@ -108,6 +109,7 @@ public class CustomTemplateRepositoryImpl {
                 .orderBy(templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetchOne();
 
+        if (response == null) throw new TemplateNotFoundException(templateId);
         List<TemplateContentTemplateResponse> list = response.getList();
         if (list.size() == 1) {
             TemplateContentTemplateResponse value = list.get(0);
