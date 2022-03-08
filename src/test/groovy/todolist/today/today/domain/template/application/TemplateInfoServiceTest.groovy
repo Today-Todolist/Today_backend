@@ -37,8 +37,12 @@ class TemplateInfoServiceTest extends Specification {
     }
 
     def "test getTemplateContent" () {
+        given:
+        final UUID TEMPLATE_ID = UUID.randomUUID()
+        templateRepository.existsById(TEMPLATE_ID) >> true
+
         when:
-        templateInfoService.getTemplateContent("", "", 1)
+        templateInfoService.getTemplateContent("", TEMPLATE_ID.toString(), 1)
 
         then:
         noExceptionThrown()
