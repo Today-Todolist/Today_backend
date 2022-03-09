@@ -23,7 +23,7 @@ public class UserSettingController {
 
     @PutMapping("/profile") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    public void changeProfile(@RequestPart(value = "file") MultipartFile file) {
+    public void changeProfile(@RequestPart(value = "profile") MultipartFile file) {
         userSettingService.changeProfile(authenticationFacade.getUserId(), file);
     }
 

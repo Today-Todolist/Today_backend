@@ -57,7 +57,9 @@ public class TemplateContentService {
                 .orElseThrow(() -> new TemplateContentNotFoundException(contentId));
 
         int order = request.getOrder();
-        List<Integer> values = customTemplateContentRepository.getTemplateContentValueByOrder(contentId, order);
+        List<Integer> values = customTemplateContentRepository
+                .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(),
+                        contentId, order);
         if (values.isEmpty()) throw new TemplateContentOrderException(order);
         else if (values.size() == 1) {
             int value = values.get(0);

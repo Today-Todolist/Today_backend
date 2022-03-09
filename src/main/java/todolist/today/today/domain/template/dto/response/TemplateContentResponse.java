@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import todolist.today.today.domain.template.dto.response.template.TemplateContentTemplateResponse;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
@@ -15,5 +16,9 @@ public class TemplateContentResponse {
     private int length;
     private int status;
     private List<TemplateContentTemplateResponse> list;
+
+    public void resetList() {
+        list = Collections.emptyList();
+    }
 
 }

@@ -32,7 +32,7 @@ public class TemplateSettingController {
         templateSettingService.changeTemplateProfile(authenticationFacade.getUserId(), templateId, profile);
     }
 
-    @DeleteMapping("/template/{templateId}")
+    @DeleteMapping("/template/{templateId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTemplate(@PathVariable("templateId") @NotEmpty String templateId) {
         templateSettingService.deleteTemplate(authenticationFacade.getUserId(), templateId);

@@ -11,7 +11,7 @@ public class TemplateContentTemplateContentResponse {
     private String value;
 
     public TemplateContentTemplateContentResponse(UUID id, String value) {
-        this.id = id.toString();
+        this.id = id == null ? null : id.toString();
         this.value = value;
     }
 

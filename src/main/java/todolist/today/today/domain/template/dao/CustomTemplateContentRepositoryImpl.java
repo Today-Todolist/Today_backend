@@ -16,19 +16,21 @@ public class CustomTemplateContentRepositoryImpl {
     private final JPAQueryFactory query;
 
     public int getTemplateContentLastValue(String subjectId) {
-        return query.select(templateTodolistContent.value)
+        Integer value = query.select(templateTodolistContent.value)
                 .from(templateTodolistContent)
                 .where(templateTodolistContent.templateTodolistSubject.templateTodolistSubjectId.eq(UUID.fromString(subjectId)))
                 .orderBy(templateTodolistContent.value.desc())
                 .fetchFirst();
+        return value != null ? value : 0;
     }
 
-    public List<Integer> getTemplateContentValueByOrder(String contentId, int order) {
+    public List<Integer> getTemplateContentValueByOrder(UUID subjectId, String contentId, int order) {
         return query.select(templateTodolistContent.value)
                 .from(templateTodolistContent)
-                .where(templateTodolistContent.templateTodolistContentId.eq(UUID.fromString(contentId)))
+                .where(templateTodolistContent.templateTodolistContentId.ne(UUID.fromString(contentId))
+                        .and(templateTodolistContent.templateTodolistSubject.templateTodolistSubjectId.eq(subjectId)))
                 .orderBy(templateTodolistContent.value.asc())
-                .fetch().subList(order - 1, order);
+                .fetch().subList(Math.max(order - 1, 0), order + 1);
     }
 
 }

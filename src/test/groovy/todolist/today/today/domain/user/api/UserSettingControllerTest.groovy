@@ -76,7 +76,7 @@ class UserSettingControllerTest extends Specification {
                 .build()
         userRepository.save(user)
 
-        MockMultipartFile image = new MockMultipartFile("file", "image.png", "image/png", "".getBytes())
+        MockMultipartFile image = new MockMultipartFile("profile", "image.png", "image/png", "".getBytes())
         given(imageUploadFacade.uploadImage(any())).willReturn("profile")
 
         String token = jwtTokenProvider.generateAccessToken(EMAIL)

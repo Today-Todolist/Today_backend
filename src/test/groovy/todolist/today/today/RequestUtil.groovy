@@ -1,5 +1,6 @@
 package todolist.today.today
 
+import todolist.today.today.domain.template.dto.request.*
 import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
@@ -68,6 +69,52 @@ class RequestUtil {
     static DeleteUserRequest makeDeleteUserRequest(String password) {
         DeleteUserRequest request = new DeleteUserRequest()
         inputField(request, "password", password)
+        return request
+    }
+
+    static TemplateCreateRequest makeTemplateCreateRequest(String title, int length) {
+        TemplateCreateRequest request = new TemplateCreateRequest()
+        inputField(request, "title", title)
+        inputField(request, "length", length)
+        return request
+    }
+
+    static TemplateContentCreateRequest makeTemplateContentCreateRequest(String id, String content) {
+        TemplateContentCreateRequest request = new TemplateContentCreateRequest()
+        inputField(request, "id", id)
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TemplateContentChangeRequest makeTemplateContentChangeRequest(String content) {
+        TemplateContentChangeRequest request = new TemplateContentChangeRequest()
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TemplateContentOrderRequest makeTemplateContentOrderRequest(int order) {
+        TemplateContentOrderRequest request = new TemplateContentOrderRequest()
+        inputField(request, "order", order)
+        return request
+    }
+
+    static TemplateSubjectCreateRequest makeTemplateSubjectCreateRequest(String id, int day, String subject) {
+        TemplateSubjectCreateRequest request = new TemplateSubjectCreateRequest()
+        inputField(request, "id", id)
+        inputField(request, "day", day)
+        inputField(request, "subject", subject)
+        return request
+    }
+
+    static TemplateSubjectChangeRequest makeTemplateSubjectChangeRequest(String subject) {
+        TemplateSubjectChangeRequest request = new TemplateSubjectChangeRequest()
+        inputField(request, "subject", subject)
+        return request
+    }
+
+    static TemplateSubjectOrderRequest makeTemplateSubjectOrderRequest(int order) {
+        TemplateSubjectOrderRequest request = new TemplateSubjectOrderRequest()
+        inputField(request, "order", order)
         return request
     }
 
