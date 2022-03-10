@@ -142,7 +142,10 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-        for(int i=0; i<size; i++) values.add(25)
+        for(int i=0; i<size; i++) {
+            values.add(value)
+            value += add
+        }
 
         customTemplateContentRepository
                 .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), order) >> values
@@ -154,10 +157,12 @@ class TemplateContentServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order | size
-        0 | 1
-        1 | 1
-        2 | 2
+        order | add | value | size
+        0 | 0 | 25 | 1
+        1 | 0 | 25 | 1
+        2 | 1 | 25 | 2
+        2 | 0 | 2147483500 | 1
+        2 | 50 | 25 | 2
     }
 
     def "test changeTemplateContentOrder TemplateContentNotFoundException" () {
