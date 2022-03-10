@@ -8,5 +8,6 @@ import java.util.UUID;
 public interface TodolistRepository extends CrudRepository<Todolist, UUID> {
 
     void deleteByUserEmail(String email);
+    long countByUserEmail(String email);
 
 }

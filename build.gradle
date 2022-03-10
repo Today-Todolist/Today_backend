@@ -2,6 +2,7 @@ buildscript {
     ext {
         exclusionList = ['**/TodayApplication.**',
                          '**/AuthDetails.**',
+                         '**/dto/**',
                          '**Request.**',
                          '**Response.**',
                          '**/domain/*/domain/**',
