@@ -8,12 +8,10 @@ import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse;
-import todolist.today.today.domain.template.exception.TemplateContentNotFoundException;
 import todolist.today.today.domain.template.exception.TemplateNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor

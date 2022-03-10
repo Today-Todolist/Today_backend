@@ -5,7 +5,6 @@ import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
-import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dto.response.MyInfoResponse;
 import todolist.today.today.domain.user.dto.response.UserInfoResponse;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
