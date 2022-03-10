@@ -1,6 +1,7 @@
 package todolist.today.today.domain.user.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
@@ -15,15 +16,17 @@ import todolist.today.today.domain.user.exception.UserNotFoundException;
 public class UserInfoService {
 
     private final CustomUserRepositoryImpl customUserRepository;
-    private final UserRepository userRepository;
 
     public MyInfoResponse getMyInfo(String userId) {
         return customUserRepository.getMyInfo(userId);
     }
 
     public UserInfoResponse getUserInfo(String userId, String myId) {
-        if (!userRepository.existsById(userId)) throw new UserNotFoundException(userId);
-        return customUserRepository.getUserInfo(userId, myId);
+        try {
+            return customUserRepository.getUserInfo(userId, myId);
+        } catch (InvalidDataAccessResourceUsageException e) {
+            throw new UserNotFoundException(userId);
+        }
     }
 
 }
