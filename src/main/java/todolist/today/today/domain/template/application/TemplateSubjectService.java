@@ -69,9 +69,16 @@ public class TemplateSubjectService {
                 .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
 
         int order = request.getOrder();
-        List<Integer> values = customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectId, request.getOrder());
-        if (values.isEmpty()) throw new TemplateSubjectOrderException(order);
+
+        List<Integer> values;
+        try {
+            values = customTemplateSubjectRepository
+                    .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectId, request.getOrder());
+        } catch (IndexOutOfBoundsException e) {
+            throw new TemplateSubjectOrderException(order);
+        }
+
+        if (values == null || values.isEmpty()) throw new TemplateSubjectOrderException(order);
         else if (values.size() == 1) {
             int value = values.get(0);
             if (order == 0) {
