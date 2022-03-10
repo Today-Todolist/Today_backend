@@ -169,7 +169,7 @@ class TemplateSubjectServiceTest extends Specification {
         1 | 0 | 25 | 1
         2 | 1 | 25 | 2
         2 | 0 | 2147483500 | 1
-        2 | 25 | 25 | 2
+        2 | 50 | 25 | 2
     }
 
     def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException" () {
