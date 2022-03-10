@@ -18,8 +18,8 @@ class TemplateInfoServiceTest extends Specification {
 
     def "test getRandomTemplate" () {
         given:
-        final int SIZE = 1;
-        templateRepository.count() >> 1L
+        final int SIZE = 1
+        templateRepository.count() >> count
         customTemplateRepository.getRandomTemplate(SIZE, 1L) >> Collections.emptyList()
 
         when:
@@ -27,6 +27,9 @@ class TemplateInfoServiceTest extends Specification {
 
         then:
         noExceptionThrown()
+
+        where:
+        count << [0L, 1L]
     }
 
     def "test getMyTemplate" () {
