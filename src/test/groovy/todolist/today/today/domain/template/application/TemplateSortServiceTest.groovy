@@ -20,8 +20,12 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateSubject" () {
         given:
-        TemplateTodolistSubject subject1 = new TemplateTodolistSubject()
-        TemplateTodolistSubject subject2 = new TemplateTodolistSubject()
+        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
+                .value(100)
+                .build()
+        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
+                .value(200)
+                .build()
 
         List<TemplateTodolistSubject> subjects = new ArrayList<>()
         subjects.add(subject1)
@@ -39,8 +43,12 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateContent" () {
         given:
-        TemplateTodolistContent content1 = new TemplateTodolistContent()
-        TemplateTodolistContent content2 = new TemplateTodolistContent()
+        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
+                .value(100)
+                .build()
+        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
+                .value(200)
+                .build()
 
         List<TemplateTodolistContent> contents = new ArrayList<>()
         contents.add(content1)
