@@ -5,12 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.todolist.dao.CustomTodolistRepositoryImpl;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
+import todolist.today.today.domain.todolist.dto.MyCalendarResponse;
 import todolist.today.today.domain.todolist.dto.TodolistRecordResponse;
+import todolist.today.today.domain.todolist.dto.todolist.MyCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.todolist.MyCalendarPastResponse;
 import todolist.today.today.global.dto.response.PagingResponse;
 
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+
+import static todolist.today.today.global.dto.LocalDateUtil.convert;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +33,12 @@ public class TodolistInfoService {
         else response = Collections.emptyList();
 
         return new PagingResponse<>(totalElements, response);
+    }
+
+    public MyCalendarResponse getMyCalendar(String userId, String date) {
+        List<MyCalendarPastResponse> past = customTodolistRepository.getMyCalendarPast(userId, convert(date + "-01"));
+        List<MyCalendarFutureResponse> future = customTodolistRepository.getMyCalendarFuture(userId, convert(date + "-31"));
+        return new MyCalendarResponse(past, future);
     }
 
 }
