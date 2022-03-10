@@ -149,7 +149,10 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-        for(int i=0; i<size; i++) values.add(value)
+        for(int i=0; i<size; i++) {
+            values.add(value)
+            values += add
+        }
 
         customTemplateSubjectRepository
                 .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID.toString(), order) >> values
@@ -161,12 +164,12 @@ class TemplateSubjectServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order| value | size
-        0 | 25 | 1
-        1 | 25 | 1
-        2 | 25 | 2
-        2 | 2147483500 | 1
-        2 | 25 | 2
+        order| add | value | size
+        0 | 1 | 25 | 1
+        1 | 1 | 25 | 1
+        2 | 1 | 25 | 2
+        2 | 1 | 2147483500 | 1
+        2 | 25 | 25 | 2
     }
 
     def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException" () {
