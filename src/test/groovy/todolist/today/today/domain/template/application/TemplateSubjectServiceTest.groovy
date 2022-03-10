@@ -151,7 +151,7 @@ class TemplateSubjectServiceTest extends Specification {
         ArrayList<Integer> values = new ArrayList<>()
         for(int i=0; i<size; i++) {
             values.add(value)
-            values += add
+            value += add
         }
 
         customTemplateSubjectRepository
@@ -165,10 +165,10 @@ class TemplateSubjectServiceTest extends Specification {
 
         where:
         order| add | value | size
-        0 | 1 | 25 | 1
-        1 | 1 | 25 | 1
+        0 | 0 | 25 | 1
+        1 | 0 | 25 | 1
         2 | 1 | 25 | 2
-        2 | 1 | 2147483500 | 1
+        2 | 0 | 2147483500 | 1
         2 | 25 | 25 | 2
     }
 
