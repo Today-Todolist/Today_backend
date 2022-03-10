@@ -8,11 +8,10 @@ import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse;
-import todolist.today.today.domain.template.exception.TemplateContentNotFoundException;
+import todolist.today.today.domain.template.exception.TemplateNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -33,8 +32,9 @@ public class TemplateInfoService {
     }
 
     public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
-        if (!templateRepository.existsById(UUID.fromString(templateId))) throw new TemplateContentNotFoundException(templateId);
-        return customTemplateRepository.getTemplateContent(userId, templateId, day);
+        TemplateContentResponse response = customTemplateRepository.getTemplateContent(userId, templateId, day);
+        if (response == null) throw new TemplateNotFoundException(templateId);
+        return response;
     }
 
 }

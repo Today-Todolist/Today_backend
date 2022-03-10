@@ -1,6 +1,5 @@
 package todolist.today.today.domain.template.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import todolist.today.today.domain.template.dto.response.template.TemplateContentTemplateResponse;
 
@@ -8,7 +7,6 @@ import java.util.Collections;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class TemplateContentResponse {
 
     private String title;
@@ -17,8 +15,12 @@ public class TemplateContentResponse {
     private int status;
     private List<TemplateContentTemplateResponse> list;
 
-    public void resetList() {
-        list = Collections.emptyList();
+    public TemplateContentResponse(String title, String profile, int length, int status, List<TemplateContentTemplateResponse> list) {
+        this.title = title;
+        this.profile = profile;
+        this.length = length;
+        this.status = status;
+        this.list = list.get(0).getContent() != null ? list : Collections.emptyList();
     }
 
 }

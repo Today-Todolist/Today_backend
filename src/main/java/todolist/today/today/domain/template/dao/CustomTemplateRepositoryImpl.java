@@ -16,7 +16,6 @@ import todolist.today.today.domain.template.dto.response.template.TemplateConten
 import todolist.today.today.domain.template.dto.response.template.content.TemplateContentTemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.subject.TemplateContentTemplateSubjectResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
-import todolist.today.today.domain.template.exception.TemplateNotFoundException;
 import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
@@ -87,7 +86,7 @@ public class CustomTemplateRepositoryImpl {
     }
 
     public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
-        TemplateContentResponse response = query.select(Projections.constructor(TemplateContentResponse.class,
+        return query.select(Projections.constructor(TemplateContentResponse.class,
                         template.title,
                         template.profile,
                         template.size,
@@ -108,16 +107,6 @@ public class CustomTemplateRepositoryImpl {
                 .where(templateDay.day.eq(day).and(template.templateId.eq(UUID.fromString(templateId))))
                 .orderBy(templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetchOne();
-
-        if (response == null) throw new TemplateNotFoundException(templateId);
-        List<TemplateContentTemplateResponse> list = response.getList();
-        if (list.size() == 1) {
-            TemplateContentTemplateResponse value = list.get(0);
-            List<TemplateContentTemplateContentResponse> contents = value.getContent();
-            if (value.getSubject().getId() == null) response.resetList();
-            else if (contents.size() == 1 && contents.get(0).getId() == null) value.resetContent();
-        }
-        return response;
     }
 
     public String getTemplateProfile(String userId, String templateId) {

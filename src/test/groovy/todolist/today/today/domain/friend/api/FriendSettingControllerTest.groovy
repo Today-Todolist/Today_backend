@@ -106,17 +106,12 @@ class FriendSettingControllerTest extends Specification {
         String token = jwtTokenProvider.generateAccessToken(USER_ID)
 
         when:
-        ResultActions result = mvc.perform(delete("/friend/{email}", requestEmail)
+        ResultActions result = mvc.perform(delete("/friend/{email}", FRIEND_ID)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 
         then:
-        result.andExpect(status().is(status))
-
-        where:
-        requestEmail || status
-        FRIEND_ID || 204
-        "emm@gmail.com" || 404
+        result.andExpect(status().is(204))
     }
 
     def "test makeFriend" () {
@@ -180,17 +175,12 @@ class FriendSettingControllerTest extends Specification {
         String token = jwtTokenProvider.generateAccessToken(USER_ID)
 
         when:
-        ResultActions result = mvc.perform(delete("/friend-apply/{email}", requestEmail)
+        ResultActions result = mvc.perform(delete("/friend-apply/{email}", FRIEND_ID)
                 .header("Authorization", "Bearer " + token))
                 .andDo(print())
 
         then:
-        result.andExpect(status().is(status))
-
-        where:
-        requestEmail || status
-        FRIEND_ID || 204
-        "emm@gmail.com" || 404
+        result.andExpect(status().is(204))
     }
 
 }

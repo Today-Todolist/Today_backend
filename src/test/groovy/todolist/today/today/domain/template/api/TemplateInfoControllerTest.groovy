@@ -133,11 +133,11 @@ class TemplateInfoControllerTest extends Specification {
         when:
         ResultActions result = mvc.perform(get("/template/{templateId}", template.getTemplateId())
                 .header("Authorization", "Bearer " + token)
-                .param("day", "1"))
+                .param("day", day.toString()))
                 .andDo(print())
 
         then:
-        result.andExpect(status().is(200))
+        result.andExpect(status().is(status))
 
         where:
         day || status
