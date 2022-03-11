@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.todolist.dao.CustomTodolistRepositoryImpl;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dto.response.MyCalendarResponse;
+import todolist.today.today.domain.todolist.dto.response.TodolistContentResponse;
 import todolist.today.today.domain.todolist.dto.response.TodolistRecordResponse;
 import todolist.today.today.domain.todolist.dto.response.UserCalendarResponse;
 import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarFutureResponse;
@@ -48,6 +49,10 @@ public class TodolistInfoService {
         List<UserCalendarPastResponse> past = customTodolistRepository.getUserCalendarPast(userId, convert(date + "-01"));
         List<UserCalendarFutureResponse> future = customTodolistRepository.getUserCalendarFuture(userId, convert(date + "-31"));
         return new UserCalendarResponse(past, future);
+    }
+
+    public TodolistContentResponse getTodolist(String userId, LocalDate date) {
+        return customTodolistRepository.getTodolist(userId, date);
     }
 
 }

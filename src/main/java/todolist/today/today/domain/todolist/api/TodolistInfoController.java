@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.today.today.domain.todolist.application.TodolistInfoService;
 import todolist.today.today.domain.todolist.dto.response.MyCalendarResponse;
+import todolist.today.today.domain.todolist.dto.response.TodolistContentResponse;
 import todolist.today.today.domain.todolist.dto.response.TodolistRecordResponse;
 import todolist.today.today.domain.todolist.dto.response.UserCalendarResponse;
 import todolist.today.today.global.dto.response.PagingResponse;
@@ -43,6 +44,11 @@ public class TodolistInfoController {
     public UserCalendarResponse getUserCalendar(@PathVariable("email") @Email @Size(min = 1, max = 64) String email,
                                                 @RequestParam("date") @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d") String date) {
         return todolistInfoService.getUserCalendar(email, date);
+    }
+
+    @GetMapping("/todolist") @PreAuthorize("isAuthenticated()")
+    public TodolistContentResponse getTodolist(@RequestParam("date") @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d-\\d\\d") String date) {
+        return todolistInfoService.getTodolist(authenticationFacade.getUserId(), convert(date));
     }
 
 }
