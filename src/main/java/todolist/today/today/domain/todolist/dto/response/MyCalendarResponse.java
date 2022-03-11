@@ -1,9 +1,9 @@
-package todolist.today.today.domain.todolist.dto;
+package todolist.today.today.domain.todolist.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import todolist.today.today.domain.todolist.dto.todolist.MyCalendarFutureResponse;
-import todolist.today.today.domain.todolist.dto.todolist.MyCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarPastResponse;
 
 import java.util.List;
 

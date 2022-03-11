@@ -1,4 +1,4 @@
-package todolist.today.today.domain.todolist.dto.todolist;
+package todolist.today.today.domain.todolist.dto.response.todolist;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

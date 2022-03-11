@@ -6,11 +6,11 @@ import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import todolist.today.today.domain.todolist.dto.TodolistRecordResponse;
-import todolist.today.today.domain.todolist.dto.todolist.MyCalendarFutureResponse;
-import todolist.today.today.domain.todolist.dto.todolist.MyCalendarPastResponse;
-import todolist.today.today.domain.todolist.dto.todolist.UserCalendarFutureResponse;
-import todolist.today.today.domain.todolist.dto.todolist.UserCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.response.TodolistRecordResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.UserCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.UserCalendarPastResponse;
 
 import java.time.LocalDate;
 import java.util.List;

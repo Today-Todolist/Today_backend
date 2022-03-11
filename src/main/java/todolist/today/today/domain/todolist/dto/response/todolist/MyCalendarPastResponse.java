@@ -1,4 +1,4 @@
-package todolist.today.today.domain.todolist.dto.todolist;
+package todolist.today.today.domain.todolist.dto.response.todolist;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserCalendarPastResponse {
+public class MyCalendarPastResponse {
 
     private int day;
 

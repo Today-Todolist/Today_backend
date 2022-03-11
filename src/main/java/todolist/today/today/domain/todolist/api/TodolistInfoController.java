@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import todolist.today.today.domain.todolist.application.TodolistInfoService;
-import todolist.today.today.domain.todolist.dto.MyCalendarResponse;
-import todolist.today.today.domain.todolist.dto.TodolistRecordResponse;
-import todolist.today.today.domain.todolist.dto.UserCalendarResponse;
+import todolist.today.today.domain.todolist.dto.response.MyCalendarResponse;
+import todolist.today.today.domain.todolist.dto.response.TodolistRecordResponse;
+import todolist.today.today.domain.todolist.dto.response.UserCalendarResponse;
 import todolist.today.today.global.dto.response.PagingResponse;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
