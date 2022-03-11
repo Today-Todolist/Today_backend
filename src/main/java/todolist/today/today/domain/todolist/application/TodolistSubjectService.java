@@ -8,12 +8,15 @@ import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
 import todolist.today.today.domain.todolist.domain.Todolist;
 import todolist.today.today.domain.todolist.domain.TodolistSubject;
+import todolist.today.today.domain.todolist.dto.request.TodolistSubjectChangeRequest;
 import todolist.today.today.domain.todolist.dto.request.TodolistSubjectCreateRequest;
+import todolist.today.today.domain.todolist.exception.TodolistSubjectNotFoundException;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 import static todolist.today.today.global.dto.LocalDateUtil.convert;
 
@@ -49,6 +52,13 @@ public class TodolistSubjectService {
                 .value(value)
                 .build();
         todolistSubjectRepository.save(subject);
+    }
+
+    public void changeTodolistSubject(String userId, String subjectId, TodolistSubjectChangeRequest request) {
+        todolistSubjectRepository.findById(UUID.fromString(subjectId))
+                .filter(t -> t.getTodolist().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TodolistSubjectNotFoundException(subjectId))
+                .updateSubject(request.getSubject());
     }
 
 }

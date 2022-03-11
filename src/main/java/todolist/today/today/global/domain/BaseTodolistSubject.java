@@ -12,4 +12,8 @@ public abstract class BaseTodolistSubject extends BaseValue {
     @Column(length = 31, nullable = false)
     protected String subject;
 
+    public void updateSubject(String subject) {
+        this.subject = subject;
+    }
+
 }
