@@ -12,6 +12,7 @@ import todolist.today.today.domain.template.exception.TemplateNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +33,7 @@ public class TemplateInfoService {
     }
 
     public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
-        TemplateContentResponse response = customTemplateRepository.getTemplateContent(userId, templateId, day);
+        TemplateContentResponse response = customTemplateRepository.getTemplateContent(userId, UUID.fromString(templateId), day);
         if (response == null) throw new TemplateNotFoundException(templateId);
         return response;
     }

@@ -155,7 +155,7 @@ class TemplateSubjectServiceTest extends Specification {
         }
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID.toString(), order) >> values
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, order) >> values
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
@@ -205,7 +205,7 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID.toString(), 1) >> values
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> values
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
@@ -238,7 +238,7 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID.toString(), 1) >> { throw new IndexOutOfBoundsException() }
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> { throw new IndexOutOfBoundsException() }
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)

@@ -117,7 +117,7 @@ class CustomTemplateSubjectRepositoryImplTest extends Specification {
 
         when:
         List<Integer> values = customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(templateDay.getTemplateDayId(), subject3.getTemplateTodolistSubjectId().toString(), 1)
+                .getTemplateSubjectValueByOrder(templateDay.getTemplateDayId(), subject3.getTemplateTodolistSubjectId(), 1)
 
         then:
         values.size() == 2

@@ -52,11 +52,13 @@ public class TemplateSettingService {
     }
 
     public void deleteTemplate(String userId, String templateId) {
-        String profile = customTemplateRepository.getTemplateProfile(userId, templateId);
+        UUID templateIdUUID = UUID.fromString(templateId);
+
+        String profile = customTemplateRepository.getTemplateProfile(userId, templateIdUUID);
         if (profile == null) throw new TemplateNotFoundException(templateId);
 
         imageUploadFacade.deleteImage(profile);
-        templateRepository.deleteById(UUID.fromString(templateId));
+        templateRepository.deleteById(templateIdUUID);
     }
 
 }

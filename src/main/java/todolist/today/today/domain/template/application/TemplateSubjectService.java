@@ -64,7 +64,9 @@ public class TemplateSubjectService {
     }
 
     public void changeTemplateSubjectOrder(String userId, String subjectId, TemplateSubjectOrderRequest request) {
-        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+        UUID subjectIdUUID = UUID.fromString(subjectId);
+
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(subjectIdUUID)
                 .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
 
@@ -73,7 +75,7 @@ public class TemplateSubjectService {
         List<Integer> values;
         try {
             values = customTemplateSubjectRepository
-                    .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectId, request.getOrder());
+                    .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectIdUUID, request.getOrder());
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateSubjectOrderException(order);
         }

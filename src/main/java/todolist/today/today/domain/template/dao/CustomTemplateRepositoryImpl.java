@@ -85,7 +85,7 @@ public class CustomTemplateRepositoryImpl {
                 .fetch();
     }
 
-    public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
+    public TemplateContentResponse getTemplateContent(String userId, UUID templateId, int day) {
         return query.select(Projections.constructor(TemplateContentResponse.class,
                         template.title,
                         template.profile,
@@ -104,15 +104,15 @@ public class CustomTemplateRepositoryImpl {
                 .leftJoin(templateDay.template, template)
                 .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
                 .leftJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
-                .where(templateDay.day.eq(day).and(template.templateId.eq(UUID.fromString(templateId))))
+                .where(templateDay.day.eq(day).and(template.templateId.eq(templateId)))
                 .orderBy(templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetchOne();
     }
 
-    public String getTemplateProfile(String userId, String templateId) {
+    public String getTemplateProfile(String userId, UUID templateId) {
         return query.select(template.profile)
                 .from(template)
-                .where(template.templateId.eq(UUID.fromString(templateId)).and(template.user.email.eq(userId)))
+                .where(template.templateId.eq(templateId).and(template.user.email.eq(userId)))
                 .fetchOne();
     }
 

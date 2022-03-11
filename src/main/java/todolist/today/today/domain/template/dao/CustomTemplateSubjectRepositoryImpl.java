@@ -24,10 +24,10 @@ public class CustomTemplateSubjectRepositoryImpl {
         return value != null ? value : 0;
     }
 
-    public List<Integer> getTemplateSubjectValueByOrder(UUID templateDayId, String subjectId, int order) {
+    public List<Integer> getTemplateSubjectValueByOrder(UUID templateDayId, UUID subjectId, int order) {
         return query.select(templateTodolistSubject.value)
                 .from(templateTodolistSubject)
-                .where(templateTodolistSubject.templateTodolistSubjectId.ne(UUID.fromString(subjectId))
+                .where(templateTodolistSubject.templateTodolistSubjectId.ne(subjectId)
                         .and(templateTodolistSubject.templateDay.templateDayId.eq(templateDayId)))
                 .orderBy(templateTodolistSubject.value.asc())
                 .fetch().subList(Math.max((order - 1), 0), order + 1);

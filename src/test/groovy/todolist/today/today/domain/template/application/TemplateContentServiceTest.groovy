@@ -51,7 +51,7 @@ class TemplateContentServiceTest extends Specification {
         template.getUser() >> user
         user.getEmail() >> USER_ID
 
-        customTemplateContentRepository.getTemplateContentLastValue(SUBJECT_ID.toString()) >> value
+        customTemplateContentRepository.getTemplateContentLastValue(SUBJECT_ID) >> value
 
         when:
         templateContentService.makeTemplateContent(USER_ID, request)
@@ -148,7 +148,7 @@ class TemplateContentServiceTest extends Specification {
         }
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), order) >> values
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, order) >> values
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
@@ -201,7 +201,7 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), 1) >> Collections.emptyList()
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> Collections.emptyList()
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
@@ -234,7 +234,7 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), 1) >> { throw new IndexOutOfBoundsException() }
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new IndexOutOfBoundsException() }
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)

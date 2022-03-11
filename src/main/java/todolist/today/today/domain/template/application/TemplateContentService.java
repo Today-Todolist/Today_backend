@@ -30,11 +30,13 @@ public class TemplateContentService {
 
     public void makeTemplateContent(String userId, TemplateContentCreateRequest request) {
         String subjectId = request.getId();
-        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+        UUID subjectIdUUID = UUID.fromString(subjectId);
+
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(subjectIdUUID)
                 .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
 
-        int value = customTemplateContentRepository.getTemplateContentLastValue(subjectId);
+        int value = customTemplateContentRepository.getTemplateContentLastValue(subjectIdUUID);
         if (value >= 2147483500) value = templateSortService.sortTemplateContent(subject);
         TemplateTodolistContent content = TemplateTodolistContent.builder()
                 .templateTodolistSubject(subject)
@@ -52,7 +54,9 @@ public class TemplateContentService {
     }
 
     public void changeTemplateContentOrder(String userId, String contentId, TemplateContentOrderRequest request) {
-        TemplateTodolistContent content = templateContentRepository.findById(UUID.fromString(contentId))
+        UUID contentIdUUID = UUID.fromString(contentId);
+
+        TemplateTodolistContent content = templateContentRepository.findById(contentIdUUID)
                 .filter(c -> c.getTemplateTodolistSubject().getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateContentNotFoundException(contentId));
 
@@ -61,7 +65,7 @@ public class TemplateContentService {
         List<Integer> values;
         try {
             values = customTemplateContentRepository
-                    .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentId, order);
+                    .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentIdUUID, order);
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateContentOrderException(order);
         }
