@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class MyCalendarPastResponse {
+public class UserCalendarPastResponse {
 
     private int day;
 

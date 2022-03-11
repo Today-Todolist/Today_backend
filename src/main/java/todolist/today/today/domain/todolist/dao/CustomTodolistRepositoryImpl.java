@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 import todolist.today.today.domain.todolist.dto.TodolistRecordResponse;
 import todolist.today.today.domain.todolist.dto.todolist.MyCalendarFutureResponse;
 import todolist.today.today.domain.todolist.dto.todolist.MyCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.todolist.UserCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.todolist.UserCalendarPastResponse;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -41,7 +43,7 @@ public class CustomTodolistRepositoryImpl {
 
     public List<MyCalendarPastResponse> getMyCalendarPast(String userId, LocalDate startDate) {
         return query.select(Projections.constructor(MyCalendarPastResponse.class,
-                        todolist.date,
+                        todolist.date.month(),
                         new CaseBuilder()
                                 .when(todolist.todolistSubjects.any().todolistContents.any().isSuccess.eq(true)).then(true)
                                 .otherwise(false)))
@@ -53,11 +55,34 @@ public class CustomTodolistRepositoryImpl {
 
     public List<MyCalendarFutureResponse> getMyCalendarFuture(String userId, LocalDate endDate) {
         return query.select(Projections.constructor(MyCalendarFutureResponse.class,
-                        todolist.date,
+                        todolist.date.month(),
                         todolist.todolistSubjects.any().todolistContents.size()))
                 .from(todolist)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
                         .and(todolist.date.before(endDate)))
                 .fetch();
     }
+
+    public List<UserCalendarPastResponse> getUserCalendarPast(String userId, LocalDate startDate) {
+        return query.select(Projections.constructor(UserCalendarPastResponse.class,
+                        todolist.date.month(),
+                        new CaseBuilder()
+                                .when(todolist.todolistSubjects.any().todolistContents.any().isSuccess.eq(true)).then(true)
+                                .otherwise(false)))
+                .from(todolist)
+                .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
+                        .and(todolist.date.before(LocalDate.now())))
+                .fetch();
+    }
+
+    public List<UserCalendarFutureResponse> getUserCalendarFuture(String userId, LocalDate endDate) {
+        return query.select(Projections.constructor(UserCalendarFutureResponse.class,
+                        todolist.date.month(),
+                        todolist.todolistSubjects.any().todolistContents.size()))
+                .from(todolist)
+                .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
+                        .and(todolist.date.before(endDate)))
+                .fetch();
+    }
+
 }

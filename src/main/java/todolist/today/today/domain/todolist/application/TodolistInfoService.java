@@ -7,8 +7,11 @@ import todolist.today.today.domain.todolist.dao.CustomTodolistRepositoryImpl;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dto.MyCalendarResponse;
 import todolist.today.today.domain.todolist.dto.TodolistRecordResponse;
+import todolist.today.today.domain.todolist.dto.UserCalendarResponse;
 import todolist.today.today.domain.todolist.dto.todolist.MyCalendarFutureResponse;
 import todolist.today.today.domain.todolist.dto.todolist.MyCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.todolist.UserCalendarFutureResponse;
+import todolist.today.today.domain.todolist.dto.todolist.UserCalendarPastResponse;
 import todolist.today.today.global.dto.response.PagingResponse;
 
 import java.time.LocalDate;
@@ -39,6 +42,12 @@ public class TodolistInfoService {
         List<MyCalendarPastResponse> past = customTodolistRepository.getMyCalendarPast(userId, convert(date + "-01"));
         List<MyCalendarFutureResponse> future = customTodolistRepository.getMyCalendarFuture(userId, convert(date + "-31"));
         return new MyCalendarResponse(past, future);
+    }
+
+    public UserCalendarResponse getUserCalendar(String userId, String date) {
+        List<UserCalendarPastResponse> past = customTodolistRepository.getUserCalendarPast(userId, convert(date + "-01"));
+        List<UserCalendarFutureResponse> future = customTodolistRepository.getUserCalendarFuture(userId, convert(date + "-31"));
+        return new UserCalendarResponse(past, future);
     }
 
 }
