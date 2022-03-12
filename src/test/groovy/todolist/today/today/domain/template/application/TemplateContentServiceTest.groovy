@@ -208,39 +208,6 @@ class TemplateContentServiceTest extends Specification {
         thrown(TemplateContentOrderException)
     }
 
-    def "test changeTemplateContentOrder TemplateContentNotFoundException By NullPointerException" () {
-        given:
-        final String USER_ID = "today043149@gmail.com"
-        final UUID SUBJECT_ID = UUID.randomUUID()
-        final UUID CONTENT_ID = UUID.randomUUID()
-
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
-
-        templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
-        content.getTemplateTodolistSubject() >> subject
-        subject.getTemplateDay() >> templateDay
-        templateDay.getTemplate() >> template
-        template.getUser() >> user
-        user.getEmail() >> USER_ID
-
-        TemplateContentOrderRequest request = makeTemplateContentOrderRequest(1)
-        content.getTemplateTodolistSubject() >> subject
-        subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
-
-        customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new NullPointerException() }
-
-        when:
-        templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
-
-        then:
-        thrown(TemplateContentNotFoundException)
-    }
-
     def "test deleteTemplateContent" () {
         given:
         final String USER_ID = "today043149@gmail.com"

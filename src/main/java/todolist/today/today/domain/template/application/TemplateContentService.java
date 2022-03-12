@@ -68,8 +68,6 @@ public class TemplateContentService {
                     .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentIdUUID, order);
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateContentOrderException(order);
-        } catch (NullPointerException e) {
-            throw new TemplateContentNotFoundException(contentId);
         }
 
         int value1 = values.get(0);

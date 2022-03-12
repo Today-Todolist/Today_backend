@@ -78,8 +78,6 @@ public class TemplateSubjectService {
                     .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectIdUUID, request.getOrder());
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateSubjectOrderException(order);
-        } catch (NullPointerException e) {
-            throw new TemplateSubjectNotFoundException(subjectId);
         }
 
         int value1 = values.get(0);

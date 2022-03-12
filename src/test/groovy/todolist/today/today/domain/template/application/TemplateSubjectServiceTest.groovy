@@ -212,36 +212,6 @@ class TemplateSubjectServiceTest extends Specification {
         thrown(TemplateSubjectOrderException)
     }
 
-    def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException By NullPointerException" () {
-        given:
-        final String USER_ID = "today043149@gmail.com"
-        final UUID SUBJECT_ID = UUID.randomUUID()
-        final UUID TEMPLATE_DAY_ID = UUID.randomUUID()
-
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
-
-        templateSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
-        subject.getTemplateDay() >> templateDay
-        templateDay.getTemplate() >> template
-        template.getUser() >> user
-        user.getEmail() >> USER_ID
-
-        TemplateSubjectOrderRequest request = makeTemplateSubjectOrderRequest(1)
-        templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
-
-        customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> { throw new NullPointerException() }
-
-        when:
-        templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
-
-        then:
-        thrown(TemplateSubjectNotFoundException)
-    }
-
     def "test deleteTemplateSubject" () {
         given:
         final String USER_ID = "today043149@gmail.com"
