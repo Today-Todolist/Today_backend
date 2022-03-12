@@ -164,7 +164,7 @@ class TemplateSubjectServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order| add | value
+        order | add | value
         0 | 0 | 25
         2 | 1 | 25
         2 | 0 | 2147483500
@@ -212,7 +212,7 @@ class TemplateSubjectServiceTest extends Specification {
         thrown(TemplateSubjectOrderException)
     }
 
-    def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException By NullPointException" () {
+    def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException By NullPointerException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
         final UUID SUBJECT_ID = UUID.randomUUID()

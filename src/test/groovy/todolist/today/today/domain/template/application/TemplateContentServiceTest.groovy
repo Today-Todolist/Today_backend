@@ -142,7 +142,7 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-        for(int i=0; i<size; i++) {
+        for(int i=0; i<2; i++) {
             values.add(value)
             value += add
         }
@@ -157,12 +157,10 @@ class TemplateContentServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order | add | value | size
-        0 | 0 | 25 | 1
-        1 | 0 | 25 | 1
-        2 | 1 | 25 | 2
-        2 | 0 | 2147483500 | 1
-        2 | 50 | 25 | 2
+        order | add | value
+        0 | 0 | 25
+        2 | 1 | 25
+        2 | 0 | 2147483500
     }
 
     def "test changeTemplateContentOrder TemplateContentNotFoundException" () {
@@ -201,7 +199,7 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> Collections.emptyList()
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new IndexOutOfBoundsException() }
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
@@ -210,7 +208,7 @@ class TemplateContentServiceTest extends Specification {
         thrown(TemplateContentOrderException)
     }
 
-    def "test changeTemplateContentOrder TemplateContentOrderException By IndexOutOfBoundsException" () {
+    def "test changeTemplateContentOrder TemplateContentNotFoundException By NullPointerException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
         final UUID SUBJECT_ID = UUID.randomUUID()
@@ -234,13 +232,13 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new IndexOutOfBoundsException() }
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new NullPointerException() }
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
 
         then:
-        thrown(TemplateContentOrderException)
+        thrown(TemplateContentNotFoundException)
     }
 
     def "test deleteTemplateContent" () {

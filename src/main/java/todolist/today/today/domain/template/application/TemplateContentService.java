@@ -68,23 +68,15 @@ public class TemplateContentService {
                     .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentIdUUID, order);
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateContentOrderException(order);
+        } catch (NullPointerException e) {
+            throw new TemplateContentNotFoundException(contentId);
         }
 
-        if (values.isEmpty()) throw new TemplateContentOrderException(order);
-        else if (values.size() == 1) {
-            int value = values.get(0);
-            if (order == 0) {
-                content.updateValue(value/2);
-                if (value <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
-            } else if (value >= 2147483500) content.updateValue(templateSortService.sortTemplateContent(content.getTemplateTodolistSubject()) + 100);
-            else content.updateValue(value + 100);
-        }
-        else {
-            int value1 = values.get(0);
-            int value2 = values.get(1);
-            content.updateValue((value1 + value2) / 2);
-            if (value2 - value1 <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
-        }
+        int value1 = values.get(0);
+        int value2 = values.get(1);
+
+        content.updateValue((value1 + value2)/2);
+        if (value2 >= 2147483500 || value2 - value1 <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
     }
 
     public void deleteTemplateContent(String userId, String contentId) {
