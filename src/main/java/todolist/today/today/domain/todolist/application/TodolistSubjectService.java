@@ -76,7 +76,7 @@ public class TodolistSubjectService {
 
         List<Integer> values;
         try {
-            values = customTodolistSubjectRepository.getTemplateSubjectValueByOrder(subject.getTodolist().getTodolistId(), subjectIdUUID, request.getOrder());
+            values = customTodolistSubjectRepository.getTodolistSubjectValueByOrder(subject.getTodolist().getTodolistId(), subjectIdUUID, request.getOrder());
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateSubjectOrderException(order);
         }

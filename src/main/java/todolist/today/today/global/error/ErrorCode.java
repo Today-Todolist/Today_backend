@@ -20,7 +20,7 @@ public enum ErrorCode {
     MISSING_REQUEST(400, "C002", "Missing Request"),
     WRONG_JSON_FORMAT(415, "C003", "Wrong Json Format"),
     WRONG_HTTP_METHOD(405, "C004", "Wrong Http Method"),
-    FILE_SAVE_FAILED(400,"C005",  "File Save Failed"),
+    FILE_SAVE_FAILED(400, "C005", "File Save Failed"),
     WRONG_IMAGE_EXTENSION(400, "C006", "Wrong Image Extension"),
     WRONG_IMAGE_CONTENT_TYPE(400, "C007", "Wrong Image Content Type"),
     MAIL_SEND_FAILED(400, "C008", "Mail Send Failed"),
@@ -39,8 +39,8 @@ public enum ErrorCode {
     TEMPLATE_SUBJECT_NOT_FOUND(404, "E012", "Template Subject Not Found"),
     TEMPLATE_SUBJECT_ORDER_OUT_OF_RANGE(409, "E013", "Template Subject Order Out Of Range"),
     TEMPLATE_CONTENT_NOT_FOUND(404, "E014", "Template Content Not Found"),
-    TEMPLATE_CONTENT_ORDER_OUT_OF_RANGE(409, "E014", "Template Content Order Out Of Range"),
-    TODOLIST_SUBJECT_NOT_FOUND(404, "E015", "Todolist Subject Not Found");
+    TEMPLATE_CONTENT_ORDER_OUT_OF_RANGE(409, "E015", "Template Content Order Out Of Range"),
+    TODOLIST_SUBJECT_NOT_FOUND(404, "E016", "Todolist Subject Not Found");
 
     private final int status;
     private final String code;

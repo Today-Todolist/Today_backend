@@ -26,7 +26,7 @@ public class CustomTodolistSubjectRepositoryImpl {
         return value != null ? value : 0;
     }
 
-    public List<Integer> getTemplateSubjectValueByOrder(UUID todolistId, UUID subjectId, int order) {
+    public List<Integer> getTodolistSubjectValueByOrder(UUID todolistId, UUID subjectId, int order) {
         List<Integer> values = query.select(todolistSubject.value)
                 .from(todolistSubject)
                 .where(todolistSubject.todolistSubjectId.ne(subjectId)
@@ -37,4 +37,5 @@ public class CustomTodolistSubjectRepositoryImpl {
         values.add(values.get(values.size()-1) + 200);
         return new ArrayList<>(values.subList(order, order + 2));
     }
+
 }
