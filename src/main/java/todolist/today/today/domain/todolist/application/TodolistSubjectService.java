@@ -3,8 +3,6 @@ package todolist.today.today.domain.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.template.exception.TemplateSubjectNotFoundException;
-import todolist.today.today.domain.template.exception.TemplateSubjectOrderException;
 import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepositoryImpl;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
@@ -14,6 +12,7 @@ import todolist.today.today.domain.todolist.dto.request.TodolistSubjectChangeReq
 import todolist.today.today.domain.todolist.dto.request.TodolistSubjectCreateRequest;
 import todolist.today.today.domain.todolist.dto.request.TodolistSubjectOrderRequest;
 import todolist.today.today.domain.todolist.exception.TodolistSubjectNotFoundException;
+import todolist.today.today.domain.todolist.exception.TodolistSubjectOrderException;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
@@ -70,7 +69,7 @@ public class TodolistSubjectService {
 
         TodolistSubject subject = todolistSubjectRepository.findById(subjectIdUUID)
                 .filter(s -> s.getTodolist().getUser().getEmail().equals(userId))
-                .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
+                .orElseThrow(() -> new TodolistSubjectNotFoundException(subjectId));
 
         int order = request.getOrder();
 
@@ -78,7 +77,7 @@ public class TodolistSubjectService {
         try {
             values = customTodolistSubjectRepository.getTodolistSubjectValueByOrder(subject.getTodolist().getTodolistId(), subjectIdUUID, request.getOrder());
         } catch (IndexOutOfBoundsException e) {
-            throw new TemplateSubjectOrderException(order);
+            throw new TodolistSubjectOrderException(order);
         }
 
         int value1 = values.get(0);
@@ -91,7 +90,7 @@ public class TodolistSubjectService {
     public void deleteTemplateSubject(String userId, String subjectId) {
         TodolistSubject subject = todolistSubjectRepository.findById(UUID.fromString(subjectId))
                 .filter(s -> s.getTodolist().getUser().getEmail().equals(userId))
-                .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
+                .orElseThrow(() -> new TodolistSubjectNotFoundException(subjectId));
         todolistSubjectRepository.delete(subject);
     }
 

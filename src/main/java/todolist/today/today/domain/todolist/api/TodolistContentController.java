@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.todolist.application.TodolistContentService;
 import todolist.today.today.domain.todolist.dto.request.TodolistContentChangeRequest;
 import todolist.today.today.domain.todolist.dto.request.TodolistContentCreateRequest;
+import todolist.today.today.domain.todolist.dto.request.TodolistContentOrderRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -30,9 +31,16 @@ public class TodolistContentController {
 
     @PutMapping("/content/{contentId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
-    public void changeTemplateContent(@PathVariable("contentId") @NotEmpty String contentId,
+    public void changeTodolistContent(@PathVariable("contentId") @NotEmpty String contentId,
                                       @Valid @RequestBody TodolistContentChangeRequest request) {
-        todolistContentService.changeTemplateContent(authenticationFacade.getUserId(), contentId, request);
+        todolistContentService.changeTodolistContent(authenticationFacade.getUserId(), contentId, request);
+    }
+
+    @PutMapping("/content-order/{contentId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeTodolistContentOrder(@PathVariable("contentId") @NotEmpty String contentId,
+                                           @Valid @RequestBody TodolistContentOrderRequest request) {
+        todolistContentService.changeTodolistContentOrder(authenticationFacade.getUserId(), contentId, request);
     }
 
 }
