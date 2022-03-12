@@ -149,7 +149,7 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-        for(int i=0; i<size; i++) {
+        for(int i=0; i<2; i++) {
             values.add(value)
             value += add
         }
@@ -164,12 +164,10 @@ class TemplateSubjectServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order| add | value | size
-        0 | 0 | 25 | 1
-        1 | 0 | 25 | 1
-        2 | 1 | 25 | 2
-        2 | 0 | 2147483500 | 1
-        2 | 50 | 25 | 2
+        order| add | value
+        0 | 0 | 25
+        2 | 1 | 25
+        2 | 0 | 2147483500
     }
 
     def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException" () {
@@ -205,19 +203,16 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> values
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> { throw new IndexOutOfBoundsException() }
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
 
         then:
         thrown(TemplateSubjectOrderException)
-
-        where:
-        values << [Collections.emptyList(), null]
     }
 
-    def "test changeTemplateSubjectOrder TemplateSubjectOrderException By IndexOutOfBoundsException" () {
+    def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException By NullPointException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
         final UUID SUBJECT_ID = UUID.randomUUID()
@@ -238,13 +233,13 @@ class TemplateSubjectServiceTest extends Specification {
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> { throw new IndexOutOfBoundsException() }
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> { throw new NullPointerException() }
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
 
         then:
-        thrown(TemplateSubjectOrderException)
+        thrown(TemplateSubjectNotFoundException)
     }
 
     def "test deleteTemplateSubject" () {
