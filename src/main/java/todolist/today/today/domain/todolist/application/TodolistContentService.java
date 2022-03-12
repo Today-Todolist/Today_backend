@@ -77,4 +77,11 @@ public class TodolistContentService {
         if (value2 >= 2147483500 || value2 - value1 <= 25) todolistSortService.sortTodolistContent(content.getTodolistSubject());
     }
 
+    public void deleteTodolistContent(String userId, String contentId) {
+        TodolistContent content = todolistContentRepository.findById(UUID.fromString(contentId))
+                .filter(c -> c.getTodolistSubject().getTodolist().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TodolistContentNotFoundException(contentId));
+        todolistContentRepository.delete(content);
+    }
+
 }
