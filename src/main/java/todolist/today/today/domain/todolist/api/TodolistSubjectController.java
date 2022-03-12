@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import todolist.today.today.domain.todolist.application.TodolistSubjectService;
 import todolist.today.today.domain.todolist.dto.request.TodolistSubjectChangeRequest;
 import todolist.today.today.domain.todolist.dto.request.TodolistSubjectCreateRequest;
+import todolist.today.today.domain.todolist.dto.request.TodolistSubjectOrderRequest;
 import todolist.today.today.global.security.service.AuthenticationFacade;
 
 import javax.validation.Valid;
@@ -27,11 +28,18 @@ public class TodolistSubjectController {
         todolistSubjectService.makeTodolistSubject(authenticationFacade.getUserId(), request);
     }
 
-    @PostMapping("/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @PutMapping("/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     public void changeTodolistSubject(@PathVariable("subjectId") @NotEmpty String subjectId,
                                       @Valid @RequestBody TodolistSubjectChangeRequest request) {
         todolistSubjectService.changeTodolistSubject(authenticationFacade.getUserId(), subjectId, request);
+    }
+
+    @PutMapping("/subject-order/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void changeTodolistSubjectOrder(@PathVariable("subjectId") @NotEmpty String subjectId,
+                                           @Valid @RequestBody TodolistSubjectOrderRequest request) {
+        todolistSubjectService.changeTemplateSubjectOrder(authenticationFacade.getUserId(), subjectId, request);
     }
 
 }
