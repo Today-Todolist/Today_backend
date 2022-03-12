@@ -42,4 +42,10 @@ public class TodolistSubjectController {
         todolistSubjectService.changeTemplateSubjectOrder(authenticationFacade.getUserId(), subjectId, request);
     }
 
+    @DeleteMapping("/subject/{subjectId}") @PreAuthorize("isAuthenticated()")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTodolistSubject(@PathVariable("subjectId") @NotEmpty String subjectId) {
+        todolistSubjectService.deleteTemplateSubject(authenticationFacade.getUserId(), subjectId);
+    }
+
 }

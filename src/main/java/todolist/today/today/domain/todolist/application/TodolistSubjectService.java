@@ -87,4 +87,12 @@ public class TodolistSubjectService {
         subject.updateValue((value1 + value2)/2);
         if (value2 >= 2147483500 || value2 - value1 <= 25) todolistSortService.sortTodolistSubject(subject.getTodolist());
     }
+
+    public void deleteTemplateSubject(String userId, String subjectId) {
+        TodolistSubject subject = todolistSubjectRepository.findById(UUID.fromString(subjectId))
+                .filter(s -> s.getTodolist().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
+        todolistSubjectRepository.delete(subject);
+    }
+
 }
