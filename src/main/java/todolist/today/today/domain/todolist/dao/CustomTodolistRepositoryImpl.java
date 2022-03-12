@@ -53,6 +53,7 @@ public class CustomTodolistRepositoryImpl {
                 .from(todolist)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
                         .and(todolist.date.before(LocalDate.now())))
+                .orderBy(todolist.date.asc())
                 .fetch();
     }
 
@@ -63,6 +64,7 @@ public class CustomTodolistRepositoryImpl {
                 .from(todolist)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
                         .and(todolist.date.before(endDate)))
+                .orderBy(todolist.date.asc())
                 .fetch();
     }
 
@@ -75,6 +77,7 @@ public class CustomTodolistRepositoryImpl {
                 .from(todolist)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
                         .and(todolist.date.before(LocalDate.now())))
+                .orderBy(todolist.date.asc())
                 .fetch();
     }
 
@@ -85,6 +88,7 @@ public class CustomTodolistRepositoryImpl {
                 .from(todolist)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
                         .and(todolist.date.before(endDate)))
+                .orderBy(todolist.date.asc())
                 .fetch();
     }
 
@@ -104,6 +108,7 @@ public class CustomTodolistRepositoryImpl {
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
                 .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.eq(date)))
+                .orderBy(todolistSubject.value.asc(), todolistContent.value.asc())
                 .fetchOne();
     }
 
