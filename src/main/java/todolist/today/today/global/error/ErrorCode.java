@@ -40,7 +40,8 @@ public enum ErrorCode {
     TEMPLATE_SUBJECT_ORDER_OUT_OF_RANGE(409, "E013", "Template Subject Order Out Of Range"),
     TEMPLATE_CONTENT_NOT_FOUND(404, "E014", "Template Content Not Found"),
     TEMPLATE_CONTENT_ORDER_OUT_OF_RANGE(409, "E015", "Template Content Order Out Of Range"),
-    TODOLIST_SUBJECT_NOT_FOUND(404, "E016", "Todolist Subject Not Found");
+    TODOLIST_SUBJECT_NOT_FOUND(404, "E016", "Todolist Subject Not Found"),
+    TODOLIST_CONTENT_NOT_FOUND(404, "E017", "Todolist Content Not Found");
 
     private final int status;
     private final String code;

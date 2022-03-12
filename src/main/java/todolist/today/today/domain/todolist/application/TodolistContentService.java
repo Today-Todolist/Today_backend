@@ -8,7 +8,9 @@ import todolist.today.today.domain.todolist.dao.TodolistContentRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
 import todolist.today.today.domain.todolist.domain.TodolistContent;
 import todolist.today.today.domain.todolist.domain.TodolistSubject;
+import todolist.today.today.domain.todolist.dto.request.TodolistContentChangeRequest;
 import todolist.today.today.domain.todolist.dto.request.TodolistContentCreateRequest;
+import todolist.today.today.domain.todolist.exception.TodolistContentNotFoundException;
 import todolist.today.today.domain.todolist.exception.TodolistSubjectNotFoundException;
 
 import java.util.UUID;
@@ -39,6 +41,13 @@ public class TodolistContentService {
                 .value(value + 100)
                 .build();
         todolistContentRepository.save(content);
+    }
+
+    public void changeTemplateContent(String userId, String contentId, TodolistContentChangeRequest request) {
+        todolistContentRepository.findById(UUID.fromString(contentId))
+                .filter(c -> c.getTodolistSubject().getTodolist().getUser().getEmail().equals(userId))
+                .orElseThrow(() -> new TodolistContentNotFoundException(contentId))
+                .updateContent(request.getContent());
     }
 
 }
