@@ -14,8 +14,7 @@ import todolist.today.today.global.security.service.AuthenticationFacade;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
-@RestController
-@Validated
+@RestController @Validated
 @RequiredArgsConstructor
 @RequestMapping("/todolist")
 public class TodolistContentController {
