@@ -16,6 +16,9 @@ import todolist.today.today.domain.template.dto.response.template.TemplateConten
 import todolist.today.today.domain.template.dto.response.template.content.TemplateContentTemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.subject.TemplateContentTemplateSubjectResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
+import todolist.today.today.domain.todolist.dto.etc.TemplateContentDto;
+import todolist.today.today.domain.todolist.dto.etc.content.TemplateContentSubjectContentDto;
+import todolist.today.today.domain.todolist.dto.etc.subject.TemplateContentSubjectDto;
 import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
@@ -114,6 +117,21 @@ public class CustomTemplateRepositoryImpl {
                 .from(template)
                 .where(template.templateId.eq(templateId).and(template.user.email.eq(userId)))
                 .fetchOne();
+    }
+
+    public List<TemplateContentDto> getUserTemplateInfo(String userId, UUID templateId) {
+        return query.select(Projections.constructor(TemplateContentDto.class,
+                        templateDay.day,
+                        list(Projections.constructor(TemplateContentSubjectDto.class,
+                                templateTodolistSubject.subject,
+                                list(Projections.constructor(TemplateContentSubjectContentDto.class,
+                                        templateTodolistContent.content))))))
+                .from(templateDay)
+                .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
+                .leftJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
+                .where(templateDay.template.user.email.eq(userId))
+                .orderBy(templateDay.day.asc(), templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
+                .fetch();
     }
 
 }
