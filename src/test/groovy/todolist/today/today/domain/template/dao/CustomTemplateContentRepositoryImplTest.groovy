@@ -96,7 +96,7 @@ class CustomTemplateContentRepositoryImplTest extends Specification {
 
         when:
         int value = customTemplateContentRepository
-                .getTemplateContentLastValue(subject.getTemplateTodolistSubjectId().toString())
+                .getTemplateContentLastValue(subject.getTemplateTodolistSubjectId())
 
         then:
         value == 2000
@@ -128,8 +128,7 @@ class CustomTemplateContentRepositoryImplTest extends Specification {
         when:
         List<Integer> values = customTemplateContentRepository
                 .getTemplateContentValueByOrder(subject.getTemplateTodolistSubjectId(),
-                        content3.getTemplateTodolistContentId().toString(),
-                        1)
+                        content3.getTemplateTodolistContentId(), 1)
 
         then:
         values.size() == 2

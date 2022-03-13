@@ -34,4 +34,8 @@ public class TodolistContent extends BaseTodolistContent {
         this.isSuccess = false;
     }
 
+    public void updateIsSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
+
 }

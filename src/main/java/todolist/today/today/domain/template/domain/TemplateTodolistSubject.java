@@ -32,10 +32,6 @@ public class TemplateTodolistSubject extends BaseTodolistSubject {
         this.value = value;
     }
 
-    public void updateSubject(String subject) {
-        this.subject = subject;
-    }
-
     @OneToMany(mappedBy = "templateTodolistSubject", cascade = CascadeType.REMOVE)
     private List<TemplateTodolistContent> templateTodolistContents;
 

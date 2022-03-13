@@ -64,7 +64,9 @@ public class TemplateSubjectService {
     }
 
     public void changeTemplateSubjectOrder(String userId, String subjectId, TemplateSubjectOrderRequest request) {
-        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+        UUID subjectIdUUID = UUID.fromString(subjectId);
+
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(subjectIdUUID)
                 .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
 
@@ -73,26 +75,16 @@ public class TemplateSubjectService {
         List<Integer> values;
         try {
             values = customTemplateSubjectRepository
-                    .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectId, request.getOrder());
+                    .getTemplateSubjectValueByOrder(subject.getTemplateDay().getTemplateDayId(), subjectIdUUID, request.getOrder());
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateSubjectOrderException(order);
         }
 
-        if (values == null || values.isEmpty()) throw new TemplateSubjectOrderException(order);
-        else if (values.size() == 1) {
-            int value = values.get(0);
-            if (order == 0) {
-                subject.updateValue(value/2);
-                if (value <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
-            } else if (value >= 2147483500) subject.updateValue(templateSortService.sortTemplateSubject(subject.getTemplateDay()) + 100);
-            else subject.updateValue(value + 100);
-        }
-        else {
-            int value1 = values.get(0);
-            int value2 = values.get(1);
-            subject.updateValue((value1 + value2) / 2);
-            if (value2 - value1 <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
-        }
+        int value1 = values.get(0);
+        int value2 = values.get(1);
+
+        subject.updateValue((value1 + value2)/2);
+        if (value2 >= 2147483500 || value2 - value1 <= 25) templateSortService.sortTemplateSubject(subject.getTemplateDay());
     }
 
     public void deleteTemplateSubject(String userId, String subjectId) {

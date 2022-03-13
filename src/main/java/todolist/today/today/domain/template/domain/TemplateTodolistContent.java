@@ -31,8 +31,4 @@ public class TemplateTodolistContent extends BaseTodolistContent {
         this.value = value;
     }
 
-    public void updateContent(String content) {
-        this.content = content;
-    }
-
 }

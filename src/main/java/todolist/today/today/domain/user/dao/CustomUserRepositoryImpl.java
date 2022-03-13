@@ -58,7 +58,7 @@ public class CustomUserRepositoryImpl {
                                         template.title,
                                         template.profile))))
                         .from(user)
-                        .innerJoin(user.templates, template)
+                        .leftJoin(user.templates, template)
                         .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                         .where(user.email.eq(userId))
                         .fetchOne();
@@ -78,7 +78,7 @@ public class CustomUserRepositoryImpl {
                                         template.title,
                                         template.profile))))
                         .from(user)
-                        .innerJoin(user.templates, template)
+                        .leftJoin(user.templates, template)
                         .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                         .where(user.email.eq(userId))
                         .fetchOne();

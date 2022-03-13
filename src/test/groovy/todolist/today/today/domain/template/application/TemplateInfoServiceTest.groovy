@@ -45,7 +45,7 @@ class TemplateInfoServiceTest extends Specification {
         final String USER_ID = "today043149@gmail.com"
         final UUID TEMPLATE_ID = UUID.randomUUID()
         final int DAY = 1
-        customTemplateRepository.getTemplateContent(USER_ID, TEMPLATE_ID.toString(), DAY)
+        customTemplateRepository.getTemplateContent(USER_ID, TEMPLATE_ID, DAY)
                 >> Stub(TemplateContentResponse)
 
         when:

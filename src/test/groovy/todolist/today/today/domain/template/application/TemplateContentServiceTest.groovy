@@ -51,7 +51,7 @@ class TemplateContentServiceTest extends Specification {
         template.getUser() >> user
         user.getEmail() >> USER_ID
 
-        customTemplateContentRepository.getTemplateContentLastValue(SUBJECT_ID.toString()) >> value
+        customTemplateContentRepository.getTemplateContentLastValue(SUBJECT_ID) >> value
 
         when:
         templateContentService.makeTemplateContent(USER_ID, request)
@@ -142,13 +142,13 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         ArrayList<Integer> values = new ArrayList<>()
-        for(int i=0; i<size; i++) {
+        for(int i=0; i<2; i++) {
             values.add(value)
             value += add
         }
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), order) >> values
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, order) >> values
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
@@ -157,12 +157,10 @@ class TemplateContentServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order | add | value | size
-        0 | 0 | 25 | 1
-        1 | 0 | 25 | 1
-        2 | 1 | 25 | 2
-        2 | 0 | 2147483500 | 1
-        2 | 50 | 25 | 2
+        order | add | value
+        0 | 0 | 25
+        2 | 1 | 25
+        2 | 0 | 2147483500
     }
 
     def "test changeTemplateContentOrder TemplateContentNotFoundException" () {
@@ -201,40 +199,7 @@ class TemplateContentServiceTest extends Specification {
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), 1) >> Collections.emptyList()
-
-        when:
-        templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
-
-        then:
-        thrown(TemplateContentOrderException)
-    }
-
-    def "test changeTemplateContentOrder TemplateContentOrderException By IndexOutOfBoundsException" () {
-        given:
-        final String USER_ID = "today043149@gmail.com"
-        final UUID SUBJECT_ID = UUID.randomUUID()
-        final UUID CONTENT_ID = UUID.randomUUID()
-
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
-
-        templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
-        content.getTemplateTodolistSubject() >> subject
-        subject.getTemplateDay() >> templateDay
-        templateDay.getTemplate() >> template
-        template.getUser() >> user
-        user.getEmail() >> USER_ID
-
-        TemplateContentOrderRequest request = makeTemplateContentOrderRequest(1)
-        content.getTemplateTodolistSubject() >> subject
-        subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
-
-        customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID.toString(), 1) >> { throw new IndexOutOfBoundsException() }
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> { throw new IndexOutOfBoundsException() }
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)

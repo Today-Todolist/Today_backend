@@ -30,11 +30,13 @@ public class TemplateContentService {
 
     public void makeTemplateContent(String userId, TemplateContentCreateRequest request) {
         String subjectId = request.getId();
-        TemplateTodolistSubject subject = templateSubjectRepository.findById(UUID.fromString(subjectId))
+        UUID subjectIdUUID = UUID.fromString(subjectId);
+
+        TemplateTodolistSubject subject = templateSubjectRepository.findById(subjectIdUUID)
                 .filter(s -> s.getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateSubjectNotFoundException(subjectId));
 
-        int value = customTemplateContentRepository.getTemplateContentLastValue(subjectId);
+        int value = customTemplateContentRepository.getTemplateContentLastValue(subjectIdUUID);
         if (value >= 2147483500) value = templateSortService.sortTemplateContent(subject);
         TemplateTodolistContent content = TemplateTodolistContent.builder()
                 .templateTodolistSubject(subject)
@@ -52,7 +54,9 @@ public class TemplateContentService {
     }
 
     public void changeTemplateContentOrder(String userId, String contentId, TemplateContentOrderRequest request) {
-        TemplateTodolistContent content = templateContentRepository.findById(UUID.fromString(contentId))
+        UUID contentIdUUID = UUID.fromString(contentId);
+
+        TemplateTodolistContent content = templateContentRepository.findById(contentIdUUID)
                 .filter(c -> c.getTemplateTodolistSubject().getTemplateDay().getTemplate().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateContentNotFoundException(contentId));
 
@@ -61,26 +65,16 @@ public class TemplateContentService {
         List<Integer> values;
         try {
             values = customTemplateContentRepository
-                    .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentId, order);
+                    .getTemplateContentValueByOrder(content.getTemplateTodolistSubject().getTemplateTodolistSubjectId(), contentIdUUID, order);
         } catch (IndexOutOfBoundsException e) {
             throw new TemplateContentOrderException(order);
         }
 
-        if (values.isEmpty()) throw new TemplateContentOrderException(order);
-        else if (values.size() == 1) {
-            int value = values.get(0);
-            if (order == 0) {
-                content.updateValue(value/2);
-                if (value <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
-            } else if (value >= 2147483500) content.updateValue(templateSortService.sortTemplateContent(content.getTemplateTodolistSubject()) + 100);
-            else content.updateValue(value + 100);
-        }
-        else {
-            int value1 = values.get(0);
-            int value2 = values.get(1);
-            content.updateValue((value1 + value2) / 2);
-            if (value2 - value1 <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
-        }
+        int value1 = values.get(0);
+        int value2 = values.get(1);
+
+        content.updateValue((value1 + value2)/2);
+        if (value2 >= 2147483500 || value2 - value1 <= 25) templateSortService.sortTemplateContent(content.getTemplateTodolistSubject());
     }
 
     public void deleteTemplateContent(String userId, String contentId) {

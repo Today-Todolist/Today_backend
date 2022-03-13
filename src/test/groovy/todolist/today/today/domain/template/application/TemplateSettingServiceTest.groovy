@@ -99,11 +99,11 @@ class TemplateSettingServiceTest extends Specification {
     def "test deleteTemplate" () {
         given:
         final String USER_ID = "today043149@gmail.com"
-        final String TEMPLATE_ID = UUID.randomUUID().toString()
+        final UUID TEMPLATE_ID = UUID.randomUUID()
         customTemplateRepository.getTemplateProfile(USER_ID, TEMPLATE_ID) >> ""
 
         when:
-        templateSettingService.deleteTemplate(USER_ID, TEMPLATE_ID)
+        templateSettingService.deleteTemplate(USER_ID, TEMPLATE_ID.toString())
 
         then:
         noExceptionThrown()
@@ -112,11 +112,11 @@ class TemplateSettingServiceTest extends Specification {
     def "test deleteTemplate TemplateNotFoundException" () {
         given:
         final String USER_ID = "today043149@gmail.com"
-        final String TEMPLATE_ID = UUID.randomUUID().toString()
+        final UUID TEMPLATE_ID = UUID.randomUUID()
         customTemplateRepository.getTemplateProfile(USER_ID, TEMPLATE_ID) >> null
 
         when:
-        templateSettingService.deleteTemplate(USER_ID, TEMPLATE_ID)
+        templateSettingService.deleteTemplate(USER_ID, TEMPLATE_ID.toString())
 
         then:
         thrown(TemplateNotFoundException)

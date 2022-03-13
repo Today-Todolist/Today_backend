@@ -12,4 +12,8 @@ public abstract class BaseTodolistContent extends BaseValue {
     @Column(length = 31, nullable = false)
     protected String content;
 
+    public void updateContent(String content) {
+        this.content = content;
+    }
+
 }

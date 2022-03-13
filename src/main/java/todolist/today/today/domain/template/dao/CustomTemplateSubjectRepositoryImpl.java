@@ -4,6 +4,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,13 +25,16 @@ public class CustomTemplateSubjectRepositoryImpl {
         return value != null ? value : 0;
     }
 
-    public List<Integer> getTemplateSubjectValueByOrder(UUID templateDayId, String subjectId, int order) {
-        return query.select(templateTodolistSubject.value)
+    public List<Integer> getTemplateSubjectValueByOrder(UUID templateDayId, UUID subjectId, int order) {
+        List<Integer> values = query.select(templateTodolistSubject.value)
                 .from(templateTodolistSubject)
-                .where(templateTodolistSubject.templateTodolistSubjectId.ne(UUID.fromString(subjectId))
+                .where(templateTodolistSubject.templateTodolistSubjectId.ne(subjectId)
                         .and(templateTodolistSubject.templateDay.templateDayId.eq(templateDayId)))
                 .orderBy(templateTodolistSubject.value.asc())
-                .fetch().subList(Math.max((order - 1), 0), order + 1);
+                .fetch();
+        values.add(0, 0);
+        values.add(values.get(values.size()-1) + 200);
+        return new ArrayList<>(values.subList(order, order + 2));
     }
 
 }

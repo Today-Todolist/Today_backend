@@ -153,7 +153,7 @@ class CustomTemplateRepositoryImplTest extends Specification {
 
         when:
         TemplateContentResponse response = customTemplateRepository
-                .getTemplateContent(user.getEmail(), template.getTemplateId().toString(), 1)
+                .getTemplateContent(user.getEmail(), template.getTemplateId(), 1)
 
         then:
         response.getTitle() == template.getTitle()
@@ -173,7 +173,7 @@ class CustomTemplateRepositoryImplTest extends Specification {
         templateRepository.save(template)
 
         when:
-        String profile = customTemplateRepository.getTemplateProfile(user.getEmail(), template.getTemplateId().toString())
+        String profile = customTemplateRepository.getTemplateProfile(user.getEmail(), template.getTemplateId())
 
         then:
         profile == template.getProfile()

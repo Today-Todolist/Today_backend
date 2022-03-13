@@ -16,6 +16,9 @@ import todolist.today.today.domain.template.dto.response.template.TemplateConten
 import todolist.today.today.domain.template.dto.response.template.content.TemplateContentTemplateContentResponse;
 import todolist.today.today.domain.template.dto.response.template.subject.TemplateContentTemplateSubjectResponse;
 import todolist.today.today.domain.template.dto.response.user.RandomTemplateUserResponse;
+import todolist.today.today.domain.todolist.dto.etc.TemplateContentDto;
+import todolist.today.today.domain.todolist.dto.etc.content.TemplateContentSubjectContentDto;
+import todolist.today.today.domain.todolist.dto.etc.subject.TemplateContentSubjectDto;
 import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
@@ -85,7 +88,7 @@ public class CustomTemplateRepositoryImpl {
                 .fetch();
     }
 
-    public TemplateContentResponse getTemplateContent(String userId, String templateId, int day) {
+    public TemplateContentResponse getTemplateContent(String userId, UUID templateId, int day) {
         return query.select(Projections.constructor(TemplateContentResponse.class,
                         template.title,
                         template.profile,
@@ -104,16 +107,31 @@ public class CustomTemplateRepositoryImpl {
                 .leftJoin(templateDay.template, template)
                 .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
                 .leftJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
-                .where(templateDay.day.eq(day).and(template.templateId.eq(UUID.fromString(templateId))))
+                .where(templateDay.day.eq(day).and(template.templateId.eq(templateId)))
                 .orderBy(templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetchOne();
     }
 
-    public String getTemplateProfile(String userId, String templateId) {
+    public String getTemplateProfile(String userId, UUID templateId) {
         return query.select(template.profile)
                 .from(template)
-                .where(template.templateId.eq(UUID.fromString(templateId)).and(template.user.email.eq(userId)))
+                .where(template.templateId.eq(templateId).and(template.user.email.eq(userId)))
                 .fetchOne();
+    }
+
+    public List<TemplateContentDto> getUserTemplateInfo(String userId, UUID templateId) {
+        return query.select(Projections.constructor(TemplateContentDto.class,
+                        templateDay.day,
+                        list(Projections.constructor(TemplateContentSubjectDto.class,
+                                templateTodolistSubject.subject,
+                                list(Projections.constructor(TemplateContentSubjectContentDto.class,
+                                        templateTodolistContent.content))))))
+                .from(templateDay)
+                .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
+                .leftJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
+                .where(templateDay.template.user.email.eq(userId).and(templateDay.template.templateId.eq(templateId)))
+                .orderBy(templateDay.day.asc(), templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
+                .fetch();
     }
 
 }
