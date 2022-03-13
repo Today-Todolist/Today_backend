@@ -129,7 +129,7 @@ public class CustomTemplateRepositoryImpl {
                 .from(templateDay)
                 .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
                 .leftJoin(templateTodolistSubject.templateTodolistContents, templateTodolistContent)
-                .where(templateDay.template.user.email.eq(userId))
+                .where(templateDay.template.user.email.eq(userId).and(templateDay.template.templateId.eq(templateId)))
                 .orderBy(templateDay.day.asc(), templateTodolistSubject.value.asc(), templateTodolistContent.value.asc())
                 .fetch();
     }

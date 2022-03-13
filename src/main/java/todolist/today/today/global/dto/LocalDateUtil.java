@@ -7,6 +7,10 @@ public class LocalDateUtil {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private LocalDateUtil() {
+        throw new IllegalStateException("Utility Class");
+    }
+
     public static String convert(LocalDate date) {
         return date.format(formatter);
     }
