@@ -8,7 +8,6 @@ import java.util.List;
 public class MyCalendarPastResponse {
 
     private int day;
-
     private Boolean isSuccess;
 
     public MyCalendarPastResponse(int day, List<Boolean> isSuccess) {

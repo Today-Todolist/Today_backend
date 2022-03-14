@@ -1,7 +1,6 @@
 package todolist.today.today.domain.todolist.dao;
 
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,6 +10,7 @@ import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarFutu
 import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarPastResponse;
 import todolist.today.today.domain.todolist.dto.response.todolist.UserCalendarFutureResponse;
 import todolist.today.today.domain.todolist.dto.response.todolist.UserCalendarPastResponse;
+import todolist.today.today.domain.todolist.dto.response.todolist.content.TodolistContentTodolistContentResponse;
 import todolist.today.today.domain.todolist.dto.response.todolist.subject.TodolistContentTodolistSubjectResponse;
 
 import java.time.LocalDate;
@@ -55,36 +55,38 @@ public class CustomTodolistRepositoryImpl {
     public List<MyCalendarFutureResponse> getMyCalendarFuture(String userId, LocalDate endDate) {
         return query.select(Projections.constructor(MyCalendarFutureResponse.class,
                         todolist.date.month(),
-                        todolist.todolistSubjects.any().todolistContents.size()))
+                        todolistSubject.todolistContents.size()))
                 .from(todolist)
-                .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
+                .leftJoin(todolist.todolistSubjects, todolistSubject)
+                .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now()))
                         .and(todolist.date.before(endDate)))
                 .orderBy(todolist.date.asc())
-                .fetch();
+                .fetch().stream().filter(response -> response.getTodolists() > 0).toList();
     }
 
     public List<UserCalendarPastResponse> getUserCalendarPast(String userId, LocalDate startDate) {
         return query.select(Projections.constructor(UserCalendarPastResponse.class,
                         todolist.date.month(),
-                        new CaseBuilder()
-                                .when(todolist.todolistSubjects.any().todolistContents.any().isSuccess.eq(true)).then(true)
-                                .otherwise(false)))
+                        list(todolistContent.isSuccess)))
                 .from(todolist)
+                .leftJoin(todolist.todolistSubjects, todolistSubject)
+                .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
                         .and(todolist.date.before(LocalDate.now())))
                 .orderBy(todolist.date.asc())
-                .fetch();
+                .fetch().stream().filter(response -> response.getIsSuccess() != null).toList();
     }
 
     public List<UserCalendarFutureResponse> getUserCalendarFuture(String userId, LocalDate endDate) {
         return query.select(Projections.constructor(UserCalendarFutureResponse.class,
                         todolist.date.month(),
-                        todolist.todolistSubjects.any().todolistContents.size()))
+                        todolistSubject.todolistContents.size()))
                 .from(todolist)
+                .leftJoin(todolist.todolistSubjects, todolistSubject)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
                         .and(todolist.date.before(endDate)))
                 .orderBy(todolist.date.asc())
-                .fetch();
+                .fetch().stream().filter(response -> response.getTodolists() > 0).toList();
     }
 
     public TodolistContentResponse getTodolist(String userId, LocalDate date) {
@@ -92,10 +94,8 @@ public class CustomTodolistRepositoryImpl {
                         Projections.constructor(TodolistContentTodolistSubjectResponse.class,
                                 todolistSubject.todolistSubjectId,
                                 todolistSubject.subject,
-                                new CaseBuilder()
-                                        .when(todolistSubject.todolistContents.any().isSuccess.eq(true)).then(true)
-                                        .otherwise(false)),
-                        list(Projections.constructor(TodolistContentTodolistSubjectResponse.class,
+                                list(todolistContent.isSuccess)),
+                        list(Projections.constructor(TodolistContentTodolistContentResponse.class,
                                 todolistContent.todolistContentId,
                                 todolistContent.content,
                                 todolistContent.isSuccess))))
