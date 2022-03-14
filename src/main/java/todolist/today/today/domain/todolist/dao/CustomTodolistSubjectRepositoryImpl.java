@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static todolist.today.today.domain.template.domain.QTemplateTodolistSubject.templateTodolistSubject;
 import static todolist.today.today.domain.todolist.domain.QTodolistSubject.todolistSubject;
 
 @Repository

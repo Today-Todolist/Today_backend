@@ -1,6 +1,7 @@
 package todolist.today.today
 
 import todolist.today.today.domain.template.dto.request.*
+import todolist.today.today.domain.todolist.dto.request.TemplateApplyRequest
 import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
@@ -115,6 +116,12 @@ class RequestUtil {
     static TemplateSubjectOrderRequest makeTemplateSubjectOrderRequest(int order) {
         TemplateSubjectOrderRequest request = new TemplateSubjectOrderRequest()
         inputField(request, "order", order)
+        return request
+    }
+
+    static TemplateApplyRequest makeTemplateApplyRequest(List<String> id) {
+        TemplateApplyRequest request = new TemplateApplyRequest()
+        inputField(request, "id", id)
         return request
     }
 
