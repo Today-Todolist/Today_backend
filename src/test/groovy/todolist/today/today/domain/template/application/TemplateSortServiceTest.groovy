@@ -20,50 +20,26 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateSubject" () {
         given:
-        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
-                .value(value1)
-                .build()
-        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
-                .value(value2)
-                .build()
-
         TemplateDay templateDay = Stub(TemplateDay)
-        templateDay.getTemplateTodolistSubjects() >> Arrays.asList(subject1, subject2)
+        templateDay.getTemplateTodolistSubjects() >> Arrays.asList(new TemplateTodolistSubject(), new TemplateTodolistSubject())
 
         when:
         templateSortService.sortTemplateSubject(templateDay)
 
         then:
         noExceptionThrown()
-
-        where:
-        value1 | value2
-        100 | 200
-        200 | 100
     }
 
     def "test sortTemplateContent" () {
         given:
-        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
-                .value(value1)
-                .build()
-        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
-                .value(value2)
-                .build()
-
         TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        subject.getTemplateTodolistContents() >> Arrays.asList(content1, content2)
+        subject.getTemplateTodolistContents() >> Arrays.asList(new TemplateTodolistContent(), new TemplateTodolistContent())
 
         when:
         templateSortService.sortTemplateContent(subject)
 
         then:
         noExceptionThrown()
-
-        where:
-        value1 | value2
-        100 | 200
-        200 | 100
     }
 
 }
