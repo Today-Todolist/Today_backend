@@ -2,7 +2,6 @@ package todolist.today.today.domain.todolist.dao;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,16 +30,12 @@ public class CustomTodolistRepositoryImpl {
     public List<TodolistRecordResponse> getTodolistRecord(String userId, LocalDate startDate, LocalDate endDate) {
         return query.select(Projections.constructor(TodolistRecordResponse.class,
                         todolist.date,
-                        JPAExpressions.select(todolistContent.count())
-                                .from(todolistContent)
-                                .where(todolistContent.isSuccess.eq(true)),
-                        JPAExpressions.select(todolistContent.count())
-                                .from(todolistContent)
-                                .where(todolistContent.isSuccess.eq(false))))
+                        list(todolistContent.isSuccess)))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
-                .leftJoin(todolistSubject.todolistContents, todolistContent)
+                .leftJoin(todolistSubject.todolistContents, todolistContent).on(todolistContent.isSuccess.eq(true))
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate)).and(todolist.date.before(endDate)))
+                .orderBy(todolist.date.asc())
                 .fetch();
     }
 
