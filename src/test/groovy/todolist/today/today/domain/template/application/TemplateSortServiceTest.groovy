@@ -27,12 +27,8 @@ class TemplateSortServiceTest extends Specification {
                 .value(value2)
                 .build()
 
-        List<TemplateTodolistSubject> subjects = new ArrayList<>()
-        subjects.add(subject1)
-        subjects.add(subject2)
-
         TemplateDay templateDay = Stub(TemplateDay)
-        templateDay.getTemplateTodolistSubjects() >> subjects
+        templateDay.getTemplateTodolistSubjects() >> Arrays.asList(subject1, subject2)
 
         when:
         templateSortService.sortTemplateSubject(templateDay)
@@ -55,12 +51,8 @@ class TemplateSortServiceTest extends Specification {
                 .value(value2)
                 .build()
 
-        List<TemplateTodolistContent> contents = new ArrayList<>()
-        contents.add(content1)
-        contents.add(content2)
-
         TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        subject.getTemplateTodolistContents() >> contents
+        subject.getTemplateTodolistContents() >> Arrays.asList(content1, content2)
 
         when:
         templateSortService.sortTemplateContent(subject)
