@@ -42,14 +42,14 @@ public class CustomTodolistRepositoryImpl {
     public List<MyCalendarPastResponse> getMyCalendarPast(String userId, LocalDate startDate) {
         return query.select(Projections.constructor(MyCalendarPastResponse.class,
                         todolist.date.month(),
-                        new CaseBuilder()
-                                .when(todolist.todolistSubjects.any().todolistContents.any().isSuccess.eq(true)).then(true)
-                                .otherwise(false)))
+                        list(todolistContent.isSuccess)))
                 .from(todolist)
+                .leftJoin(todolist.todolistSubjects, todolistSubject)
+                .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
                         .and(todolist.date.before(LocalDate.now())))
                 .orderBy(todolist.date.asc())
-                .fetch();
+                .fetch().stream().filter(response -> response.getIsSuccess() != null).toList();
     }
 
     public List<MyCalendarFutureResponse> getMyCalendarFuture(String userId, LocalDate endDate) {
