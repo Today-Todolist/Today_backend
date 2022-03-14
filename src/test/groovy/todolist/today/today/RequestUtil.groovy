@@ -1,10 +1,7 @@
 package todolist.today.today
 
 import todolist.today.today.domain.template.dto.request.*
-import todolist.today.today.domain.todolist.dto.request.TemplateApplyRequest
-import todolist.today.today.domain.todolist.dto.request.TodolistContentChangeRequest
-import todolist.today.today.domain.todolist.dto.request.TodolistContentCreateRequest
-import todolist.today.today.domain.todolist.dto.request.TodolistContentOrderRequest
+import todolist.today.today.domain.todolist.dto.request.*
 import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
@@ -143,6 +140,25 @@ class RequestUtil {
 
     static TodolistContentOrderRequest makeTodolistContentOrderRequest(int order) {
         TodolistContentOrderRequest request = new TodolistContentOrderRequest()
+        inputField(request, "order", order)
+        return request
+    }
+
+    static TodolistSubjectCreateRequest makeTodolistSubjectCreateRequest(String date, String subject) {
+        TodolistSubjectCreateRequest request = new TodolistSubjectCreateRequest()
+        inputField(request, "date", date)
+        inputField(request, "subject", subject)
+        return request
+    }
+
+    static TodolistSubjectChangeRequest makeTodolistSubjectChangeRequest(String subject) {
+        TodolistSubjectChangeRequest request = new TodolistSubjectChangeRequest()
+        inputField(request, "subject", subject)
+        return request
+    }
+
+    static TodolistSubjectOrderRequest makeTodolistSubjectOrderRequest(int order) {
+        TodolistSubjectOrderRequest request = new TodolistSubjectOrderRequest()
         inputField(request, "order", order)
         return request
     }
