@@ -18,7 +18,7 @@ public class CustomTodolistSubjectRepositoryImpl {
     private final JPAQueryFactory query;
 
     public int getTodolistSubjectLastValue(UUID todolistId) {
-        Integer value = query.select(templateTodolistSubject.value)
+        Integer value = query.select(todolistSubject.value)
                 .from(todolistSubject)
                 .where(todolistSubject.todolist.todolistId.eq(todolistId))
                 .orderBy(todolistSubject.value.desc())

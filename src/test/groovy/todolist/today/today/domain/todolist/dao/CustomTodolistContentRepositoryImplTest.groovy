@@ -108,7 +108,7 @@ class CustomTodolistContentRepositoryImplTest extends Specification {
         TodolistContent content3 = TodolistContent.builder()
                 .todolistSubject(subject)
                 .content("content3")
-                .value(2000)
+                .value(3000)
                 .build()
         todolistContentRepository.save(content3)
 
