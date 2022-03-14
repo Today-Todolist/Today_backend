@@ -2,6 +2,9 @@ package todolist.today.today
 
 import todolist.today.today.domain.template.dto.request.*
 import todolist.today.today.domain.todolist.dto.request.TemplateApplyRequest
+import todolist.today.today.domain.todolist.dto.request.TodolistContentChangeRequest
+import todolist.today.today.domain.todolist.dto.request.TodolistContentCreateRequest
+import todolist.today.today.domain.todolist.dto.request.TodolistContentOrderRequest
 import todolist.today.today.domain.user.dto.request.*
 
 import java.lang.reflect.Field
@@ -122,6 +125,25 @@ class RequestUtil {
     static TemplateApplyRequest makeTemplateApplyRequest(List<String> id) {
         TemplateApplyRequest request = new TemplateApplyRequest()
         inputField(request, "id", id)
+        return request
+    }
+
+    static TodolistContentCreateRequest makeTodolistContentCreateRequest(String id, String content) {
+        TodolistContentCreateRequest request = new TodolistContentCreateRequest()
+        inputField(request, "id", id)
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TodolistContentChangeRequest makeTodolistContentChangeRequest(String content) {
+        TodolistContentChangeRequest request = new TodolistContentChangeRequest()
+        inputField(request, "content", content)
+        return request
+    }
+
+    static TodolistContentOrderRequest makeTodolistContentOrderRequest(int order) {
+        TodolistContentOrderRequest request = new TodolistContentOrderRequest()
+        inputField(request, "order", order)
         return request
     }
 

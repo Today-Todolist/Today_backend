@@ -6,7 +6,6 @@ import todolist.today.today.domain.todolist.dao.TodolistRepository
 
 import java.time.LocalDate
 
-
 class TodolistInfoServiceTest extends Specification {
 
     private TodolistInfoService todolistInfoService

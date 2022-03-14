@@ -10,7 +10,6 @@ import todolist.today.today.domain.user.domain.User
 
 import java.time.LocalDate
 
-
 class TodolistClearServiceTest extends Specification {
 
     private TodolistClearService todolistClearService

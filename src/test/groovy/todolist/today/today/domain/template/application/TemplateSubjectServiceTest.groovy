@@ -145,7 +145,7 @@ class TemplateSubjectServiceTest extends Specification {
         template.getUser() >> user
         user.getEmail() >> USER_ID
 
-        TemplateSubjectOrderRequest request = makeTemplateSubjectOrderRequest(order)
+        TemplateSubjectOrderRequest request = makeTemplateSubjectOrderRequest(1)
         templateDay.getTemplateDayId() >> TEMPLATE_DAY_ID
 
         ArrayList<Integer> values = new ArrayList<>()
@@ -155,7 +155,7 @@ class TemplateSubjectServiceTest extends Specification {
         }
 
         customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, order) >> values
+                .getTemplateSubjectValueByOrder(TEMPLATE_DAY_ID, SUBJECT_ID, 1) >> values
 
         when:
         templateSubjectService.changeTemplateSubjectOrder(USER_ID.toString(), SUBJECT_ID.toString(), request)
@@ -164,10 +164,10 @@ class TemplateSubjectServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order | add | value
-        0 | 0 | 25
-        2 | 1 | 25
-        2 | 0 | 2147483500
+        add | value
+        0 | 25
+        1 | 25
+        0 | 2147483500
     }
 
     def "test changeTemplateSubjectOrder TemplateSubjectNotFoundException" () {

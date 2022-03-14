@@ -137,7 +137,7 @@ class TemplateContentServiceTest extends Specification {
         template.getUser() >> user
         user.getEmail() >> USER_ID
 
-        TemplateContentOrderRequest request = makeTemplateContentOrderRequest(order)
+        TemplateContentOrderRequest request = makeTemplateContentOrderRequest(1)
         content.getTemplateTodolistSubject() >> subject
         subject.getTemplateTodolistSubjectId() >> SUBJECT_ID
 
@@ -148,7 +148,7 @@ class TemplateContentServiceTest extends Specification {
         }
 
         customTemplateContentRepository
-                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, order) >> values
+                .getTemplateContentValueByOrder(SUBJECT_ID, CONTENT_ID, 1) >> values
 
         when:
         templateContentService.changeTemplateContentOrder(USER_ID, CONTENT_ID.toString(), request)
@@ -157,10 +157,10 @@ class TemplateContentServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        order | add | value
-        0 | 0 | 25
-        2 | 1 | 25
-        2 | 0 | 2147483500
+        add | value
+        0 | 25
+        1 | 25
+        0 | 2147483500
     }
 
     def "test changeTemplateContentOrder TemplateContentNotFoundException" () {
