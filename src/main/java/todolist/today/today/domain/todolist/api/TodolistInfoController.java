@@ -18,6 +18,7 @@ import todolist.today.today.global.security.service.AuthenticationFacade;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 import static todolist.today.today.global.dto.LocalDateUtil.convert;
 
@@ -47,7 +48,7 @@ public class TodolistInfoController {
     }
 
     @GetMapping("/todolist") @PreAuthorize("isAuthenticated()")
-    public TodolistContentResponse getTodolist(@RequestParam("date") @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d-\\d\\d") String date) {
+    public List<TodolistContentResponse> getTodolist(@RequestParam("date") @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d-\\d\\d") String date) {
         return todolistInfoService.getTodolist(authenticationFacade.getUserId(), convert(date));
     }
 

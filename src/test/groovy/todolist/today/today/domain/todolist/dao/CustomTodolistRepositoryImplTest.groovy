@@ -134,12 +134,10 @@ class CustomTodolistRepositoryImplTest extends Specification {
         todolistRepository.save(todolist)
 
         when:
-        TodolistContentResponse response = customTodolistRepository.getTodolist(user.getEmail(), LocalDate.now())
-        ObjectMapper objectMapper = new ObjectMapper()
-        println "테스트 " + objectMapper.writeValueAsString(response)
+        List<TodolistContentResponse> response = customTodolistRepository.getTodolist(user.getEmail(), LocalDate.now())
 
         then:
-        response != null
+        response.size() == 1
     }
 
 }

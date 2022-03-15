@@ -33,7 +33,7 @@ public class CustomTodolistRepositoryImpl {
                         list(todolistContent.isSuccess)))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
-                .leftJoin(todolistSubject.todolistContents, todolistContent).on(todolistContent.isSuccess.eq(true))
+                .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate)).and(todolist.date.before(endDate)))
                 .orderBy(todolist.date.asc())
                 .fetch();
@@ -41,20 +41,20 @@ public class CustomTodolistRepositoryImpl {
 
     public List<MyCalendarPastResponse> getMyCalendarPast(String userId, LocalDate startDate) {
         return query.select(Projections.constructor(MyCalendarPastResponse.class,
-                        todolist.date.month(),
+                        todolist.date.dayOfMonth(),
                         list(todolistContent.isSuccess)))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
                 .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
-                        .and(todolist.date.before(LocalDate.now())))
+                        .and(todolist.date.before(LocalDate.now().plusDays(1))))
                 .orderBy(todolist.date.asc())
                 .fetch().stream().filter(response -> response.getIsSuccess() != null).toList();
     }
 
     public List<MyCalendarFutureResponse> getMyCalendarFuture(String userId, LocalDate endDate) {
         return query.select(Projections.constructor(MyCalendarFutureResponse.class,
-                        todolist.date.month(),
+                        todolist.date.dayOfMonth(),
                         todolistSubject.todolistContents.size()))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
@@ -66,20 +66,20 @@ public class CustomTodolistRepositoryImpl {
 
     public List<UserCalendarPastResponse> getUserCalendarPast(String userId, LocalDate startDate) {
         return query.select(Projections.constructor(UserCalendarPastResponse.class,
-                        todolist.date.month(),
+                        todolist.date.dayOfMonth(),
                         list(todolistContent.isSuccess)))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
                 .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.after(startDate))
-                        .and(todolist.date.before(LocalDate.now())))
+                        .and(todolist.date.before(LocalDate.now().plusDays(1))))
                 .orderBy(todolist.date.asc())
                 .fetch().stream().filter(response -> response.getIsSuccess() != null).toList();
     }
 
     public List<UserCalendarFutureResponse> getUserCalendarFuture(String userId, LocalDate endDate) {
         return query.select(Projections.constructor(UserCalendarFutureResponse.class,
-                        todolist.date.month(),
+                        todolist.date.dayOfMonth(),
                         todolistSubject.todolistContents.size()))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
@@ -89,7 +89,7 @@ public class CustomTodolistRepositoryImpl {
                 .fetch().stream().filter(response -> response.getTodolists() > 0).toList();
     }
 
-    public TodolistContentResponse getTodolist(String userId, LocalDate date) {
+    public List<TodolistContentResponse> getTodolist(String userId, LocalDate date) {
         return query.select(Projections.constructor(TodolistContentResponse.class,
                         Projections.constructor(TodolistContentTodolistSubjectResponse.class,
                                 todolistSubject.todolistSubjectId,
@@ -104,7 +104,7 @@ public class CustomTodolistRepositoryImpl {
                 .leftJoin(todolistSubject.todolistContents, todolistContent)
                 .where(todolist.user.email.eq(userId).and(todolist.date.eq(date)))
                 .orderBy(todolistSubject.value.asc(), todolistContent.value.asc())
-                .fetchOne();
+                .fetch();
     }
 
 }
