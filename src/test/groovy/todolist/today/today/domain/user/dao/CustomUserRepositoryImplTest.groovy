@@ -15,16 +15,14 @@ import todolist.today.today.domain.user.domain.User
 import todolist.today.today.domain.user.dto.response.MyInfoResponse
 import todolist.today.today.domain.user.dto.response.UserInfoResponse
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 import todolist.today.today.global.dto.request.PagingRequest
 
-import javax.persistence.EntityManager
-
 @DataJpaTest
-@Import(JpaAuditingConfig)
+@Import([JpaAuditingConfig, QueryDslConfig])
 class CustomUserRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomUserRepositoryImpl customUserRepository
 
@@ -38,8 +36,7 @@ class CustomUserRepositoryImplTest extends Specification {
     TemplateRepository templateRepository
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customUserRepository = new CustomUserRepositoryImpl(new JPAQueryFactory(em))
+        customUserRepository = new CustomUserRepositoryImpl(jpaQueryFactory)
     }
 
     def "test findPasswordById" () {

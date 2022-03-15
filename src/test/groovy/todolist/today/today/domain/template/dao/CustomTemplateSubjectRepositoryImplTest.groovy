@@ -11,15 +11,13 @@ import todolist.today.today.domain.template.domain.TemplateTodolistSubject
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
-
-import javax.persistence.EntityManager
+import todolist.today.today.global.config.QueryDslConfig
 
 @DataJpaTest
-@Import(JpaAuditingConfig)
+@Import([JpaAuditingConfig, QueryDslConfig])
 class CustomTemplateSubjectRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository
 
@@ -43,8 +41,7 @@ class CustomTemplateSubjectRepositoryImplTest extends Specification {
     TemplateDay templateDay
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTemplateSubjectRepository = new CustomTemplateSubjectRepositoryImpl(new JPAQueryFactory(em))
+        customTemplateSubjectRepository = new CustomTemplateSubjectRepositoryImpl(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")

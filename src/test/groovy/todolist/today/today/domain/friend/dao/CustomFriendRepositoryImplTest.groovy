@@ -11,16 +11,14 @@ import todolist.today.today.domain.friend.dto.response.UserFriendResponse
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 import todolist.today.today.global.dto.request.PagingRequest
 
-import javax.persistence.EntityManager
-
 @DataJpaTest
-@Import(JpaAuditingConfig)
+@Import([JpaAuditingConfig, QueryDslConfig])
 class CustomFriendRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomFriendRepositoryImpl customFriendRepository
 
@@ -31,8 +29,7 @@ class CustomFriendRepositoryImplTest extends Specification {
     FriendRepository friendRepository
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customFriendRepository = new CustomFriendRepositoryImpl(new JPAQueryFactory(em))
+        customFriendRepository = new CustomFriendRepositoryImpl(jpaQueryFactory)
     }
 
     def "test getUserFriends" () {

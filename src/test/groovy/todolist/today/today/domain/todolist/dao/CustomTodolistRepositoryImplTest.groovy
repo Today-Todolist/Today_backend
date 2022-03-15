@@ -1,6 +1,5 @@
 package todolist.today.today.domain.todolist.dao
 
-
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -18,16 +17,15 @@ import todolist.today.today.domain.todolist.dto.response.todolist.UserCalendarPa
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 
-import javax.persistence.EntityManager
 import java.time.LocalDate
 
 @DataJpaTest
-@Import(JpaAuditingConfig)
+@Import([JpaAuditingConfig, QueryDslConfig])
 class CustomTodolistRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomTodolistRepositoryImpl customTodolistRepository
 
@@ -46,8 +44,7 @@ class CustomTodolistRepositoryImplTest extends Specification {
     User user
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTodolistRepository = new CustomTodolistRepositoryImpl(new JPAQueryFactory(em))
+        customTodolistRepository = new CustomTodolistRepositoryImpl(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")

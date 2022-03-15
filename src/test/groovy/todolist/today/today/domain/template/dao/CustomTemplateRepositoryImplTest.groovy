@@ -1,6 +1,5 @@
 package todolist.today.today.domain.template.dao
 
-
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -17,16 +16,14 @@ import todolist.today.today.domain.todolist.dto.etc.TemplateContentDto
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 import todolist.today.today.global.dto.request.PagingRequest
 
-import javax.persistence.EntityManager
-
 @DataJpaTest
-@Import(JpaAuditingConfig)
+@Import([JpaAuditingConfig, QueryDslConfig])
 class CustomTemplateRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomTemplateRepositoryImpl customTemplateRepository
 
@@ -45,8 +42,7 @@ class CustomTemplateRepositoryImplTest extends Specification {
     User user
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTemplateRepository = new CustomTemplateRepositoryImpl(new JPAQueryFactory(em))
+        customTemplateRepository = new CustomTemplateRepositoryImpl(jpaQueryFactory)
         user = User.builder()
                 .email("today043149@gmail.com")
                 .password("")

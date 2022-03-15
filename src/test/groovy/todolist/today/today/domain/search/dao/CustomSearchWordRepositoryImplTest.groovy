@@ -3,16 +3,16 @@ package todolist.today.today.domain.search.dao
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
+import org.springframework.context.annotation.Import
 import spock.lang.Specification
 import todolist.today.today.domain.search.domain.SearchWord
-
-import javax.persistence.EntityManager
+import todolist.today.today.global.config.QueryDslConfig
 
 @DataJpaTest
+@Import(QueryDslConfig)
 class CustomSearchWordRepositoryImplTest extends Specification {
 
     @Autowired
-    EntityManager em
     JPAQueryFactory jpaQueryFactory
     CustomSearchWordRepositoryImpl customSearchWordRepository
 
@@ -20,8 +20,7 @@ class CustomSearchWordRepositoryImplTest extends Specification {
     SearchWordRepository searchWordRepository
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customSearchWordRepository = new CustomSearchWordRepositoryImpl(new JPAQueryFactory(em))
+        customSearchWordRepository = new CustomSearchWordRepositoryImpl(jpaQueryFactory)
     }
 
     def "test getTemplateSearchResult" () {
