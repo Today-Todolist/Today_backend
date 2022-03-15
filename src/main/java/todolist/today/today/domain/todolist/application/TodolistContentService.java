@@ -3,6 +3,7 @@ package todolist.today.today.domain.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import todolist.today.today.domain.check.application.CheckService;
 import todolist.today.today.domain.todolist.dao.CustomTodolistContentRepositoryImpl;
 import todolist.today.today.domain.todolist.dao.TodolistContentRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
@@ -27,6 +28,7 @@ public class TodolistContentService {
     private final CustomTodolistContentRepositoryImpl customTodolistContentRepository;
     private final TodolistContentRepository todolistContentRepository;
     private final TodolistSortService todolistSortService;
+    private final CheckService checkService;
 
     public void makeTodolistSubject(String userId, TodolistContentCreateRequest request) {
         String subjectId = request.getId();
@@ -47,6 +49,7 @@ public class TodolistContentService {
     }
 
     public void changeTodolistContent(String userId, String contentId, TodolistContentChangeRequest request) {
+        checkService.checkEditAvailability(userId);
         todolistContentRepository.findById(UUID.fromString(contentId))
                 .filter(c -> c.getTodolistSubject().getTodolist().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TodolistContentNotFoundException(contentId))
@@ -54,6 +57,7 @@ public class TodolistContentService {
     }
 
     public void changeTodolistContentOrder(String userId, String contentId, TodolistContentOrderRequest request) {
+        checkService.checkEditAvailability(userId);
         UUID contentIdUUID = UUID.fromString(contentId);
 
         TodolistContent content = todolistContentRepository.findById(UUID.fromString(contentId))
