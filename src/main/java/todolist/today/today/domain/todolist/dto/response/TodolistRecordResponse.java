@@ -17,8 +17,8 @@ public class TodolistRecordResponse {
     public TodolistRecordResponse(LocalDate date, List<Boolean> isSuccess) {
         this.date = convert(date);
         if (isSuccess.get(0) != null) {
-            this.successAmount = Long.valueOf(isSuccess.stream().filter(s -> s).count()).intValue();
-            this.failAmount = Long.valueOf(isSuccess.stream().filter(s -> !s).count()).intValue();
+            this.successAmount = (int) isSuccess.stream().filter(s -> s).count();
+            this.failAmount = (int) isSuccess.stream().filter(s -> !s).count();
         } else {
             this.successAmount = 0;
             this.failAmount = 0;
