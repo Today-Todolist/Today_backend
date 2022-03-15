@@ -24,22 +24,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class TemplateInfoControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private TemplateDayRepository templateDayRepository
+    TemplateDayRepository templateDayRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     def cleanup() {
         userRepository.deleteAll()

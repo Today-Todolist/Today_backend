@@ -7,8 +7,8 @@ import todolist.today.today.global.security.exception.InvalidTokenException
 
 class AuthDetailsServiceTest extends Specification {
 
-    private AuthDetailsService authDetailsService
-    private UserRepository userRepository = Stub(UserRepository)
+    AuthDetailsService authDetailsService
+    UserRepository userRepository = Stub()
 
     def setup() {
         authDetailsService = new AuthDetailsService(userRepository)

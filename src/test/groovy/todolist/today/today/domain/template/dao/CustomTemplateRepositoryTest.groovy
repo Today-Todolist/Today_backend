@@ -1,6 +1,5 @@
 package todolist.today.today.domain.template.dao
 
-
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -17,36 +16,33 @@ import todolist.today.today.domain.todolist.dto.etc.TemplateContentDto
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 import todolist.today.today.global.dto.request.PagingRequest
 
-import javax.persistence.EntityManager
-
 @DataJpaTest
-@Import(JpaAuditingConfig)
-class CustomTemplateRepositoryImplTest extends Specification {
+@Import([JpaAuditingConfig, QueryDslConfig])
+class CustomTemplateRepositoryTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomTemplateRepositoryImpl customTemplateRepository
+    JPAQueryFactory jpaQueryFactory
+    CustomTemplateRepository customTemplateRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private TemplateDayRepository templateDayRepository
+    TemplateDayRepository templateDayRepository
 
     @Autowired
-    private TemplateSubjectRepository templateSubjectRepository
+    TemplateSubjectRepository templateSubjectRepository
 
-    private User user
+    User user
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTemplateRepository = new CustomTemplateRepositoryImpl(new JPAQueryFactory(em))
+        customTemplateRepository = new CustomTemplateRepository(jpaQueryFactory)
         user = User.builder()
                 .email("today043149@gmail.com")
                 .password("")

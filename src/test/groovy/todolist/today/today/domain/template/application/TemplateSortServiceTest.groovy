@@ -10,9 +10,9 @@ import todolist.today.today.domain.template.domain.TemplateTodolistSubject
 
 class TemplateSortServiceTest extends Specification {
 
-    private TemplateSortService templateSortService
-    private TemplateSubjectRepository templateSubjectRepository = Stub(TemplateSubjectRepository)
-    private TemplateContentRepository templateContentRepository = Stub(TemplateContentRepository)
+    TemplateSortService templateSortService
+    TemplateSubjectRepository templateSubjectRepository = Stub()
+    TemplateContentRepository templateContentRepository = Stub()
 
     def setup() {
         templateSortService = new TemplateSortService(templateSubjectRepository, templateContentRepository)
@@ -20,7 +20,7 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateSubject" () {
         given:
-        TemplateDay templateDay = Stub(TemplateDay)
+        TemplateDay templateDay = Stub()
         TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
                 .subject("subject1")
                 .value(200)
@@ -47,7 +47,7 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateContent" () {
         given:
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
+        TemplateTodolistSubject subject = Stub()
         TemplateTodolistContent content1 = TemplateTodolistContent.builder()
                 .content("content1")
                 .value(200)

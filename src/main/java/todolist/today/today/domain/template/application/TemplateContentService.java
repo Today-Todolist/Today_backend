@@ -3,7 +3,7 @@ package todolist.today.today.domain.template.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.template.dao.CustomTemplateContentRepositoryImpl;
+import todolist.today.today.domain.template.dao.CustomTemplateContentRepository;
 import todolist.today.today.domain.template.dao.TemplateContentRepository;
 import todolist.today.today.domain.template.dao.TemplateSubjectRepository;
 import todolist.today.today.domain.template.domain.TemplateTodolistContent;
@@ -24,7 +24,7 @@ import java.util.UUID;
 public class TemplateContentService {
 
     private final TemplateSubjectRepository templateSubjectRepository;
-    private final CustomTemplateContentRepositoryImpl customTemplateContentRepository;
+    private final CustomTemplateContentRepository customTemplateContentRepository;
     private final TemplateContentRepository templateContentRepository;
     private final TemplateSortService templateSortService;
 

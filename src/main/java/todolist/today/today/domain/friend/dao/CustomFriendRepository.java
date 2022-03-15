@@ -1,6 +1,5 @@
 package todolist.today.today.domain.friend.dao;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -10,17 +9,18 @@ import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.user.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomFriendRepositoryImpl {
+public class CustomFriendRepository {
 
     private final JPAQueryFactory query;
 
     public List<UserFriendResponse> getUserFriends(String userId, String myId, PagingRequest request) {
-        return query.select(Projections.constructor(UserFriendResponse.class,
+        return query.select(constructor(UserFriendResponse.class,
                                 user.email,
                                 user.nickname,
                                 user.profile,

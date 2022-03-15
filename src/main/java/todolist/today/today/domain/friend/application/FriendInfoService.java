@@ -3,8 +3,8 @@ package todolist.today.today.domain.friend.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl;
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl;
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository;
+import todolist.today.today.domain.friend.dao.CustomFriendRepository;
 import todolist.today.today.domain.friend.dao.FriendApplyRepository;
 import todolist.today.today.domain.friend.dao.FriendRepository;
 import todolist.today.today.domain.friend.dto.response.UserFriendApplyResponse;
@@ -20,8 +20,8 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class FriendInfoService {
 
-    private final CustomFriendRepositoryImpl customFriendRepository;
-    private final CustomFriendApplyRepositoryImpl customFriendApplyRepository;
+    private final CustomFriendRepository customFriendRepository;
+    private final CustomFriendApplyRepository customFriendApplyRepository;
     private final FriendRepository friendRepository;
     private final FriendApplyRepository friendApplyRepository;
 

@@ -1,6 +1,5 @@
 package todolist.today.today.domain.user.dao;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import todolist.today.today.global.dto.request.PagingRequest;
 
 import java.util.List;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static com.querydsl.core.types.Projections.list;
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.template.domain.QTemplate.template;
@@ -22,7 +22,7 @@ import static todolist.today.today.domain.user.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomUserRepositoryImpl {
+public class CustomUserRepository {
 
     private final JPAQueryFactory query;
 
@@ -48,12 +48,12 @@ public class CustomUserRepositoryImpl {
     }
 
     public MyInfoResponse getMyInfo(String userId) {
-        return query.select(Projections.constructor(MyInfoResponse.class,
+        return query.select(constructor(MyInfoResponse.class,
                                 user.email,
                                 user.nickname,
                                 user.profile,
                                 friend1.count(),
-                                list(Projections.constructor(MyInfoTemplateResponse.class,
+                                list(constructor(MyInfoTemplateResponse.class,
                                         template.templateId,
                                         template.title,
                                         template.profile))))
@@ -65,7 +65,7 @@ public class CustomUserRepositoryImpl {
     }
 
     public UserInfoResponse getUserInfo(String userId, String myId) {
-        return query.select(Projections.constructor(UserInfoResponse.class,
+        return query.select(constructor(UserInfoResponse.class,
                                 user.nickname,
                                 user.profile,
                                 friend1.count(),
@@ -73,7 +73,7 @@ public class CustomUserRepositoryImpl {
                                         .when(user.email.eq(myId)).then(2)
                                         .when(friend1.friend.email.eq(myId).or(friend1.user.email.eq(myId))).then(1)
                                         .otherwise(0),
-                                list(Projections.constructor(UserInfoTemplateResponse.class,
+                                list(constructor(UserInfoTemplateResponse.class,
                                         template.templateId,
                                         template.title,
                                         template.profile))))
@@ -85,7 +85,7 @@ public class CustomUserRepositoryImpl {
     }
 
     public List<NicknameSearchResponse> getNicknameSearchResult(String userId, String word, PagingRequest request) {
-        return query.select(Projections.constructor(NicknameSearchResponse.class,
+        return query.select(constructor(NicknameSearchResponse.class,
                         user.email,
                         user.nickname,
                         user.profile,
@@ -103,7 +103,7 @@ public class CustomUserRepositoryImpl {
     }
 
     public List<EmailSearchResponse> getEmailSearchResult(String userId, String word, PagingRequest request) {
-        return query.select(Projections.constructor(EmailSearchResponse.class,
+        return query.select(constructor(EmailSearchResponse.class,
                         user.email,
                         user.nickname,
                         user.profile,

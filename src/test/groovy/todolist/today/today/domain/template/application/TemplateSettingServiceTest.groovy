@@ -3,7 +3,7 @@ package todolist.today.today.domain.template.application
 
 import spock.lang.Specification
 import todolist.today.today.domain.check.application.CheckService
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateRepository
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.domain.Template
 import todolist.today.today.domain.template.dto.request.TemplateCreateRequest
@@ -17,12 +17,12 @@ import static todolist.today.today.RequestUtil.makeTemplateCreateRequest
 
 class TemplateSettingServiceTest extends Specification {
 
-    private TemplateSettingService templateSettingService
-    private CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
-    private UserRepository userRepository = Stub(UserRepository)
-    private ImageUploadFacade imageUploadFacade = Stub(ImageUploadFacade)
-    private CheckService checkService = Stub(CheckService)
+    TemplateSettingService templateSettingService
+    CustomTemplateRepository customTemplateRepository = Stub()
+    TemplateRepository templateRepository = Stub()
+    UserRepository userRepository = Stub()
+    ImageUploadFacade imageUploadFacade = Stub()
+    CheckService checkService = Stub()
 
     def setup() {
         templateSettingService = new TemplateSettingService(

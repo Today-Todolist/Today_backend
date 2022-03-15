@@ -3,7 +3,8 @@ package todolist.today.today.domain.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepositoryImpl;
+import todolist.today.today.domain.check.application.CheckService;
+import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepository;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
 import todolist.today.today.domain.todolist.domain.Todolist;
@@ -30,9 +31,10 @@ public class TodolistSubjectService {
 
     private final UserRepository userRepository;
     private final TodolistRepository todolistRepository;
-    private final CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository;
+    private final CustomTodolistSubjectRepository customTodolistSubjectRepository;
     private final TodolistSubjectRepository todolistSubjectRepository;
     private final TodolistSortService todolistSortService;
+    private final CheckService checkService;
 
     public void makeTodolistSubject(String userId, TodolistSubjectCreateRequest request) {
         LocalDate date = convert(request.getDate());
@@ -58,6 +60,7 @@ public class TodolistSubjectService {
     }
 
     public void changeTodolistSubject(String userId, String subjectId, TodolistSubjectChangeRequest request) {
+        checkService.checkEditAvailability(userId);
         todolistSubjectRepository.findById(UUID.fromString(subjectId))
                 .filter(t -> t.getTodolist().getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TodolistSubjectNotFoundException(subjectId))
@@ -65,6 +68,7 @@ public class TodolistSubjectService {
     }
 
     public void changeTemplateSubjectOrder(String userId, String subjectId, TodolistSubjectOrderRequest request) {
+        checkService.checkEditAvailability(userId);
         UUID subjectIdUUID = UUID.fromString(subjectId);
 
         TodolistSubject subject = todolistSubjectRepository.findById(subjectIdUUID)

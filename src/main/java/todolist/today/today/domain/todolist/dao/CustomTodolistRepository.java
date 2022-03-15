@@ -1,6 +1,5 @@
 package todolist.today.today.domain.todolist.dao;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -16,6 +15,7 @@ import todolist.today.today.domain.todolist.dto.response.todolist.subject.Todoli
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static com.querydsl.core.types.Projections.list;
 import static todolist.today.today.domain.todolist.domain.QTodolist.todolist;
 import static todolist.today.today.domain.todolist.domain.QTodolistContent.todolistContent;
@@ -23,12 +23,12 @@ import static todolist.today.today.domain.todolist.domain.QTodolistSubject.todol
 
 @Repository
 @RequiredArgsConstructor
-public class CustomTodolistRepositoryImpl {
+public class CustomTodolistRepository {
 
     private final JPAQueryFactory query;
 
     public List<TodolistRecordResponse> getTodolistRecord(String userId, LocalDate startDate, LocalDate endDate) {
-        return query.select(Projections.constructor(TodolistRecordResponse.class,
+        return query.select(constructor(TodolistRecordResponse.class,
                         todolist.date,
                         list(todolistContent.isSuccess)))
                 .from(todolist)
@@ -40,7 +40,7 @@ public class CustomTodolistRepositoryImpl {
     }
 
     public List<MyCalendarPastResponse> getMyCalendarPast(String userId, LocalDate startDate) {
-        return query.select(Projections.constructor(MyCalendarPastResponse.class,
+        return query.select(constructor(MyCalendarPastResponse.class,
                         todolist.date.dayOfMonth(),
                         list(todolistContent.isSuccess)))
                 .from(todolist)
@@ -53,7 +53,7 @@ public class CustomTodolistRepositoryImpl {
     }
 
     public List<MyCalendarFutureResponse> getMyCalendarFuture(String userId, LocalDate endDate) {
-        return query.select(Projections.constructor(MyCalendarFutureResponse.class,
+        return query.select(constructor(MyCalendarFutureResponse.class,
                         todolist.date.dayOfMonth(),
                         todolistSubject.todolistContents.size()))
                 .from(todolist)
@@ -65,7 +65,7 @@ public class CustomTodolistRepositoryImpl {
     }
 
     public List<UserCalendarPastResponse> getUserCalendarPast(String userId, LocalDate startDate) {
-        return query.select(Projections.constructor(UserCalendarPastResponse.class,
+        return query.select(constructor(UserCalendarPastResponse.class,
                         todolist.date.dayOfMonth(),
                         list(todolistContent.isSuccess)))
                 .from(todolist)
@@ -78,7 +78,7 @@ public class CustomTodolistRepositoryImpl {
     }
 
     public List<UserCalendarFutureResponse> getUserCalendarFuture(String userId, LocalDate endDate) {
-        return query.select(Projections.constructor(UserCalendarFutureResponse.class,
+        return query.select(constructor(UserCalendarFutureResponse.class,
                         todolist.date.dayOfMonth(),
                         todolistSubject.todolistContents.size()))
                 .from(todolist)
@@ -90,12 +90,12 @@ public class CustomTodolistRepositoryImpl {
     }
 
     public List<TodolistContentResponse> getTodolist(String userId, LocalDate date) {
-        return query.select(Projections.constructor(TodolistContentResponse.class,
-                        Projections.constructor(TodolistContentTodolistSubjectResponse.class,
+        return query.select(constructor(TodolistContentResponse.class,
+                        constructor(TodolistContentTodolistSubjectResponse.class,
                                 todolistSubject.todolistSubjectId,
                                 todolistSubject.subject,
                                 list(todolistContent.isSuccess)),
-                        list(Projections.constructor(TodolistContentTodolistContentResponse.class,
+                        list(constructor(TodolistContentTodolistContentResponse.class,
                                 todolistContent.todolistContentId,
                                 todolistContent.content,
                                 todolistContent.isSuccess))))

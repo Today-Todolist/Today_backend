@@ -9,9 +9,9 @@ import todolist.today.today.infra.file.exception.WrongImageExtensionException
 
 class ImageUploadFacadeTest extends Specification {
 
-    private ImageUploadFacade imageUploadFacade
-    private FileUploadFacade fileUploadFacade = Mock(FileUploadFacade)
-    private RandomImageProvider randomImageProvider = Mock(RandomImageProvider)
+    ImageUploadFacade imageUploadFacade
+    FileUploadFacade fileUploadFacade = Mock()
+    RandomImageProvider randomImageProvider = Mock()
 
     def setup() {
         imageUploadFacade = new ImageUploadFacade(fileUploadFacade, randomImageProvider)
@@ -19,7 +19,7 @@ class ImageUploadFacadeTest extends Specification {
 
     def "test uploadImage" () {
         given:
-        MultipartFile multipartFile = Stub(MultipartFile)
+        MultipartFile multipartFile = Stub()
         multipartFile.getOriginalFilename() >> "test.jpeg"
         multipartFile.getContentType() >> "image/png"
 
@@ -32,7 +32,7 @@ class ImageUploadFacadeTest extends Specification {
 
     def "test uploadImage WrongImageException" () {
         given:
-        MultipartFile multipartFile = Stub(MultipartFile)
+        MultipartFile multipartFile = Stub()
         multipartFile.getOriginalFilename() >> fileName
         multipartFile.getContentType() >> contentType
 
@@ -50,7 +50,7 @@ class ImageUploadFacadeTest extends Specification {
 
     def "test uploadImage FileSaveFailedException" () {
         given:
-        MultipartFile multipartFile = Stub(MultipartFile)
+        MultipartFile multipartFile = Stub()
         multipartFile.getOriginalFilename() >> "test.jpeg"
         multipartFile.getContentType() >> "image/png"
         multipartFile.transferTo(_) >> { throw new IOException() }

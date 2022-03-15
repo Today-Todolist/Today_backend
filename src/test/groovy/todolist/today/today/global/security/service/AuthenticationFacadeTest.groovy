@@ -8,7 +8,7 @@ import todolist.today.today.global.security.auth.AuthDetails
 
 class AuthenticationFacadeTest extends Specification {
 
-    private AuthenticationFacade authenticationFacade = new AuthenticationFacade()
+    AuthenticationFacade authenticationFacade = new AuthenticationFacade()
 
     def cleanup() {
         SecurityContextHolder.clearContext()

@@ -13,12 +13,12 @@ import javax.servlet.http.HttpServletRequest
 
 class JwtTokenProviderTest extends Specification {
 
-    private JwtTokenProvider jwtTokenProvider
-    private JwtProperties jwtProperties = Stub(JwtProperties)
-    private AuthDetailsService authDetailsService = Stub(AuthDetailsService)
-    private final String SECRET = "asdf"
-    private final Long ACCESS_EXP = 1000L
-    private final Long REFRESH_EXP = 2000L
+    JwtTokenProvider jwtTokenProvider
+    JwtProperties jwtProperties = Stub()
+    AuthDetailsService authDetailsService = Stub()
+    static final String SECRET = "asdf"
+    static final Long ACCESS_EXP = 1000L
+    static final Long REFRESH_EXP = 2000L
 
     def setup() {
         jwtTokenProvider = new JwtTokenProvider(jwtProperties, authDetailsService)

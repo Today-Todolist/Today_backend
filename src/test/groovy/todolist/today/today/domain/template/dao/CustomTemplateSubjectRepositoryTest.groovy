@@ -11,40 +11,37 @@ import todolist.today.today.domain.template.domain.TemplateTodolistSubject
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
-
-import javax.persistence.EntityManager
+import todolist.today.today.global.config.QueryDslConfig
 
 @DataJpaTest
-@Import(JpaAuditingConfig)
-class CustomTemplateSubjectRepositoryImplTest extends Specification {
+@Import([JpaAuditingConfig, QueryDslConfig])
+class CustomTemplateSubjectRepositoryTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository
+    JPAQueryFactory jpaQueryFactory
+    CustomTemplateSubjectRepository customTemplateSubjectRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private TemplateDayRepository templateDayRepository
+    TemplateDayRepository templateDayRepository
 
     @Autowired
-    private TemplateSubjectRepository templateSubjectRepository
+    TemplateSubjectRepository templateSubjectRepository
 
     @Autowired
-    private TemplateContentRepository templateContentRepository
+    TemplateContentRepository templateContentRepository
 
-    private User user
-    private Template template
-    private TemplateDay templateDay
+    User user
+    Template template
+    TemplateDay templateDay
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTemplateSubjectRepository = new CustomTemplateSubjectRepositoryImpl(new JPAQueryFactory(em))
+        customTemplateSubjectRepository = new CustomTemplateSubjectRepository(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")

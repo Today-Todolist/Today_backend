@@ -29,25 +29,25 @@ import static todolist.today.today.RequestUtil.makeSignUpCertifySendRequest
 class CertifySendControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private SignUpCertifyRepository signUpCertifyRepository
+    SignUpCertifyRepository signUpCertifyRepository
 
     @Autowired
-    private ChangePasswordCertifyRepository changePasswordCertifyRepository
+    ChangePasswordCertifyRepository changePasswordCertifyRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     @MockBean
-    private MailSendFacade mailSendFacade
+    MailSendFacade mailSendFacade
 
-    private static final String EMAIL = "today403149@gmail.com"
-    private static final String NICKNAME = "today"
+    static final String EMAIL = "today403149@gmail.com"
+    static final String NICKNAME = "today"
 
     def cleanup() {
         signUpCertifyRepository.deleteAll()

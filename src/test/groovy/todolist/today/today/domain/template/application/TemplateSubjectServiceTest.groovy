@@ -1,7 +1,7 @@
 package todolist.today.today.domain.template.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.template.dao.CustomTemplateSubjectRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateSubjectRepository
 import todolist.today.today.domain.template.dao.TemplateDayRepository
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.dao.TemplateSubjectRepository
@@ -20,12 +20,12 @@ import static todolist.today.today.RequestUtil.*
 
 class TemplateSubjectServiceTest extends Specification {
 
-    private TemplateSubjectService templateSubjectService
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
-    private TemplateDayRepository templateDayRepository = Stub(TemplateDayRepository)
-    private CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository = Stub(CustomTemplateSubjectRepositoryImpl)
-    private TemplateSubjectRepository templateSubjectRepository = Stub(TemplateSubjectRepository)
-    private TemplateSortService templateSortService = Stub(TemplateSortService)
+    TemplateSubjectService templateSubjectService
+    TemplateRepository templateRepository = Stub()
+    TemplateDayRepository templateDayRepository = Stub()
+    CustomTemplateSubjectRepository customTemplateSubjectRepository = Stub()
+    TemplateSubjectRepository templateSubjectRepository = Stub()
+    TemplateSortService templateSortService = Stub()
 
     def setup() {
         templateSubjectService = new TemplateSubjectService(

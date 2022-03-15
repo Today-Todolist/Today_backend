@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletResponse
 
 class JwtTokenFilterTest extends Specification {
 
-    private JwtTokenFilter jwtTokenFilter
-    private JwtTokenProvider jwtTokenProvider = Stub(JwtTokenProvider)
-    private HttpServletRequest request = Stub(HttpServletRequest)
-    private HttpServletResponse response = Stub(HttpServletResponse)
-    private FilterChain chain = Stub(FilterChain)
-    private Claims body = Stub(Claims)
-    private Authentication authentication = Stub(Authentication)
+    JwtTokenFilter jwtTokenFilter
+    JwtTokenProvider jwtTokenProvider = Stub()
+    HttpServletRequest request = Stub()
+    HttpServletResponse response = Stub()
+    FilterChain chain = Stub()
+    Claims body = Stub()
+    Authentication authentication = Stub()
 
     def setup() {
         jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider)

@@ -28,16 +28,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class GlobalExceptionHandlerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @MockBean
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @MockBean
-    private RequestBucketProvider requestBucketProvider
+    RequestBucketProvider requestBucketProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     def "test handleException" () {
         given:
@@ -183,7 +183,7 @@ class GlobalExceptionHandlerTest extends Specification {
         result.andExpect(jsonPath("reason").isString())
     }
 
-    boolean checkBasicErrorResponse (ResultActions result, ErrorCode errorCode) {
+    def checkBasicErrorResponse (ResultActions result, ErrorCode errorCode) {
         return result.andExpect(jsonPath("status").value(errorCode.getStatus())) ||
                 result.andExpect(jsonPath("code").value(errorCode.getCode())) ||
                 result.andExpect(jsonPath("message").value(errorCode.getMessage()))

@@ -10,9 +10,9 @@ import javax.mail.internet.MimeMessage
 
 class MailSendFacadeTest extends Specification {
 
-    private MailSendFacade mailSendFacade
-    private JavaMailSender mailSender = Mock(JavaMailSender)
-    private MailProperties mailProperties = Stub(MailProperties)
+    MailSendFacade mailSendFacade
+    JavaMailSender mailSender = Mock()
+    MailProperties mailProperties = Stub()
 
     def setup() {
         mailSendFacade = new MailSendFacade(mailSender, mailProperties)

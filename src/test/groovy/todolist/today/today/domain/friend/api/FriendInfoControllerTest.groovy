@@ -23,22 +23,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class FriendInfoControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private FriendRepository friendRepository
+    FriendRepository friendRepository
 
     @Autowired
-    private FriendApplyRepository friendApplyRepository
+    FriendApplyRepository friendApplyRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
-    private static String USER_ID = "today043149@gmail.com"
-    private static String FRIEND_ID = "tomorrow043149@gmail.com"
+    static final String USER_ID = "today043149@gmail.com"
+    static final String FRIEND_ID = "tomorrow043149@gmail.com"
 
     def cleanup() {
         userRepository.deleteAll()

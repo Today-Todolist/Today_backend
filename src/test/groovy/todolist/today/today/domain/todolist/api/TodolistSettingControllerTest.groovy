@@ -31,31 +31,31 @@ import static todolist.today.today.global.dto.LocalDateUtil.convert
 class TodolistSettingControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TodolistRepository todolistRepository
+    TodolistRepository todolistRepository
 
     @Autowired
-    private TodolistSubjectRepository todolistSubjectRepository
+    TodolistSubjectRepository todolistSubjectRepository
 
     @Autowired
-    private TodolistContentRepository todolistContentRepository
+    TodolistContentRepository todolistContentRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
-    private User user
-    private Template template
+    User user
+    Template template
 
     def setup() {
         user = User.builder()

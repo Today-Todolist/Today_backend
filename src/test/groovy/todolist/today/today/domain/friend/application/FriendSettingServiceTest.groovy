@@ -1,7 +1,7 @@
 package todolist.today.today.domain.friend.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
+import todolist.today.today.domain.friend.dao.CustomFriendRepository
 import todolist.today.today.domain.friend.dao.FriendApplyRepository
 import todolist.today.today.domain.friend.dao.FriendRepository
 import todolist.today.today.domain.check.application.CheckService
@@ -11,12 +11,12 @@ import todolist.today.today.domain.user.exception.UserNotFoundException
 
 class FriendSettingServiceTest extends Specification {
 
-    private FriendSettingService friendSettingService
-    private UserRepository userRepository = Stub(UserRepository)
-    private CustomFriendRepositoryImpl customFriendRepository = Stub(CustomFriendRepositoryImpl)
-    private FriendRepository friendRepository = Stub(FriendRepository)
-    private FriendApplyRepository friendApplyRepository = Stub(FriendApplyRepository)
-    private CheckService checkService = Stub(CheckService)
+    FriendSettingService friendSettingService
+    UserRepository userRepository = Stub()
+    CustomFriendRepository customFriendRepository = Stub()
+    FriendRepository friendRepository = Stub()
+    FriendApplyRepository friendApplyRepository = Stub()
+    CheckService checkService = Stub()
 
     def setup() {
         friendSettingService = new FriendSettingService(userRepository,

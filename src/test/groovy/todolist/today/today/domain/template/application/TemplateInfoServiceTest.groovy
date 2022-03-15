@@ -1,16 +1,16 @@
 package todolist.today.today.domain.template.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateRepository
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse
 
 
 class TemplateInfoServiceTest extends Specification {
 
-    private TemplateInfoService templateInfoService
-    private CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
+    TemplateInfoService templateInfoService
+    CustomTemplateRepository customTemplateRepository = Stub()
+    TemplateRepository templateRepository = Stub()
 
     def setup() {
         templateInfoService = new TemplateInfoService(customTemplateRepository, templateRepository)

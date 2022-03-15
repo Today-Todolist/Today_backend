@@ -11,38 +11,36 @@ import todolist.today.today.domain.todolist.domain.TodolistSubject
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
+import todolist.today.today.global.config.QueryDslConfig
 
-import javax.persistence.EntityManager
 import java.time.LocalDate
 
 @DataJpaTest
-@Import(JpaAuditingConfig)
-class CustomTodolistContentRepositoryImplTest extends Specification {
+@Import([JpaAuditingConfig, QueryDslConfig])
+class CustomTodolistContentRepositoryTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomTodolistContentRepositoryImpl customTodolistContentRepository
+    JPAQueryFactory jpaQueryFactory
+    CustomTodolistContentRepository customTodolistContentRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TodolistRepository todolistRepository
+    TodolistRepository todolistRepository
 
     @Autowired
-    private TodolistSubjectRepository todolistSubjectRepository
+    TodolistSubjectRepository todolistSubjectRepository
 
     @Autowired
-    private TodolistContentRepository todolistContentRepository
+    TodolistContentRepository todolistContentRepository
 
-    private User user
-    private Todolist todolist
-    private TodolistSubject subject
+    User user
+    Todolist todolist
+    TodolistSubject subject
 
     def setup() {
-        jpaQueryFactory = new JPAQueryFactory(em)
-        customTodolistContentRepository = new CustomTodolistContentRepositoryImpl(new JPAQueryFactory(em))
+        customTodolistContentRepository = new CustomTodolistContentRepository(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")

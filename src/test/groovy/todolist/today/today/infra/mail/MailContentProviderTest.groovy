@@ -6,10 +6,10 @@ import todolist.today.today.infra.mail.properties.MailProperties
 
 class MailContentProviderTest extends Specification {
 
-    private MailContentProvider mailContentProvider
-    private MailProperties mailProperties = Stub(MailProperties)
-    private final String SIGN_UP_LINK = "https://signup"
-    private final String CHANGE_PASSOWRD_LINK = "https://changepassword"
+    MailContentProvider mailContentProvider
+    MailProperties mailProperties = Stub()
+    static final String SIGN_UP_LINK = "https://signup"
+    static final String CHANGE_PASSOWRD_LINK = "https://changepassword"
 
     def setup() {
         mailProperties.getSignUpLink() >> SIGN_UP_LINK

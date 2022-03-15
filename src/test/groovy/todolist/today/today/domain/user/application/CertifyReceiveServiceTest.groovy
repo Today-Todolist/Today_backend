@@ -14,11 +14,11 @@ import todolist.today.today.infra.file.image.ImageUploadFacade
 
 class CertifyReceiveServiceTest extends Specification {
 
-    private CertifyReceiveService certifyReceiveService
-    private SignUpCertifyRepository signUpCertifyRepository = Stub(SignUpCertifyRepository)
-    private ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub(ChangePasswordCertifyRepository)
-    private UserRepository userRepository = Stub(UserRepository)
-    private ImageUploadFacade imageUploadFacade = Stub(ImageUploadFacade)
+    CertifyReceiveService certifyReceiveService
+    SignUpCertifyRepository signUpCertifyRepository = Stub()
+    ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub()
+    UserRepository userRepository = Stub()
+    ImageUploadFacade imageUploadFacade = Stub()
 
     def setup() {
         certifyReceiveService = new CertifyReceiveService(
