@@ -20,11 +20,11 @@ import static todolist.today.today.RequestUtil.*
 
 class TemplateContentServiceTest extends Specification {
 
-    private TemplateContentService templateContentService
-    private TemplateSubjectRepository templateSubjectRepository = Stub(TemplateSubjectRepository)
-    private CustomTemplateContentRepositoryImpl customTemplateContentRepository = Stub(CustomTemplateContentRepositoryImpl)
-    private TemplateContentRepository templateContentRepository = Stub(TemplateContentRepository)
-    private TemplateSortService templateSortService = Stub(TemplateSortService)
+    TemplateContentService templateContentService
+    TemplateSubjectRepository templateSubjectRepository = Stub()
+    CustomTemplateContentRepositoryImpl customTemplateContentRepository = Stub()
+    TemplateContentRepository templateContentRepository = Stub()
+    TemplateSortService templateSortService = Stub(TemplateSortService)
 
     def setup() {
         templateContentService = new TemplateContentService(
@@ -40,10 +40,10 @@ class TemplateContentServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         TemplateContentCreateRequest request = makeTemplateContentCreateRequest(SUBJECT_ID.toString(), "")
 
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
+        TemplateTodolistSubject subject = Stub()
+        TemplateDay templateDay = Stub()
+        Template template = Stub()
+        User user = Stub()
 
         templateSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTemplateDay() >> templateDay
@@ -84,11 +84,11 @@ class TemplateContentServiceTest extends Specification {
         final UUID CONTENT_ID = UUID.randomUUID()
         TemplateContentChangeRequest request = makeTemplateContentChangeRequest("")
 
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
+        TemplateTodolistContent content = Stub()
+        TemplateTodolistSubject subject = Stub()
+        TemplateDay templateDay = Stub()
+        Template template = Stub()
+        User user = Stub()
 
         templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTemplateTodolistSubject() >> subject
@@ -124,11 +124,11 @@ class TemplateContentServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         final UUID CONTENT_ID = UUID.randomUUID()
 
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
+        TemplateTodolistContent content = Stub()
+        TemplateTodolistSubject subject = Stub()
+        TemplateDay templateDay = Stub()
+        Template template = Stub()
+        User user = Stub()
 
         templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTemplateTodolistSubject() >> subject
@@ -181,11 +181,11 @@ class TemplateContentServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         final UUID CONTENT_ID = UUID.randomUUID()
 
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
+        TemplateTodolistContent content = Stub()
+        TemplateTodolistSubject subject = Stub()
+        TemplateDay templateDay = Stub()
+        Template template = Stub()
+        User user = Stub()
 
         templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTemplateTodolistSubject() >> subject
@@ -212,11 +212,11 @@ class TemplateContentServiceTest extends Specification {
         given:
         final String USER_ID = "today043149@gmail.com"
         final UUID CONTENT_ID = UUID.randomUUID()
-        TemplateTodolistContent content = Stub(TemplateTodolistContent)
-        TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        TemplateDay templateDay = Stub(TemplateDay)
-        Template template = Stub(Template)
-        User user = Stub(User)
+        TemplateTodolistContent content = Stub()
+        TemplateTodolistSubject subject = Stub()
+        TemplateDay templateDay = Stub()
+        Template template = Stub()
+        User user = Stub()
 
         templateContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTemplateTodolistSubject() >> subject

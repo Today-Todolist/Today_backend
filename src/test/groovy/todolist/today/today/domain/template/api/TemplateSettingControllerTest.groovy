@@ -32,24 +32,24 @@ import static todolist.today.today.RequestUtil.makeTemplateCreateRequest
 class TemplateSettingControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     @MockBean
-    private ImageUploadFacade imageUploadFacade
+    ImageUploadFacade imageUploadFacade
 
-    private static final String EMAIL = "today043149@gmail.com"
+    static final String EMAIL = "today043149@gmail.com"
 
     def cleanup() {
         userRepository.deleteAll()

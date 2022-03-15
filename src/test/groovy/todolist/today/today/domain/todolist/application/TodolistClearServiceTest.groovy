@@ -12,8 +12,8 @@ import java.time.LocalDate
 
 class TodolistClearServiceTest extends Specification {
 
-    private TodolistClearService todolistClearService
-    private TodolistContentRepository todolistContentRepository = Stub(TodolistContentRepository)
+    TodolistClearService todolistClearService
+    TodolistContentRepository todolistContentRepository = Stub()
 
     def setup() {
         todolistClearService = new TodolistClearService(todolistContentRepository)

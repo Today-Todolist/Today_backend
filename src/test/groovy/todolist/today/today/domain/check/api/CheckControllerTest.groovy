@@ -27,27 +27,27 @@ import static todolist.today.today.RequestUtil.makeCheckPasswordRequest
 class CheckControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private PasswordEncoder passwordEncoder
+    PasswordEncoder passwordEncoder
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
-    private static final String EMAIL = "today043149@gmail.com"
-    private static final String NICKNAME = "today"
-    private static final String PASSWORD = "password"
-    private static final String TEMPLATE_TITLE = "title"
+    static final String EMAIL = "today043149@gmail.com"
+    static final String NICKNAME = "today"
+    static final String PASSWORD = "password"
+    static final String TEMPLATE_TITLE = "title"
 
     def cleanup() {
         userRepository.deleteAll()

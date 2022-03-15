@@ -38,29 +38,29 @@ import static todolist.today.today.RequestUtil.*
 class UserSettingControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TodolistRepository todolistRepository
+    TodolistRepository todolistRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     @Autowired
-    private PasswordEncoder passwordEncoder
+    PasswordEncoder passwordEncoder
 
     @MockBean
-    private ImageUploadFacade imageUploadFacade
+    ImageUploadFacade imageUploadFacade
 
-    private static final String EMAIL = "today043149@gmail.com"
-    private static final String PASSWORD = "password"
-    private static final String NICKNAME = "today"
+    static final String EMAIL = "today043149@gmail.com"
+    static final String PASSWORD = "password"
+    static final String NICKNAME = "today"
 
     def cleanup() {
         userRepository.deleteAll()

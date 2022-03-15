@@ -16,14 +16,14 @@ import todolist.today.today.domain.user.exception.*
 
 class CheckServiceTest extends Specification {
 
-    private CheckService checkService
-    private SignUpCertifyRepository signUpCertifyRepository = Stub(SignUpCertifyRepository)
-    private UserRepository userRepository = Stub(UserRepository)
-    private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
-    private CustomFriendRepositoryImpl customFriendRepository = Stub(CustomFriendRepositoryImpl)
-    private CustomFriendApplyRepositoryImpl customFriendApplyRepository = Stub(CustomFriendApplyRepositoryImpl)
-    private PasswordEncoder passwordEncoder = Stub(PasswordEncoder)
+    CheckService checkService
+    SignUpCertifyRepository signUpCertifyRepository = Stub()
+    UserRepository userRepository = Stub()
+    CustomUserRepositoryImpl customUserRepository = Stub()
+    TemplateRepository templateRepository = Stub()
+    CustomFriendRepositoryImpl customFriendRepository = Stub()
+    CustomFriendApplyRepositoryImpl customFriendApplyRepository = Stub()
+    PasswordEncoder passwordEncoder = Stub()
 
     def setup() {
         checkService = new CheckService(

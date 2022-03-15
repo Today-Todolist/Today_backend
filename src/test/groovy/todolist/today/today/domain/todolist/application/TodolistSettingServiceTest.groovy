@@ -17,15 +17,15 @@ import java.time.LocalDate
 
 class TodolistSettingServiceTest extends Specification {
 
-    private TodolistSettingService todolistSettingService
-    private CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
-    private UserRepository userRepository = Stub(UserRepository)
-    private TodolistRepository todolistRepository = Stub(TodolistRepository)
-    private CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub(CustomTodolistSubjectRepositoryImpl)
-    private TodolistSubjectRepository todolistSubjectRepository = Stub(TodolistSubjectRepository)
-    private CustomTodolistContentRepositoryImpl customTodolistContentRepository = Stub(CustomTodolistContentRepositoryImpl)
-    private TodolistContentRepository todolistContentRepository = Stub(TodolistContentRepository)
-    private TodolistSortService todolistSortService = Stub(TodolistSortService)
+    TodolistSettingService todolistSettingService
+    CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
+    UserRepository userRepository = Stub()
+    TodolistRepository todolistRepository = Stub()
+    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub()
+    TodolistSubjectRepository todolistSubjectRepository = Stub()
+    CustomTodolistContentRepositoryImpl customTodolistContentRepository = Stub()
+    TodolistContentRepository todolistContentRepository = Stub()
+    TodolistSortService todolistSortService = Stub()
 
     def setup() {
         todolistSettingService = new TodolistSettingService(customTemplateRepository,

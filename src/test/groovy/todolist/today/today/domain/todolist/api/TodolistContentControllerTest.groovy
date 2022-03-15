@@ -33,29 +33,29 @@ import static todolist.today.today.RequestUtil.*
 class TodolistContentControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TodolistRepository todolistRepository
+    TodolistRepository todolistRepository
 
     @Autowired
-    private TodolistSubjectRepository todolistSubjectRepository
+    TodolistSubjectRepository todolistSubjectRepository
 
     @Autowired
-    private TodolistContentRepository todolistContentRepository
+    TodolistContentRepository todolistContentRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
-    private User user
-    private Todolist todolist
-    private TodolistSubject subject
+    User user
+    Todolist todolist
+    TodolistSubject subject
 
     def setup() {
         user = User.builder()

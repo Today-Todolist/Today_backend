@@ -8,9 +8,9 @@ import java.time.LocalDate
 
 class TodolistInfoServiceTest extends Specification {
 
-    private TodolistInfoService todolistInfoService
-    private CustomTodolistRepositoryImpl customTodolistRepository = Stub(CustomTodolistRepositoryImpl)
-    private TodolistRepository todolistRepository = Stub(TodolistRepository)
+    TodolistInfoService todolistInfoService
+    CustomTodolistRepositoryImpl customTodolistRepository = Stub()
+    TodolistRepository todolistRepository = Stub()
 
     def setup() {
         todolistInfoService = new TodolistInfoService(customTodolistRepository, todolistRepository)

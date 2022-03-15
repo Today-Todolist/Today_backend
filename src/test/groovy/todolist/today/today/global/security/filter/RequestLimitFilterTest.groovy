@@ -11,10 +11,10 @@ import javax.servlet.http.HttpServletResponse
 
 class RequestLimitFilterTest extends Specification {
 
-    private RequestLimitFilter requestLimitFilter
-    private HttpServletRequest request = Stub(HttpServletRequest)
-    private HttpServletResponse response = Stub(HttpServletResponse)
-    private FilterChain chain = Mock(FilterChain)
+    RequestLimitFilter requestLimitFilter
+    HttpServletRequest request = Stub()
+    HttpServletResponse response = Stub()
+    FilterChain chain = Mock()
 
     def setup() {
         requestLimitFilter = new RequestLimitFilter(new RequestBucketProvider())

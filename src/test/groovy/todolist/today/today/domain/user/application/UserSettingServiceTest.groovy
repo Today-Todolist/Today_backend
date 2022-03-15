@@ -17,11 +17,11 @@ import static todolist.today.today.RequestUtil.*
 
 class UserSettingServiceTest extends Specification {
 
-    private UserSettingService userSettingService
-    private UserRepository userRepository = Stub(UserRepository)
-    private TodolistRepository todolistRepository = Stub(TodolistRepository)
-    private ImageUploadFacade imageUploadFacade = Stub(ImageUploadFacade)
-    private CheckService checkService = Stub(CheckService)
+    UserSettingService userSettingService
+    UserRepository userRepository = Stub()
+    TodolistRepository todolistRepository = Stub()
+    ImageUploadFacade imageUploadFacade = Stub()
+    CheckService checkService = Stub()
 
     def setup() {
         userSettingService = new UserSettingService(

@@ -22,12 +22,12 @@ import static todolist.today.today.global.dto.LocalDateUtil.convert
 
 class TodolistSubjectServiceTest extends Specification {
 
-    private TodolistSubjectService todolistSubjectService
-    private UserRepository userRepository = Stub(UserRepository)
-    private TodolistRepository todolistRepository = Stub(TodolistRepository)
-    private CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub(CustomTodolistSubjectRepositoryImpl)
-    private TodolistSubjectRepository todolistSubjectRepository = Stub(TodolistSubjectRepository)
-    private TodolistSortService todolistSortService = Stub(TodolistSortService)
+    TodolistSubjectService todolistSubjectService
+    UserRepository userRepository = Stub()
+    TodolistRepository todolistRepository = Stub()
+    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub()
+    TodolistSubjectRepository todolistSubjectRepository = Stub()
+    TodolistSortService todolistSortService = Stub()
 
     def setup() {
         todolistSubjectService = new TodolistSubjectService(userRepository,
@@ -43,8 +43,8 @@ class TodolistSubjectServiceTest extends Specification {
         final LocalDate DATE = LocalDate.now()
         TodolistSubjectCreateRequest request = makeTodolistSubjectCreateRequest(convert(DATE), "")
 
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolist.getTodolistId() >> UUID.randomUUID()
         userRepository.findById(USER_ID) >> Optional.of(user)
@@ -88,9 +88,9 @@ class TodolistSubjectServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         TodolistSubjectChangeRequest request = makeTodolistSubjectChangeRequest("")
 
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTodolist() >> todolist
@@ -127,9 +127,9 @@ class TodolistSubjectServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         TodolistSubjectOrderRequest request = makeTodolistSubjectOrderRequest(1)
 
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTodolist() >> todolist
@@ -166,9 +166,9 @@ class TodolistSubjectServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         TodolistSubjectOrderRequest request = makeTodolistSubjectOrderRequest(1)
 
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTodolist() >> todolist
@@ -191,9 +191,9 @@ class TodolistSubjectServiceTest extends Specification {
         final String USER_ID = "today043149@gmail.com"
         final UUID SUBJECT_ID = UUID.randomUUID()
 
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTodolist() >> todolist

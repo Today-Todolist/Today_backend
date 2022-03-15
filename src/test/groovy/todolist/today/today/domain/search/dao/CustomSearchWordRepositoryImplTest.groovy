@@ -12,12 +12,12 @@ import javax.persistence.EntityManager
 class CustomSearchWordRepositoryImplTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomSearchWordRepositoryImpl customSearchWordRepository
+    EntityManager em
+    JPAQueryFactory jpaQueryFactory
+    CustomSearchWordRepositoryImpl customSearchWordRepository
 
     @Autowired
-    private SearchWordRepository searchWordRepository
+    SearchWordRepository searchWordRepository
 
     def setup() {
         jpaQueryFactory = new JPAQueryFactory(em)

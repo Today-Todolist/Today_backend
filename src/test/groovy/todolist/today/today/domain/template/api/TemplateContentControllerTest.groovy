@@ -33,33 +33,33 @@ import static todolist.today.today.RequestUtil.*
 class TemplateContentControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private TemplateDayRepository templateDayRepository
+    TemplateDayRepository templateDayRepository
 
     @Autowired
-    private TemplateSubjectRepository templateSubjectRepository
+    TemplateSubjectRepository templateSubjectRepository
 
     @Autowired
-    private TemplateContentRepository templateContentRepository
+    TemplateContentRepository templateContentRepository
 
     @Autowired
-    private JwtTokenProvider jwtTokenProvider
+    JwtTokenProvider jwtTokenProvider
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
-    private User user
-    private Template template
-    private TemplateDay templateDay
-    private TemplateTodolistSubject subject
+    User user
+    Template template
+    TemplateDay templateDay
+    TemplateTodolistSubject subject
 
     def setup() {
         user = User.builder()

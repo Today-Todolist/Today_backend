@@ -12,13 +12,13 @@ import todolist.today.today.global.dto.request.PagingRequest
 
 class SearchServiceTest extends Specification {
 
-    private SearchService searchService
-    private CustomSearchWordRepositoryImpl customSearchWordRepository = Stub(CustomSearchWordRepositoryImpl)
-    private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
-    private CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
-    private SearchWordRepository searchWordRepository = Stub(SearchWordRepository)
-    private UserRepository userRepository = Stub(UserRepository)
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
+    SearchService searchService
+    CustomSearchWordRepositoryImpl customSearchWordRepository = Stub()
+    CustomUserRepositoryImpl customUserRepository = Stub()
+    CustomTemplateRepositoryImpl customTemplateRepository = Stub()
+    SearchWordRepository searchWordRepository = Stub()
+    UserRepository userRepository = Stub()
+    TemplateRepository templateRepository = Stub()
 
     def setup() {
         searchService = new SearchService(customSearchWordRepository,

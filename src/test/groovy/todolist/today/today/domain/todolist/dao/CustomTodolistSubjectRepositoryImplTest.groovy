@@ -19,21 +19,21 @@ import java.time.LocalDate
 class CustomTodolistSubjectRepositoryImplTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository
+    EntityManager em
+    JPAQueryFactory jpaQueryFactory
+    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TodolistRepository todolistRepository
+    TodolistRepository todolistRepository
 
     @Autowired
-    private TodolistSubjectRepository todolistSubjectRepository
+    TodolistSubjectRepository todolistSubjectRepository
 
-    private User user
-    private Todolist todolist
+    User user
+    Todolist todolist
 
     def setup() {
         jpaQueryFactory = new JPAQueryFactory(em)

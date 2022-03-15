@@ -20,12 +20,12 @@ import static todolist.today.today.RequestUtil.*
 
 class TemplateSubjectServiceTest extends Specification {
 
-    private TemplateSubjectService templateSubjectService
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
-    private TemplateDayRepository templateDayRepository = Stub(TemplateDayRepository)
-    private CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository = Stub(CustomTemplateSubjectRepositoryImpl)
-    private TemplateSubjectRepository templateSubjectRepository = Stub(TemplateSubjectRepository)
-    private TemplateSortService templateSortService = Stub(TemplateSortService)
+    TemplateSubjectService templateSubjectService
+    TemplateRepository templateRepository = Stub()
+    TemplateDayRepository templateDayRepository = Stub()
+    CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository = Stub()
+    TemplateSubjectRepository templateSubjectRepository = Stub()
+    TemplateSortService templateSortService = Stub()
 
     def setup() {
         templateSubjectService = new TemplateSubjectService(

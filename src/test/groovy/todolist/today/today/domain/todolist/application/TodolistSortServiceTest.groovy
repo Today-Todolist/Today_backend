@@ -9,9 +9,9 @@ import todolist.today.today.domain.todolist.domain.TodolistSubject
 
 class TodolistSortServiceTest extends Specification {
 
-    private TodolistSortService todolistSortService
-    private TodolistSubjectRepository todolistSubjectRepository = Stub(TodolistSubjectRepository)
-    private TodolistContentRepository todolistContentRepository = Stub(TodolistContentRepository)
+    TodolistSortService todolistSortService
+    TodolistSubjectRepository todolistSubjectRepository = Stub()
+    TodolistContentRepository todolistContentRepository = Stub()
 
     def setup() {
         todolistSortService = new TodolistSortService(todolistSubjectRepository,
@@ -20,7 +20,7 @@ class TodolistSortServiceTest extends Specification {
 
     def "test sortTodolistSubject" () {
         given:
-        Todolist todolist = Stub(Todolist)
+        Todolist todolist = Stub()
         TodolistSubject subject1 = TodolistSubject.builder()
                 .subject("subject1")
                 .value(200)
@@ -47,7 +47,7 @@ class TodolistSortServiceTest extends Specification {
 
     def "test sortTodolistContent" () {
         given:
-        TodolistSubject subject = Stub(TodolistSubject)
+        TodolistSubject subject = Stub()
         TodolistContent content1 = TodolistContent.builder()
                 .content("content1")
                 .value(200)

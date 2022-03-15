@@ -8,9 +8,9 @@ import todolist.today.today.domain.template.dto.response.TemplateContentResponse
 
 class TemplateInfoServiceTest extends Specification {
 
-    private TemplateInfoService templateInfoService
-    private CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
-    private TemplateRepository templateRepository = Stub(TemplateRepository)
+    TemplateInfoService templateInfoService
+    CustomTemplateRepositoryImpl customTemplateRepository = Stub()
+    TemplateRepository templateRepository = Stub()
 
     def setup() {
         templateInfoService = new TemplateInfoService(customTemplateRepository, templateRepository)

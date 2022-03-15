@@ -8,9 +8,9 @@ import java.lang.reflect.Field
 
 class AwsS3UploadFacadeTest extends Specification {
 
-    private AwsS3UploadFacade awsS3UploadFacade
-    private AmazonS3 amazonS3 = Mock(AmazonS3)
-    private final BUCKET = "bucket"
+    AwsS3UploadFacade awsS3UploadFacade
+    AmazonS3 amazonS3 = Mock()
+    final BUCKET = "bucket"
 
     def setup() {
         awsS3UploadFacade = new AwsS3UploadFacade(amazonS3)

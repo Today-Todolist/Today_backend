@@ -16,10 +16,10 @@ import static todolist.today.today.RequestUtil.makeTokenRefreshRequest
 
 class AuthServiceTest extends Specification {
 
-    private AuthService authService
-    private CheckService checkService = Stub(CheckService)
-    private JwtTokenProvider jwtTokenProvider = Stub(JwtTokenProvider)
-    private UserRepository userRepository = Stub(UserRepository)
+    AuthService authService
+    CheckService checkService = Stub()
+    JwtTokenProvider jwtTokenProvider = Stub()
+    UserRepository userRepository = Stub()
 
     def setup() {
         authService = new AuthService(jwtTokenProvider, checkService, userRepository)

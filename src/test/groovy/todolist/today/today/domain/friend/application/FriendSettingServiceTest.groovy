@@ -11,12 +11,12 @@ import todolist.today.today.domain.user.exception.UserNotFoundException
 
 class FriendSettingServiceTest extends Specification {
 
-    private FriendSettingService friendSettingService
-    private UserRepository userRepository = Stub(UserRepository)
-    private CustomFriendRepositoryImpl customFriendRepository = Stub(CustomFriendRepositoryImpl)
-    private FriendRepository friendRepository = Stub(FriendRepository)
-    private FriendApplyRepository friendApplyRepository = Stub(FriendApplyRepository)
-    private CheckService checkService = Stub(CheckService)
+    FriendSettingService friendSettingService
+    UserRepository userRepository = Stub()
+    CustomFriendRepositoryImpl customFriendRepository = Stub()
+    FriendRepository friendRepository = Stub()
+    FriendApplyRepository friendApplyRepository = Stub()
+    CheckService checkService = Stub()
 
     def setup() {
         friendSettingService = new FriendSettingService(userRepository,

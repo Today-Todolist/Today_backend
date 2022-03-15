@@ -26,23 +26,23 @@ import javax.persistence.EntityManager
 class CustomTemplateRepositoryImplTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomTemplateRepositoryImpl customTemplateRepository
+    EntityManager em
+    JPAQueryFactory jpaQueryFactory
+    CustomTemplateRepositoryImpl customTemplateRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private TemplateRepository templateRepository
+    TemplateRepository templateRepository
 
     @Autowired
-    private TemplateDayRepository templateDayRepository
+    TemplateDayRepository templateDayRepository
 
     @Autowired
-    private TemplateSubjectRepository templateSubjectRepository
+    TemplateSubjectRepository templateSubjectRepository
 
-    private User user
+    User user
 
     def setup() {
         jpaQueryFactory = new JPAQueryFactory(em)

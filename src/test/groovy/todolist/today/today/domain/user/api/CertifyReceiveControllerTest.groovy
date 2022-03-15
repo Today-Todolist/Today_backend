@@ -26,22 +26,22 @@ import static todolist.today.today.RequestUtil.inputField
 class CertifyReceiveControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private SignUpCertifyRepository signUpCertifyRepository
+    SignUpCertifyRepository signUpCertifyRepository
 
     @Autowired
-    private ChangePasswordCertifyRepository changePasswordCertifyRepository
+    ChangePasswordCertifyRepository changePasswordCertifyRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @MockBean
-    private ImageUploadFacade imageUploadFacade
+    ImageUploadFacade imageUploadFacade
 
-    private static final String EMAIL = "today403149@gmail.com"
-    private static final long TOKEN = 1234L
+    static final String EMAIL = "today403149@gmail.com"
+    static final long TOKEN = 1234L
 
     def cleanup() {
         signUpCertifyRepository.deleteAll()

@@ -8,7 +8,7 @@ import java.lang.reflect.Field
 
 class RandomImageProviderTest extends Specification {
 
-    private RandomImageProvider randomImageProvider = new RandomImageProvider()
+    RandomImageProvider randomImageProvider = new RandomImageProvider()
 
     def "test createRandomImage" () {
         when:

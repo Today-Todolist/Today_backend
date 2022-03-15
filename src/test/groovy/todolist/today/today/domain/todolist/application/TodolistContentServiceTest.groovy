@@ -19,11 +19,11 @@ import static todolist.today.today.RequestUtil.*
 
 class TodolistContentServiceTest extends Specification {
 
-    private TodolistContentService todolistContentService = Stub(TodolistContentService)
-    private TodolistSubjectRepository todolistSubjectRepository = Stub(TodolistSubjectRepository)
-    private CustomTodolistContentRepositoryImpl customTodolistContentRepository = Stub(CustomTodolistContentRepositoryImpl)
-    private TodolistContentRepository todolistContentRepository = Stub(TodolistContentRepository)
-    private TodolistSortService todolistSortService = Stub(TodolistSortService)
+    TodolistContentService todolistContentService = Stub()
+    TodolistSubjectRepository todolistSubjectRepository = Stub()
+    CustomTodolistContentRepositoryImpl customTodolistContentRepository = Stub()
+    TodolistContentRepository todolistContentRepository = Stub()
+    TodolistSortService todolistSortService = Stub()
 
     def setup() {
         todolistContentService = new TodolistContentService(todolistSubjectRepository,
@@ -38,9 +38,9 @@ class TodolistContentServiceTest extends Specification {
         final UUID SUBJECT_ID = UUID.randomUUID()
         TodolistContentCreateRequest request = makeTodolistContentCreateRequest(SUBJECT_ID.toString(), "")
 
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistSubjectRepository.findById(SUBJECT_ID) >> Optional.of(subject)
         subject.getTodolist() >> todolist
@@ -81,10 +81,10 @@ class TodolistContentServiceTest extends Specification {
 
         TodolistContentChangeRequest request = makeTodolistContentChangeRequest("")
 
-        TodolistContent content = Stub(TodolistContent)
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistContent content = Stub()
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTodolistSubject() >> subject
@@ -123,10 +123,10 @@ class TodolistContentServiceTest extends Specification {
 
         TodolistContentOrderRequest request = makeTodolistContentOrderRequest(1)
 
-        TodolistContent content = Stub(TodolistContent)
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistContent content = Stub()
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTodolistSubject() >> subject
@@ -181,10 +181,10 @@ class TodolistContentServiceTest extends Specification {
 
         TodolistContentOrderRequest request = makeTodolistContentOrderRequest(1)
 
-        TodolistContent content = Stub(TodolistContent)
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistContent content = Stub()
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTodolistSubject() >> subject
@@ -208,10 +208,10 @@ class TodolistContentServiceTest extends Specification {
         final String USER_ID = "today043149@gmail.com"
         final UUID CONTENT_ID = UUID.randomUUID()
 
-        TodolistContent content = Stub(TodolistContent)
-        TodolistSubject subject = Stub(TodolistSubject)
-        Todolist todolist = Stub(Todolist)
-        User user = Stub(User)
+        TodolistContent content = Stub()
+        TodolistSubject subject = Stub()
+        Todolist todolist = Stub()
+        User user = Stub()
 
         todolistContentRepository.findById(CONTENT_ID) >> Optional.of(content)
         content.getTodolistSubject() >> subject

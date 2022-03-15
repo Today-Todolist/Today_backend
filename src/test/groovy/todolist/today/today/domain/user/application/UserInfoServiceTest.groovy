@@ -7,8 +7,8 @@ import todolist.today.today.domain.user.exception.UserNotFoundException
 
 class UserInfoServiceTest extends Specification {
 
-    private UserInfoService userInfoService
-    private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
+    UserInfoService userInfoService
+    CustomUserRepositoryImpl customUserRepository = Stub()
 
     def setup() {
         userInfoService = new UserInfoService(customUserRepository)

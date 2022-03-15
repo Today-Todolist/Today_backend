@@ -13,11 +13,11 @@ import todolist.today.today.global.dto.response.PagingResponse
 
 class FriendInfoServiceTest extends Specification {
 
-    private FriendInfoService friendInfoService
-    private CustomFriendRepositoryImpl customFriendRepository = Mock(CustomFriendRepositoryImpl)
-    private CustomFriendApplyRepositoryImpl customFriendApplyRepository = Mock(CustomFriendApplyRepositoryImpl)
-    private FriendRepository friendRepository = Stub(FriendRepository)
-    private FriendApplyRepository friendApplyRepository = Stub(FriendApplyRepository)
+    FriendInfoService friendInfoService
+    CustomFriendRepositoryImpl customFriendRepository = Mock()
+    CustomFriendApplyRepositoryImpl customFriendApplyRepository = Mock()
+    FriendRepository friendRepository = Stub()
+    FriendApplyRepository friendApplyRepository = Stub()
 
     def setup() {
         friendInfoService = new FriendInfoService(customFriendRepository,

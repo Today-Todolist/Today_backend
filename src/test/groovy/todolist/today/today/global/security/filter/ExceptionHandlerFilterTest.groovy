@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse
 
 class ExceptionHandlerFilterTest extends Specification {
 
-    private ExceptionHandlerFilter exceptionHandlerFilter
-    private HttpServletRequest request = Stub(HttpServletRequest)
-    private HttpServletResponse response = Mock(HttpServletResponse)
-    private FilterChain chain = Mock(FilterChain)
-    private PrintWriter printWriter = Stub(PrintWriter)
+    ExceptionHandlerFilter exceptionHandlerFilter
+    HttpServletRequest request = Stub()
+    HttpServletResponse response = Mock()
+    FilterChain chain = Mock()
+    PrintWriter printWriter = Stub()
 
     def setup() {
-        ObjectMapper objectMapper = Stub(ObjectMapper)
+        ObjectMapper objectMapper = Stub()
         exceptionHandlerFilter = new ExceptionHandlerFilter(objectMapper)
         objectMapper.writeValueAsString(_) >> "json"
     }

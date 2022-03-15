@@ -19,15 +19,15 @@ import javax.persistence.EntityManager
 class CustomFriendApplyRepositoryImplTest extends Specification {
 
     @Autowired
-    private EntityManager em
-    private JPAQueryFactory jpaQueryFactory
-    private CustomFriendApplyRepositoryImpl customFriendApplyRepository
+    EntityManager em
+    JPAQueryFactory jpaQueryFactory
+    CustomFriendApplyRepositoryImpl customFriendApplyRepository
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private FriendApplyRepository friendApplyRepository
+    FriendApplyRepository friendApplyRepository
 
     def setup() {
         jpaQueryFactory = new JPAQueryFactory(em)

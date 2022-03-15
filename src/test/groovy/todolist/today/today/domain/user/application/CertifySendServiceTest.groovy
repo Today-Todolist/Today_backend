@@ -17,14 +17,14 @@ import static todolist.today.today.RequestUtil.makeSignUpCertifySendRequest
 
 class CertifySendServiceTest extends Specification {
 
-    private CertifySendService certifySendService
-    private CheckService checkService = Stub(CheckService)
-    private SignUpCertifyRepository signUpCertifyRepository = Stub(SignUpCertifyRepository)
-    private ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub(ChangePasswordCertifyRepository)
-    private CustomUserRepositoryImpl customUserRepository = Stub(CustomUserRepositoryImpl)
-    private MailContentProvider mailContentProvider = Stub(MailContentProvider)
-    private MailSendFacade mailSendFacade = Stub(MailSendFacade)
-    private PasswordEncoder passwordEncoder = Stub(PasswordEncoder)
+    CertifySendService certifySendService
+    CheckService checkService = Stub()
+    SignUpCertifyRepository signUpCertifyRepository = Stub()
+    ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub()
+    CustomUserRepositoryImpl customUserRepository = Stub()
+    MailContentProvider mailContentProvider = Stub()
+    MailSendFacade mailSendFacade = Stub()
+    PasswordEncoder passwordEncoder = Stub()
 
     def setup() {
         certifySendService = new CertifySendService(

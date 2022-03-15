@@ -28,22 +28,22 @@ import static todolist.today.today.RequestUtil.makeTokenRefreshRequest
 class AuthControllerTest extends Specification {
 
     @Autowired
-    private MockMvc mvc
+    MockMvc mvc
 
     @Autowired
-    private PasswordEncoder passwordEncoder
+    PasswordEncoder passwordEncoder
 
     @Autowired
-    private UserRepository userRepository
+    UserRepository userRepository
 
     @Autowired
-    private ObjectMapper objectMapper
+    ObjectMapper objectMapper
 
     @Autowired
-    private JwtProperties jwtProperties
+    JwtProperties jwtProperties
 
-    private static final String EMAIL = "today043149@gmail.com"
-    private static final String PASSWORD = "password"
+    static final String EMAIL = "today043149@gmail.com"
+    static final String PASSWORD = "password"
 
     def cleanup() {
         userRepository.deleteAll()
