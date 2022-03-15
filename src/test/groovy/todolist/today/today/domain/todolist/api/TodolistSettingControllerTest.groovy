@@ -5,11 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
 import spock.lang.Specification
-import todolist.today.today.RequestUtil
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.domain.Template
 import todolist.today.today.domain.todolist.dao.TodolistContentRepository
@@ -25,6 +23,7 @@ import java.time.LocalDate
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import static todolist.today.today.RequestUtil.makeTemplateApplyRequest
 import static todolist.today.today.global.dto.LocalDateUtil.convert
 
 @SpringBootTest
@@ -33,9 +32,6 @@ class TodolistSettingControllerTest extends Specification {
 
     @Autowired
     private MockMvc mvc
-
-    @Autowired
-    private PasswordEncoder passwordEncoder
 
     @Autowired
     private UserRepository userRepository
@@ -79,10 +75,14 @@ class TodolistSettingControllerTest extends Specification {
         template = templateRepository.save(template)
     }
 
+    def cleanup() {
+        userRepository.deleteAll()
+    }
+
     def "test applyTemplate" () {
         given:
         String token = jwtTokenProvider.generateAccessToken(user.getEmail())
-        TemplateApplyRequest request = RequestUtil.makeTemplateApplyRequest(Arrays.asList(template.getTemplateId().toString()))
+        TemplateApplyRequest request = makeTemplateApplyRequest(Arrays.asList(template.getTemplateId().toString()))
 
         when:
         ResultActions result = mvc.perform(post("/apply-template")
