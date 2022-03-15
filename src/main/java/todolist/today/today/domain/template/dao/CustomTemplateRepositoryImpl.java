@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import static com.querydsl.core.types.Projections.constructor;
 import static com.querydsl.core.types.Projections.list;
 import static todolist.today.today.domain.friend.domain.QFriend.friend1;
 import static todolist.today.today.domain.template.domain.QTemplate.template;
@@ -41,12 +42,12 @@ public class CustomTemplateRepositoryImpl {
     private final Random random = new Random();
 
     public List<TemplateSearchResponse> getTemplateSearchResult(String word, PagingRequest request) {
-        return query.select(Projections.constructor(TemplateSearchResponse.class,
-                        Projections.constructor(TemplateSearchUserResponse.class,
+        return query.select(constructor(TemplateSearchResponse.class,
+                        constructor(TemplateSearchUserResponse.class,
                                 user.email,
                                 user.nickname,
                                 user.profile),
-                        Projections.constructor(TemplateSearchTemplateResponse.class,
+                        constructor(TemplateSearchTemplateResponse.class,
                                 template.templateId,
                                 template.title,
                                 template.profile)))
@@ -62,12 +63,12 @@ public class CustomTemplateRepositoryImpl {
     }
 
     public List<RandomTemplateResponse> getRandomTemplate(int size, long count) {
-        return query.select(Projections.constructor(RandomTemplateResponse.class,
-                        Projections.constructor(RandomTemplateUserResponse.class,
+        return query.select(constructor(RandomTemplateResponse.class,
+                        constructor(RandomTemplateUserResponse.class,
                                 user.email,
                                 user.nickname,
                                 user.profile),
-                        Projections.constructor(RandomTemplateTemplateResponse.class,
+                        constructor(RandomTemplateTemplateResponse.class,
                                 template.templateId,
                                 template.title,
                                 template.profile)))
@@ -79,7 +80,7 @@ public class CustomTemplateRepositoryImpl {
     }
 
     public List<MyTemplateResponse> getMyTemplate(String userId) {
-        return query.select(Projections.constructor(MyTemplateResponse.class,
+        return query.select(constructor(MyTemplateResponse.class,
                         template.templateId,
                         template.title,
                         template.profile))
@@ -89,18 +90,18 @@ public class CustomTemplateRepositoryImpl {
     }
 
     public TemplateContentResponse getTemplateContent(String userId, UUID templateId, int day) {
-        return query.select(Projections.constructor(TemplateContentResponse.class,
+        return query.select(constructor(TemplateContentResponse.class,
                         template.title,
                         template.profile,
                         template.size,
                         new CaseBuilder()
                                 .when(template.user.email.eq(userId)).then(1)
                                 .otherwise(0),
-                        list(Projections.constructor(TemplateContentTemplateResponse.class,
-                                Projections.constructor(TemplateContentTemplateSubjectResponse.class,
+                        list(constructor(TemplateContentTemplateResponse.class,
+                                constructor(TemplateContentTemplateSubjectResponse.class,
                                     templateTodolistSubject.templateTodolistSubjectId,
                                     templateTodolistSubject.subject),
-                                list(Projections.constructor(TemplateContentTemplateContentResponse.class,
+                                list(constructor(TemplateContentTemplateContentResponse.class,
                                             templateTodolistContent.templateTodolistContentId,
                                             templateTodolistContent.content))))))
                 .from(templateDay)
@@ -120,11 +121,11 @@ public class CustomTemplateRepositoryImpl {
     }
 
     public List<TemplateContentDto> getUserTemplateInfo(String userId, UUID templateId) {
-        return query.select(Projections.constructor(TemplateContentDto.class,
+        return query.select(constructor(TemplateContentDto.class,
                         templateDay.day,
-                        list(Projections.constructor(TemplateContentSubjectDto.class,
+                        list(constructor(TemplateContentSubjectDto.class,
                                 templateTodolistSubject.subject,
-                                list(Projections.constructor(TemplateContentSubjectContentDto.class,
+                                list(constructor(TemplateContentSubjectContentDto.class,
                                         templateTodolistContent.content))))))
                 .from(templateDay)
                 .leftJoin(templateDay.templateTodolistSubjects, templateTodolistSubject)
