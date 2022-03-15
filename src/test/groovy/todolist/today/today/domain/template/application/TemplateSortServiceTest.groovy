@@ -20,58 +20,56 @@ class TemplateSortServiceTest extends Specification {
 
     def "test sortTemplateSubject" () {
         given:
-        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
-                .value(value1)
-                .build()
-        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
-                .value(value2)
-                .build()
-
-        List<TemplateTodolistSubject> subjects = new ArrayList<>()
-        subjects.add(subject1)
-        subjects.add(subject2)
-
         TemplateDay templateDay = Stub(TemplateDay)
-        templateDay.getTemplateTodolistSubjects() >> subjects
+        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
+                .subject("subject1")
+                .value(200)
+                .build()
+
+        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
+                .subject("subject2")
+                .value(100)
+                .build()
+
+        TemplateTodolistSubject subject3 = TemplateTodolistSubject.builder()
+                .subject("subject3")
+                .value(300)
+                .build()
+
+        templateDay.getTemplateTodolistSubjects() >> Arrays.asList(subject1, subject2, subject3)
 
         when:
         templateSortService.sortTemplateSubject(templateDay)
 
         then:
         noExceptionThrown()
-
-        where:
-        value1 | value2
-        100 | 200
-        200 | 100
     }
 
     def "test sortTemplateContent" () {
         given:
-        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
-                .value(value1)
-                .build()
-        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
-                .value(value2)
-                .build()
-
-        List<TemplateTodolistContent> contents = new ArrayList<>()
-        contents.add(content1)
-        contents.add(content2)
-
         TemplateTodolistSubject subject = Stub(TemplateTodolistSubject)
-        subject.getTemplateTodolistContents() >> contents
+        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
+                .content("content1")
+                .value(200)
+                .build()
+
+        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
+                .content("content2")
+                .value(100)
+                .build()
+
+        TemplateTodolistContent content3 = TemplateTodolistContent.builder()
+                .content("content3")
+                .value(300)
+                .build()
+
+        subject.getTemplateTodolistContents() >> Arrays.asList(content1, content2, content3)
 
         when:
         templateSortService.sortTemplateContent(subject)
 
         then:
         noExceptionThrown()
-
-        where:
-        value1 | value2
-        100 | 200
-        200 | 100
     }
 
 }

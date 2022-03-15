@@ -12,7 +12,7 @@ import javax.validation.constraints.Size;
 public class TodolistSubjectCreateRequest {
 
     @NotEmpty
-    @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d")
+    @Pattern(regexp = "\\d\\d\\d\\d-\\d\\d-\\d\\d")
     private String date;
 
     @NotEmpty

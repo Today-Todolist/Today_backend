@@ -13,6 +13,7 @@ import todolist.today.today.domain.template.domain.TemplateTodolistSubject
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse
+import todolist.today.today.domain.todolist.dto.etc.TemplateContentDto
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
 import todolist.today.today.global.config.JpaAuditingConfig
@@ -177,6 +178,23 @@ class CustomTemplateRepositoryImplTest extends Specification {
 
         then:
         profile == template.getProfile()
+    }
+
+    def "test getUserTemplateInfo" () {
+        given:
+        Template template = Template.builder()
+                .user(user)
+                .size(7)
+                .title("title")
+                .profile("templateProfile")
+                .build()
+        templateRepository.save(template)
+
+        when:
+        List<TemplateContentDto> response = customTemplateRepository.getUserTemplateInfo(user.getEmail(), template.getTemplateId())
+
+        then:
+        response.size() == 0
     }
 
 }

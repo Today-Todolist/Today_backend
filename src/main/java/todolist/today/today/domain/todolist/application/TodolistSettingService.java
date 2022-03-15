@@ -42,10 +42,11 @@ public class TodolistSettingService {
                     .getUserTemplateInfo(userId, UUID.fromString(id));
 
             for (TemplateContentDto templateContentDto : templateInfo) {
-                Todolist todolist = Todolist.builder()
-                        .user(user)
-                        .date(date.plusDays(templateContentDto.getDay()))
-                        .build();
+                Todolist todolist = todolistRepository.findByUserAndDate(user, date)
+                        .orElseGet(() -> Todolist.builder()
+                                .user(user)
+                                .date(date.plusDays(templateContentDto.getDay()))
+                                .build());
                 todolist = todolistRepository.save(todolist);
 
                 for (TemplateContentSubjectDto templateContentSubjectDto : templateContentDto.getSubject()) {

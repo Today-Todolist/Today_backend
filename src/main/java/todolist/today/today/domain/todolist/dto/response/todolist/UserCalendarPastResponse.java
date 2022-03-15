@@ -1,16 +1,22 @@
 package todolist.today.today.domain.todolist.dto.response.todolist;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 public class UserCalendarPastResponse {
 
     private int day;
+    private Boolean isSuccess;
 
-    @JsonProperty("is_success")
-    private boolean isSuccess;
+    public UserCalendarPastResponse(int day, List<Boolean> isSuccess) {
+        this.day = day;
+        if (isSuccess.get(0) != null) {
+            this.isSuccess = !isSuccess.contains(Boolean.FALSE);
+        }
+    }
 
 }

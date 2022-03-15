@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static todolist.today.today.domain.template.domain.QTemplateTodolistSubject.templateTodolistSubject;
 import static todolist.today.today.domain.todolist.domain.QTodolistSubject.todolistSubject;
 
 @Repository
@@ -18,7 +17,7 @@ public class CustomTodolistSubjectRepositoryImpl {
     private final JPAQueryFactory query;
 
     public int getTodolistSubjectLastValue(UUID todolistId) {
-        Integer value = query.select(templateTodolistSubject.value)
+        Integer value = query.select(todolistSubject.value)
                 .from(todolistSubject)
                 .where(todolistSubject.todolist.todolistId.eq(todolistId))
                 .orderBy(todolistSubject.value.desc())

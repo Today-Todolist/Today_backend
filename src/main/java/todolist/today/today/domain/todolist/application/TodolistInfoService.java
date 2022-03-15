@@ -51,7 +51,7 @@ public class TodolistInfoService {
         return new UserCalendarResponse(past, future);
     }
 
-    public TodolistContentResponse getTodolist(String userId, LocalDate date) {
+    public List<TodolistContentResponse> getTodolist(String userId, LocalDate date) {
         return customTodolistRepository.getTodolist(userId, date);
     }
 
