@@ -6,6 +6,7 @@ spring:
     username: ${MYSQL_USERNAME}
   jackson:
     property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
   jpa:
     generate-ddl: false
     show-sql: false
