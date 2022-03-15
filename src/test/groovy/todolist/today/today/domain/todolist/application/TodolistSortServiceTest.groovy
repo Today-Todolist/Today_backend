@@ -21,7 +21,22 @@ class TodolistSortServiceTest extends Specification {
     def "test sortTodolistSubject" () {
         given:
         Todolist todolist = Stub(Todolist)
-        todolist.getTodolistSubjects() >> Arrays.asList(new TodolistSubject(), new TodolistSubject())
+        TodolistSubject subject1 = TodolistSubject.builder()
+                .subject("subject1")
+                .value(200)
+                .build()
+
+        TodolistSubject subject2 = TodolistSubject.builder()
+                .subject("subject2")
+                .value(100)
+                .build()
+
+        TodolistSubject subject3 = TodolistSubject.builder()
+                .subject("subject3")
+                .value(300)
+                .build()
+
+        todolist.getTodolistSubjects() >> Arrays.asList(subject1, subject2, subject3)
 
         when:
         todolistSortService.sortTodolistSubject(todolist)
@@ -33,7 +48,22 @@ class TodolistSortServiceTest extends Specification {
     def "test sortTodolistContent" () {
         given:
         TodolistSubject subject = Stub(TodolistSubject)
-        subject.getTodolistContents() >> Arrays.asList(new TodolistContent(), new TodolistContent())
+        TodolistContent content1 = TodolistContent.builder()
+                .content("content1")
+                .value(200)
+                .build()
+
+        TodolistContent content2 = TodolistContent.builder()
+                .content("content2")
+                .value(100)
+                .build()
+
+        TodolistContent content3 = TodolistContent.builder()
+                .content("content3")
+                .value(300)
+                .build()
+
+        subject.getTodolistContents() >> Arrays.asList(content1, content2, content3)
 
         when:
         todolistSortService.sortTodolistContent(subject)
