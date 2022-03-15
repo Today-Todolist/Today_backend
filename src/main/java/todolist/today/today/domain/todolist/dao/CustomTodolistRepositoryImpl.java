@@ -83,7 +83,7 @@ public class CustomTodolistRepositoryImpl {
                         todolistSubject.todolistContents.size()))
                 .from(todolist)
                 .leftJoin(todolist.todolistSubjects, todolistSubject)
-                .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now().plusDays(1)))
+                .where(todolist.user.email.eq(userId).and(todolist.date.after(LocalDate.now()))
                         .and(todolist.date.before(endDate)))
                 .orderBy(todolist.date.asc())
                 .fetch().stream().filter(response -> response.getTodolists() > 0).toList();
