@@ -1,7 +1,7 @@
 package todolist.today.today.domain.todolist.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.todolist.dao.CustomTodolistRepositoryImpl
+import todolist.today.today.domain.todolist.dao.CustomTodolistRepository
 import todolist.today.today.domain.todolist.dao.TodolistRepository
 
 import java.time.LocalDate
@@ -9,7 +9,7 @@ import java.time.LocalDate
 class TodolistInfoServiceTest extends Specification {
 
     TodolistInfoService todolistInfoService
-    CustomTodolistRepositoryImpl customTodolistRepository = Stub()
+    CustomTodolistRepository customTodolistRepository = Stub()
     TodolistRepository todolistRepository = Stub()
 
     def setup() {

@@ -5,7 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.check.application.CheckService;
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
+import todolist.today.today.domain.user.dao.CustomUserRepository;
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
 import todolist.today.today.domain.user.domain.redis.ChangePasswordCertify;
@@ -25,7 +25,7 @@ public class CertifySendService {
 
     private final SignUpCertifyRepository signUpCertifyRepository;
     private final ChangePasswordCertifyRepository changePasswordCertifyRepository;
-    private final CustomUserRepositoryImpl customUserRepository;
+    private final CustomUserRepository customUserRepository;
 
     private final MailContentProvider mailContentProvider;
     private final MailSendFacade mailSendFacade;

@@ -1,8 +1,8 @@
 package todolist.today.today.domain.friend.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository
+import todolist.today.today.domain.friend.dao.CustomFriendRepository
 import todolist.today.today.domain.friend.dao.FriendApplyRepository
 import todolist.today.today.domain.friend.dao.FriendRepository
 import todolist.today.today.domain.friend.dto.response.UserFriendApplyResponse
@@ -14,8 +14,8 @@ import todolist.today.today.global.dto.response.PagingResponse
 class FriendInfoServiceTest extends Specification {
 
     FriendInfoService friendInfoService
-    CustomFriendRepositoryImpl customFriendRepository = Mock()
-    CustomFriendApplyRepositoryImpl customFriendApplyRepository = Mock()
+    CustomFriendRepository customFriendRepository = Mock()
+    CustomFriendApplyRepository customFriendApplyRepository = Mock()
     FriendRepository friendRepository = Stub()
     FriendApplyRepository friendApplyRepository = Stub()
 

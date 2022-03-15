@@ -1,6 +1,5 @@
 package todolist.today.today.domain.todolist.dao;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -24,7 +23,7 @@ import static todolist.today.today.domain.todolist.domain.QTodolistSubject.todol
 
 @Repository
 @RequiredArgsConstructor
-public class CustomTodolistRepositoryImpl {
+public class CustomTodolistRepository {
 
     private final JPAQueryFactory query;
 

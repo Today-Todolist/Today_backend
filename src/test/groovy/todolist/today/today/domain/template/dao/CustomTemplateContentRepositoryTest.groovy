@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Import
 import spock.lang.Specification
 import todolist.today.today.domain.template.domain.Template
 import todolist.today.today.domain.template.domain.TemplateDay
+import todolist.today.today.domain.template.domain.TemplateTodolistContent
 import todolist.today.today.domain.template.domain.TemplateTodolistSubject
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.domain.User
@@ -15,11 +16,11 @@ import todolist.today.today.global.config.QueryDslConfig
 
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomTemplateSubjectRepositoryImplTest extends Specification {
+class CustomTemplateContentRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomTemplateSubjectRepositoryImpl customTemplateSubjectRepository
+    CustomTemplateContentRepository customTemplateContentRepository
 
     @Autowired
     UserRepository userRepository
@@ -39,9 +40,10 @@ class CustomTemplateSubjectRepositoryImplTest extends Specification {
     User user
     Template template
     TemplateDay templateDay
+    TemplateTodolistSubject subject
 
     def setup() {
-        customTemplateSubjectRepository = new CustomTemplateSubjectRepositoryImpl(jpaQueryFactory)
+        customTemplateContentRepository = new CustomTemplateContentRepository(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")
@@ -64,62 +66,71 @@ class CustomTemplateSubjectRepositoryImplTest extends Specification {
                 .day(1)
                 .build()
         templateDay = templateDayRepository.save(templateDay)
+
+        subject = TemplateTodolistSubject.builder()
+                .templateDay(templateDay)
+                .subject("subject")
+                .value(100)
+                .build()
+        subject = templateSubjectRepository.save(subject)
     }
 
-    def "test getTemplateSubjectLastValue" () {
+    def "test getTemplateContentLastValue" () {
         given:
-        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
-                .templateDay(templateDay)
-                .subject("subject")
+        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
+                .templateTodolistSubject(subject)
+                .content("content1")
                 .value(2000)
                 .build()
-        templateSubjectRepository.save(subject1)
+        templateContentRepository.save(content1)
 
-        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
-                .templateDay(templateDay)
-                .subject("subject")
+        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
+                .templateTodolistSubject(subject)
+                .content("content2")
                 .value(1000)
                 .build()
-        templateSubjectRepository.save(subject2)
+        templateContentRepository.save(content2)
 
         when:
-        int value = customTemplateSubjectRepository.getTemplateSubjectLastValue(templateDay.getTemplateDayId())
+        int value = customTemplateContentRepository
+                .getTemplateContentLastValue(subject.getTemplateTodolistSubjectId())
 
         then:
         value == 2000
     }
 
-    def "test getTemplateSubjectValueByOrder" () {
+    def "test getTemplateContentValueByOrder" () {
         given:
-        TemplateTodolistSubject subject1 = TemplateTodolistSubject.builder()
-                .templateDay(templateDay)
-                .subject("subject")
+        TemplateTodolistContent content1 = TemplateTodolistContent.builder()
+                .templateTodolistSubject(subject)
+                .content("content1")
                 .value(1000)
                 .build()
-        templateSubjectRepository.save(subject1)
+        content1 = templateContentRepository.save(content1)
 
-        TemplateTodolistSubject subject2 = TemplateTodolistSubject.builder()
-                .templateDay(templateDay)
-                .subject("subject")
+        TemplateTodolistContent content2 = TemplateTodolistContent.builder()
+                .templateTodolistSubject(subject)
+                .content("content2")
                 .value(2000)
                 .build()
-        templateSubjectRepository.save(subject2)
+        content2 = templateContentRepository.save(content2)
 
-        TemplateTodolistSubject subject3 = TemplateTodolistSubject.builder()
-                .templateDay(templateDay)
-                .subject("subject")
+        TemplateTodolistContent content3 = TemplateTodolistContent.builder()
+                .templateTodolistSubject(subject)
+                .content("content2")
                 .value(3000)
                 .build()
-        templateSubjectRepository.save(subject3)
+        content3 = templateContentRepository.save(content3)
 
         when:
-        List<Integer> values = customTemplateSubjectRepository
-                .getTemplateSubjectValueByOrder(templateDay.getTemplateDayId(), subject3.getTemplateTodolistSubjectId(), 1)
+        List<Integer> values = customTemplateContentRepository
+                .getTemplateContentValueByOrder(subject.getTemplateTodolistSubjectId(),
+                        content3.getTemplateTodolistContentId(), 1)
 
         then:
         values.size() == 2
-        values.get(0) == subject1.getValue()
-        values.get(1) == subject2.getValue()
+        values.get(0) == content1.getValue()
+        values.get(1) == content2.getValue()
     }
 
 }

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.check.application.CheckService;
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl;
+import todolist.today.today.domain.friend.dao.CustomFriendRepository;
 import todolist.today.today.domain.friend.dao.FriendApplyRepository;
 import todolist.today.today.domain.friend.dao.FriendRepository;
 import todolist.today.today.domain.friend.domain.Friend;
@@ -20,7 +20,7 @@ import todolist.today.today.domain.user.exception.UserNotFoundException;
 public class FriendSettingService {
 
     private final UserRepository userRepository;
-    private final CustomFriendRepositoryImpl customFriendRepository;
+    private final CustomFriendRepository customFriendRepository;
     private final FriendRepository friendRepository;
     private final FriendApplyRepository friendApplyRepository;
 

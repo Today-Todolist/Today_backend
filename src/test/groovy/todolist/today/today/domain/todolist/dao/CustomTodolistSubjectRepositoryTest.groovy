@@ -16,11 +16,11 @@ import java.time.LocalDate
 
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomTodolistSubjectRepositoryImplTest extends Specification {
+class CustomTodolistSubjectRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository
+    CustomTodolistSubjectRepository customTodolistSubjectRepository
 
     @Autowired
     UserRepository userRepository
@@ -35,7 +35,7 @@ class CustomTodolistSubjectRepositoryImplTest extends Specification {
     Todolist todolist
 
     def setup() {
-        customTodolistSubjectRepository = new CustomTodolistSubjectRepositoryImpl(jpaQueryFactory)
+        customTodolistSubjectRepository = new CustomTodolistSubjectRepository(jpaQueryFactory)
 
         user = User.builder()
                 .email("today043149@gmail.com")

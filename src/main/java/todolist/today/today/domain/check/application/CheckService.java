@@ -4,13 +4,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl;
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl;
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository;
+import todolist.today.today.domain.friend.dao.CustomFriendRepository;
 import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException;
 import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException;
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl;
+import todolist.today.today.domain.user.dao.CustomUserRepository;
 import todolist.today.today.domain.user.dao.UserRepository;
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository;
 import todolist.today.today.domain.user.exception.*;
@@ -22,10 +22,10 @@ public class CheckService {
 
     private final SignUpCertifyRepository signUpCertifyRepository;
     private final UserRepository userRepository;
-    private final CustomUserRepositoryImpl customUserRepository;
+    private final CustomUserRepository customUserRepository;
     private final TemplateRepository templateRepository;
-    private final CustomFriendRepositoryImpl customFriendRepository;
-    private final CustomFriendApplyRepositoryImpl customFriendApplyRepository;
+    private final CustomFriendRepository customFriendRepository;
+    private final CustomFriendApplyRepository customFriendApplyRepository;
 
     private final PasswordEncoder passwordEncoder;
 

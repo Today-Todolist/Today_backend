@@ -10,17 +10,17 @@ import todolist.today.today.global.config.QueryDslConfig
 
 @DataJpaTest
 @Import(QueryDslConfig)
-class CustomSearchWordRepositoryImplTest extends Specification {
+class CustomSearchWordRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomSearchWordRepositoryImpl customSearchWordRepository
+    CustomSearchWordRepository customSearchWordRepository
 
     @Autowired
     SearchWordRepository searchWordRepository
 
     def setup() {
-        customSearchWordRepository = new CustomSearchWordRepositoryImpl(jpaQueryFactory)
+        customSearchWordRepository = new CustomSearchWordRepository(jpaQueryFactory)
     }
 
     def "test getTemplateSearchResult" () {

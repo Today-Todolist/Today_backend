@@ -3,7 +3,7 @@ package todolist.today.today.domain.user.application
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
 import todolist.today.today.domain.check.application.CheckService
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
+import todolist.today.today.domain.user.dao.CustomUserRepository
 import todolist.today.today.domain.user.dao.redis.ChangePasswordCertifyRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
 import todolist.today.today.domain.user.dto.request.ChangePasswordCertifySendRequest
@@ -21,7 +21,7 @@ class CertifySendServiceTest extends Specification {
     CheckService checkService = Stub()
     SignUpCertifyRepository signUpCertifyRepository = Stub()
     ChangePasswordCertifyRepository changePasswordCertifyRepository = Stub()
-    CustomUserRepositoryImpl customUserRepository = Stub()
+    CustomUserRepository customUserRepository = Stub()
     MailContentProvider mailContentProvider = Stub()
     MailSendFacade mailSendFacade = Stub()
     PasswordEncoder passwordEncoder = Stub()

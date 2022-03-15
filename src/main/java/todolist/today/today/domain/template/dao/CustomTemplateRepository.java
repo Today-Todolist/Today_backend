@@ -1,6 +1,5 @@
 package todolist.today.today.domain.template.dao;
 
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ import static todolist.today.today.domain.user.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomTemplateRepositoryImpl {
+public class CustomTemplateRepository {
 
     private final JPAQueryFactory query;
     private final Random random = new Random();

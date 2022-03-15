@@ -13,15 +13,13 @@ import todolist.today.today.global.config.JpaAuditingConfig
 import todolist.today.today.global.config.QueryDslConfig
 import todolist.today.today.global.dto.request.PagingRequest
 
-import javax.persistence.EntityManager
-
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomFriendApplyRepositoryImplTest extends Specification {
+class CustomFriendApplyRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomFriendApplyRepositoryImpl customFriendApplyRepository
+    CustomFriendApplyRepository customFriendApplyRepository
 
     @Autowired
     UserRepository userRepository
@@ -30,7 +28,7 @@ class CustomFriendApplyRepositoryImplTest extends Specification {
     FriendApplyRepository friendApplyRepository
 
     def setup() {
-        customFriendApplyRepository = new CustomFriendApplyRepositoryImpl(jpaQueryFactory)
+        customFriendApplyRepository = new CustomFriendApplyRepository(jpaQueryFactory)
     }
 
     def "test getUserFriendApply" () {

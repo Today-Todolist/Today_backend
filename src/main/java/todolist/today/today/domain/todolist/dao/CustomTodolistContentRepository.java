@@ -12,7 +12,7 @@ import static todolist.today.today.domain.todolist.domain.QTodolistContent.todol
 
 @Repository
 @RequiredArgsConstructor
-public class CustomTodolistContentRepositoryImpl {
+public class CustomTodolistContentRepository {
 
     private final JPAQueryFactory query;
 

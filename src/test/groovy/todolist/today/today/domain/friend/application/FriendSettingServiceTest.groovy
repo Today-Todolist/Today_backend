@@ -1,7 +1,7 @@
 package todolist.today.today.domain.friend.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
+import todolist.today.today.domain.friend.dao.CustomFriendRepository
 import todolist.today.today.domain.friend.dao.FriendApplyRepository
 import todolist.today.today.domain.friend.dao.FriendRepository
 import todolist.today.today.domain.check.application.CheckService
@@ -13,7 +13,7 @@ class FriendSettingServiceTest extends Specification {
 
     FriendSettingService friendSettingService
     UserRepository userRepository = Stub()
-    CustomFriendRepositoryImpl customFriendRepository = Stub()
+    CustomFriendRepository customFriendRepository = Stub()
     FriendRepository friendRepository = Stub()
     FriendApplyRepository friendApplyRepository = Stub()
     CheckService checkService = Stub()

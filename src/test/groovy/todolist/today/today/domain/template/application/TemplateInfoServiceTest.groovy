@@ -1,7 +1,7 @@
 package todolist.today.today.domain.template.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateRepository
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.dto.response.TemplateContentResponse
 
@@ -9,7 +9,7 @@ import todolist.today.today.domain.template.dto.response.TemplateContentResponse
 class TemplateInfoServiceTest extends Specification {
 
     TemplateInfoService templateInfoService
-    CustomTemplateRepositoryImpl customTemplateRepository = Stub()
+    CustomTemplateRepository customTemplateRepository = Stub()
     TemplateRepository templateRepository = Stub()
 
     def setup() {

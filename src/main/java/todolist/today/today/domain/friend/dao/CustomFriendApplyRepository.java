@@ -14,7 +14,7 @@ import static todolist.today.today.domain.user.domain.QUser.user;
 
 @Repository
 @RequiredArgsConstructor
-public class CustomFriendApplyRepositoryImpl {
+public class CustomFriendApplyRepository {
 
     private final JPAQueryFactory query;
 

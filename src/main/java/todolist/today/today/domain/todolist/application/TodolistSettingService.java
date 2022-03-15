@@ -3,7 +3,7 @@ package todolist.today.today.domain.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
+import todolist.today.today.domain.template.dao.CustomTemplateRepository;
 import todolist.today.today.domain.todolist.dao.*;
 import todolist.today.today.domain.todolist.domain.Todolist;
 import todolist.today.today.domain.todolist.domain.TodolistContent;
@@ -25,12 +25,12 @@ import java.util.UUID;
 @Transactional
 public class TodolistSettingService {
 
-    private final CustomTemplateRepositoryImpl customTemplateRepository;
+    private final CustomTemplateRepository customTemplateRepository;
     private final UserRepository userRepository;
     private final TodolistRepository todolistRepository;
-    private final CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository;
+    private final CustomTodolistSubjectRepository customTodolistSubjectRepository;
     private final TodolistSubjectRepository todolistSubjectRepository;
-    private final CustomTodolistContentRepositoryImpl customTodolistContentRepository;
+    private final CustomTodolistContentRepository customTodolistContentRepository;
     private final TodolistContentRepository todolistContentRepository;
     private final TodolistSortService todolistSortService;
 

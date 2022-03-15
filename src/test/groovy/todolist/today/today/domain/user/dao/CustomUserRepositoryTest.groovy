@@ -20,11 +20,11 @@ import todolist.today.today.global.dto.request.PagingRequest
 
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomUserRepositoryImplTest extends Specification {
+class CustomUserRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomUserRepositoryImpl customUserRepository
+    CustomUserRepository customUserRepository
 
     @Autowired
     UserRepository userRepository
@@ -36,7 +36,7 @@ class CustomUserRepositoryImplTest extends Specification {
     TemplateRepository templateRepository
 
     def setup() {
-        customUserRepository = new CustomUserRepositoryImpl(jpaQueryFactory)
+        customUserRepository = new CustomUserRepository(jpaQueryFactory)
     }
 
     def "test findPasswordById" () {

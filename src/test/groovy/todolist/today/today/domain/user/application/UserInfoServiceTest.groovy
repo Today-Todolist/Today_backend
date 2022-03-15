@@ -2,13 +2,13 @@ package todolist.today.today.domain.user.application
 
 import org.springframework.dao.InvalidDataAccessResourceUsageException
 import spock.lang.Specification
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
+import todolist.today.today.domain.user.dao.CustomUserRepository
 import todolist.today.today.domain.user.exception.UserNotFoundException
 
 class UserInfoServiceTest extends Specification {
 
     UserInfoService userInfoService
-    CustomUserRepositoryImpl customUserRepository = Stub()
+    CustomUserRepository customUserRepository = Stub()
 
     def setup() {
         userInfoService = new UserInfoService(customUserRepository)

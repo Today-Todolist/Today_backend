@@ -21,11 +21,11 @@ import todolist.today.today.global.dto.request.PagingRequest
 
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomTemplateRepositoryImplTest extends Specification {
+class CustomTemplateRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomTemplateRepositoryImpl customTemplateRepository
+    CustomTemplateRepository customTemplateRepository
 
     @Autowired
     UserRepository userRepository
@@ -42,7 +42,7 @@ class CustomTemplateRepositoryImplTest extends Specification {
     User user
 
     def setup() {
-        customTemplateRepository = new CustomTemplateRepositoryImpl(jpaQueryFactory)
+        customTemplateRepository = new CustomTemplateRepository(jpaQueryFactory)
         user = User.builder()
                 .email("today043149@gmail.com")
                 .password("")

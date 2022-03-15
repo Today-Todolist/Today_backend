@@ -2,7 +2,7 @@ package todolist.today.today.domain.todolist.application
 
 import spock.lang.Specification
 import todolist.today.today.domain.check.application.CheckService
-import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepositoryImpl
+import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepository
 import todolist.today.today.domain.todolist.dao.TodolistRepository
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository
 import todolist.today.today.domain.todolist.domain.Todolist
@@ -26,7 +26,7 @@ class TodolistSubjectServiceTest extends Specification {
     TodolistSubjectService todolistSubjectService
     UserRepository userRepository = Stub()
     TodolistRepository todolistRepository = Stub()
-    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub()
+    CustomTodolistSubjectRepository customTodolistSubjectRepository = Stub()
     TodolistSubjectRepository todolistSubjectRepository = Stub()
     TodolistSortService todolistSortService = Stub()
     CheckService checkService = Stub()

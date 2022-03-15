@@ -3,7 +3,7 @@ package todolist.today.today.domain.todolist.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.todolist.dao.CustomTodolistRepositoryImpl;
+import todolist.today.today.domain.todolist.dao.CustomTodolistRepository;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dto.response.MyCalendarResponse;
 import todolist.today.today.domain.todolist.dto.response.TodolistContentResponse;
@@ -26,7 +26,7 @@ import static todolist.today.today.global.dto.LocalDateUtil.convert;
 @Transactional(readOnly = true)
 public class TodolistInfoService {
 
-    private final CustomTodolistRepositoryImpl customTodolistRepository;
+    private final CustomTodolistRepository customTodolistRepository;
     private final TodolistRepository todolistRepository;
 
     public PagingResponse<TodolistRecordResponse> getTodolistRecord(String userId, LocalDate startDate, LocalDate endDate) {

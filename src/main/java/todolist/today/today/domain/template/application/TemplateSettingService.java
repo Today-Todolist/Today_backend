@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import todolist.today.today.domain.check.application.CheckService;
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
+import todolist.today.today.domain.template.dao.CustomTemplateRepository;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.domain.Template;
 import todolist.today.today.domain.template.dto.request.TemplateCreateRequest;
@@ -22,7 +22,7 @@ import java.util.UUID;
 @Transactional
 public class TemplateSettingService {
 
-    private final CustomTemplateRepositoryImpl customTemplateRepository;
+    private final CustomTemplateRepository customTemplateRepository;
     private final TemplateRepository templateRepository;
     private final UserRepository userRepository;
     private final ImageUploadFacade imageUploadFacade;

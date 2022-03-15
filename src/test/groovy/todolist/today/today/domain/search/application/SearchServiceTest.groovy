@@ -1,21 +1,21 @@
 package todolist.today.today.domain.search.application
 
 import spock.lang.Specification
-import todolist.today.today.domain.search.dao.CustomSearchWordRepositoryImpl
+import todolist.today.today.domain.search.dao.CustomSearchWordRepository
 import todolist.today.today.domain.search.dao.SearchWordRepository
 import todolist.today.today.domain.search.domain.SearchWord
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateRepository
 import todolist.today.today.domain.template.dao.TemplateRepository
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
+import todolist.today.today.domain.user.dao.CustomUserRepository
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.global.dto.request.PagingRequest
 
 class SearchServiceTest extends Specification {
 
     SearchService searchService
-    CustomSearchWordRepositoryImpl customSearchWordRepository = Stub()
-    CustomUserRepositoryImpl customUserRepository = Stub()
-    CustomTemplateRepositoryImpl customTemplateRepository = Stub()
+    CustomSearchWordRepository customSearchWordRepository = Stub()
+    CustomUserRepository customUserRepository = Stub()
+    CustomTemplateRepository customTemplateRepository = Stub()
     SearchWordRepository searchWordRepository = Stub()
     UserRepository userRepository = Stub()
     TemplateRepository templateRepository = Stub()

@@ -2,7 +2,7 @@ package todolist.today.today.domain.todolist.application
 
 import spock.lang.Specification
 import todolist.today.today.RequestUtil
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl
+import todolist.today.today.domain.template.dao.CustomTemplateRepository
 import todolist.today.today.domain.todolist.dao.*
 import todolist.today.today.domain.todolist.domain.Todolist
 import todolist.today.today.domain.todolist.domain.TodolistSubject
@@ -18,12 +18,12 @@ import java.time.LocalDate
 class TodolistSettingServiceTest extends Specification {
 
     TodolistSettingService todolistSettingService
-    CustomTemplateRepositoryImpl customTemplateRepository = Stub(CustomTemplateRepositoryImpl)
+    CustomTemplateRepository customTemplateRepository = Stub(CustomTemplateRepository)
     UserRepository userRepository = Stub()
     TodolistRepository todolistRepository = Stub()
-    CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository = Stub()
+    CustomTodolistSubjectRepository customTodolistSubjectRepository = Stub()
     TodolistSubjectRepository todolistSubjectRepository = Stub()
-    CustomTodolistContentRepositoryImpl customTodolistContentRepository = Stub()
+    CustomTodolistContentRepository customTodolistContentRepository = Stub()
     TodolistContentRepository todolistContentRepository = Stub()
     TodolistSortService todolistSortService = Stub()
 

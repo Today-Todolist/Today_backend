@@ -16,11 +16,11 @@ import todolist.today.today.global.dto.request.PagingRequest
 
 @DataJpaTest
 @Import([JpaAuditingConfig, QueryDslConfig])
-class CustomFriendRepositoryImplTest extends Specification {
+class CustomFriendRepositoryTest extends Specification {
 
     @Autowired
     JPAQueryFactory jpaQueryFactory
-    CustomFriendRepositoryImpl customFriendRepository
+    CustomFriendRepository customFriendRepository
 
     @Autowired
     UserRepository userRepository
@@ -29,7 +29,7 @@ class CustomFriendRepositoryImplTest extends Specification {
     FriendRepository friendRepository
 
     def setup() {
-        customFriendRepository = new CustomFriendRepositoryImpl(jpaQueryFactory)
+        customFriendRepository = new CustomFriendRepository(jpaQueryFactory)
     }
 
     def "test getUserFriends" () {

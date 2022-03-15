@@ -3,7 +3,7 @@ package todolist.today.today.domain.template.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import todolist.today.today.domain.template.dao.CustomTemplateRepositoryImpl;
+import todolist.today.today.domain.template.dao.CustomTemplateRepository;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.dto.response.MyTemplateResponse;
 import todolist.today.today.domain.template.dto.response.RandomTemplateResponse;
@@ -18,7 +18,7 @@ import java.util.UUID;
 @Transactional(readOnly = true)
 public class TemplateInfoService {
 
-    private final CustomTemplateRepositoryImpl customTemplateRepository;
+    private final CustomTemplateRepository customTemplateRepository;
     private final TemplateRepository templateRepository;
 
     public List<RandomTemplateResponse> getRandomTemplate(int size) {

@@ -2,14 +2,13 @@ package todolist.today.today.domain.check.application
 
 import org.springframework.security.crypto.password.PasswordEncoder
 import spock.lang.Specification
-import todolist.today.today.domain.check.application.CheckService
-import todolist.today.today.domain.friend.dao.CustomFriendApplyRepositoryImpl
-import todolist.today.today.domain.friend.dao.CustomFriendRepositoryImpl
+import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository
+import todolist.today.today.domain.friend.dao.CustomFriendRepository
 import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException
 import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException
-import todolist.today.today.domain.user.dao.CustomUserRepositoryImpl
+import todolist.today.today.domain.user.dao.CustomUserRepository
 import todolist.today.today.domain.user.dao.UserRepository
 import todolist.today.today.domain.user.dao.redis.SignUpCertifyRepository
 import todolist.today.today.domain.user.exception.*
@@ -19,10 +18,10 @@ class CheckServiceTest extends Specification {
     CheckService checkService
     SignUpCertifyRepository signUpCertifyRepository = Stub()
     UserRepository userRepository = Stub()
-    CustomUserRepositoryImpl customUserRepository = Stub()
+    CustomUserRepository customUserRepository = Stub()
     TemplateRepository templateRepository = Stub()
-    CustomFriendRepositoryImpl customFriendRepository = Stub()
-    CustomFriendApplyRepositoryImpl customFriendApplyRepository = Stub()
+    CustomFriendRepository customFriendRepository = Stub()
+    CustomFriendApplyRepository customFriendApplyRepository = Stub()
     PasswordEncoder passwordEncoder = Stub()
 
     def setup() {

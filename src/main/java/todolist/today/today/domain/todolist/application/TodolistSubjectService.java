@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import todolist.today.today.domain.check.application.CheckService;
-import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepositoryImpl;
+import todolist.today.today.domain.todolist.dao.CustomTodolistSubjectRepository;
 import todolist.today.today.domain.todolist.dao.TodolistRepository;
 import todolist.today.today.domain.todolist.dao.TodolistSubjectRepository;
 import todolist.today.today.domain.todolist.domain.Todolist;
@@ -31,7 +31,7 @@ public class TodolistSubjectService {
 
     private final UserRepository userRepository;
     private final TodolistRepository todolistRepository;
-    private final CustomTodolistSubjectRepositoryImpl customTodolistSubjectRepository;
+    private final CustomTodolistSubjectRepository customTodolistSubjectRepository;
     private final TodolistSubjectRepository todolistSubjectRepository;
     private final TodolistSortService todolistSortService;
     private final CheckService checkService;
