@@ -58,6 +58,7 @@ class TodolistSettingServiceTest extends Specification {
         List<TemplateContentDto> templateInfo = Arrays.asList(new TemplateContentDto(1, subject))
 
         customTemplateRepository.getUserTemplateInfo(USER_ID, TEMPLATE_ID) >> templateInfo
+        todolistRepository.findByUserAndDate(user, _) >> (exists ? Optional.of(Stub(Todolist)) : Optional.empty())
         customTodolistSubjectRepository.getTodolistSubjectLastValue(_) >> value
         customTodolistContentRepository.getTodolistContentLastValue(_) >> value
 
@@ -71,7 +72,10 @@ class TodolistSettingServiceTest extends Specification {
         noExceptionThrown()
 
         where:
-        value << [1, 2147483500]
+        value | exists
+        1 | true
+        2147483500 | true
+        1 | false
     }
 
 }
