@@ -1,12 +1,14 @@
 package todolist.today.today.domain.todolist.dao
 
-import com.fasterxml.jackson.databind.ObjectMapper
+
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.context.annotation.Import
 import spock.lang.Specification
 import todolist.today.today.domain.todolist.domain.Todolist
+import todolist.today.today.domain.todolist.domain.TodolistContent
+import todolist.today.today.domain.todolist.domain.TodolistSubject
 import todolist.today.today.domain.todolist.dto.response.TodolistContentResponse
 import todolist.today.today.domain.todolist.dto.response.TodolistRecordResponse
 import todolist.today.today.domain.todolist.dto.response.todolist.MyCalendarFutureResponse
@@ -34,6 +36,12 @@ class CustomTodolistRepositoryImplTest extends Specification {
 
     @Autowired
     private TodolistRepository todolistRepository
+
+    @Autowired
+    private TodolistSubjectRepository todolistSubjectRepository
+
+    @Autowired
+    private TodolistContentRepository todolistContentRepository
 
     private User user
 
@@ -82,17 +90,37 @@ class CustomTodolistRepositoryImplTest extends Specification {
 
     def "test getMyCalendarFuture" () {
         given:
-        Todolist todolist = Todolist.builder()
+        Todolist todolist1 = Todolist.builder()
                 .user(user)
                 .date(LocalDate.now().plusDays(1))
                 .build()
-        todolistRepository.save(todolist)
+        todolistRepository.save(todolist1)
+
+        Todolist todolist2 = Todolist.builder()
+                .user(user)
+                .date(LocalDate.now().plusDays(2))
+                .build()
+        todolist2 = todolistRepository.save(todolist2)
+
+        TodolistSubject subject = TodolistSubject.builder()
+                .todolist(todolist2)
+                .subject("subject")
+                .value(1000)
+                .build()
+        subject = todolistSubjectRepository.save(subject)
+
+        TodolistContent content = TodolistContent.builder()
+                .todolistSubject(subject)
+                .content("content")
+                .value(1000)
+                .build()
+        todolistContentRepository.save(content)
 
         when:
-        List<MyCalendarFutureResponse> response = customTodolistRepository.getMyCalendarFuture(user.getEmail(), LocalDate.now().plusDays(2))
+        List<MyCalendarFutureResponse> response = customTodolistRepository.getMyCalendarFuture(user.getEmail(), LocalDate.now().plusDays(3))
 
         then:
-        response.size() == 0
+        response.size() == 1
     }
 
     def "test getUserCalendarPast" () {
@@ -112,17 +140,37 @@ class CustomTodolistRepositoryImplTest extends Specification {
 
     def "test getUserCalendarFuture" () {
         given:
-        Todolist todolist = Todolist.builder()
+        Todolist todolist1 = Todolist.builder()
                 .user(user)
                 .date(LocalDate.now().plusDays(1))
                 .build()
-        todolistRepository.save(todolist)
+        todolistRepository.save(todolist1)
+
+        Todolist todolist2 = Todolist.builder()
+                .user(user)
+                .date(LocalDate.now().plusDays(2))
+                .build()
+        todolist2 = todolistRepository.save(todolist2)
+
+        TodolistSubject subject = TodolistSubject.builder()
+                .todolist(todolist2)
+                .subject("subject")
+                .value(1000)
+                .build()
+        subject = todolistSubjectRepository.save(subject)
+
+        TodolistContent content = TodolistContent.builder()
+                .todolistSubject(subject)
+                .content("content")
+                .value(1000)
+                .build()
+        todolistContentRepository.save(content)
 
         when:
-        List<UserCalendarFutureResponse> response = customTodolistRepository.getUserCalendarFuture(user.getEmail(), LocalDate.now().plusDays(2))
+        List<UserCalendarFutureResponse> response = customTodolistRepository.getUserCalendarFuture(user.getEmail(), LocalDate.now().plusDays(3))
 
         then:
-        response.size() == 0
+        response.size() == 1
     }
 
     def "test getTodolist" () {
