@@ -11,6 +11,10 @@ spring:
     generate-ddl: false
     show-sql: false
     open-in-view: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
