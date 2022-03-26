@@ -139,6 +139,10 @@ jacocoTestCoverageVerification {
     }
 }
 
+jar {
+    enabled = false
+}
+
 test {
     useJUnitPlatform()
     finalizedBy 'jacocoTestReport'
