@@ -46,7 +46,7 @@ public class CertifySendService {
                 .build();
         signUpCertifyRepository.save(signUpCertify);
 
-        String content = mailContentProvider.createSignUpContent(String.valueOf(signUpCertify.getId()));
+        String content = mailContentProvider.createSignUpContent(String.valueOf(signUpCertify.getId()), userId);
         mailSendFacade.sendHtmlMail(userId, nickname + "님을 위한 오늘 회원가입 인증이 도착했습니다", content);
     }
 
@@ -64,7 +64,7 @@ public class CertifySendService {
                 .build();
         changePasswordCertifyRepository.save(changePasswordCertify);
 
-        String content = mailContentProvider.createChangePasswordContent(String.valueOf(changePasswordCertify.getId()));
+        String content = mailContentProvider.createChangePasswordContent(String.valueOf(changePasswordCertify.getId()), userId);
         mailSendFacade.sendHtmlMail(userId, nickname + "님을 위한 오늘 비밀번호 재설정 인증이 도착했습니다", content);
     }
 
