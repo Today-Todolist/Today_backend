@@ -20,23 +20,25 @@ class MailContentProviderTest extends Specification {
     def "test createSignUpContent" () {
         given:
         final String TOKEN = "1234"
+        final String EMAIL = "today043149@gmail.com"
 
         when:
-        String content = mailContentProvider.createSignUpContent(TOKEN)
+        String content = mailContentProvider.createSignUpContent(TOKEN, EMAIL)
 
         then:
-        content == SIGN_UP_LINK + "?token=" + TOKEN
+        content == SIGN_UP_LINK + "?token=" + TOKEN + "&email=" + EMAIL
     }
 
     def "test createChangePasswordContent" () {
         given:
         final String TOKEN = "1234"
+        final String EMAIL = "today043149@gmail.com"
 
         when:
-        String content = mailContentProvider.createChangePasswordContent(TOKEN)
+        String content = mailContentProvider.createChangePasswordContent(TOKEN, EMAIL)
 
         then:
-        content == CHANGE_PASSOWRD_LINK + "?token=" + TOKEN
+        content == CHANGE_PASSOWRD_LINK + "?token=" + TOKEN + "&email=" + EMAIL
     }
 
 }
