@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "FRIEND_APPLY")
+@Entity
 public class FriendApply extends BaseFriend {
 
     @Builder

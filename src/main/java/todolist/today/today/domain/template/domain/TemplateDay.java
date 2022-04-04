@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TEMPLATE_DAY")
+@Entity
 public class TemplateDay {
 
     @Id

@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "SEARCH_WORD")
+@Entity
 public class SearchWord {
 
     @Id

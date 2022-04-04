@@ -12,7 +12,7 @@ import javax.persistence.Id;
 
 @Getter
 @NoArgsConstructor
-@RedisHash(value = "SIGN_UP_CERTIFY", timeToLive = 300)
+@RedisHash(timeToLive = 300)
 public class SignUpCertify {
 
     @Id

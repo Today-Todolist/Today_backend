@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TODOLIST")
+@Entity
 public class Todolist {
 
     @Id
