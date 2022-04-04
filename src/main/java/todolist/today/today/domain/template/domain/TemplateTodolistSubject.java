@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TEMPLATE_TODOLIST_SUBJECT")
+@Entity
 public class TemplateTodolistSubject extends BaseTodolistSubject {
 
     @Id

@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TEMPLATE_TODOLIST_CONTENT")
+@Entity
 public class TemplateTodolistContent extends BaseTodolistContent {
 
     @Id

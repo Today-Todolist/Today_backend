@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TEMPLATE")
+@Entity
 public class Template extends BaseCreatedAt {
 
     @Id

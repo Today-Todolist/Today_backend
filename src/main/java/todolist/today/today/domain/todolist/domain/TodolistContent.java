@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "TODOLIST_CONTENT")
+@Entity
 public class TodolistContent extends BaseTodolistContent {
 
     @Id

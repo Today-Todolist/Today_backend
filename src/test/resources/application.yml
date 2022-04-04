@@ -11,10 +11,6 @@ spring:
   jpa:
     defer-datasource-initialization: true
     open-in-view: false
-    hibernate:
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
   redis:
     host: localhost
     port: 1234

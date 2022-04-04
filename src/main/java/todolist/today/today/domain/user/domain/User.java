@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "USER")
+@Entity
 public class User {
 
     @Id

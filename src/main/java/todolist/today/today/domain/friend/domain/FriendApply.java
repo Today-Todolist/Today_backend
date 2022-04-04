@@ -8,11 +8,10 @@ import todolist.today.today.domain.user.domain.User;
 import todolist.today.today.global.domain.BaseFriend;
 
 import javax.persistence.Entity;
-import javax.persistence.Table;
 
 @Getter
 @NoArgsConstructor
-@Entity @Table(name = "FRIEND_APPLY")
+@Entity
 public class FriendApply extends BaseFriend {
 
     @Builder
