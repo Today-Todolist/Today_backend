@@ -29,8 +29,9 @@ public class UserSettingService {
     public void changeProfile(String userId, MultipartFile image) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
-
+        
         String imageUrl = imageUploadFacade.uploadImage(image);
+        imageUploadFacade.deleteImage(user.getProfile());
         user.changeProfile(imageUrl);
     }
 
