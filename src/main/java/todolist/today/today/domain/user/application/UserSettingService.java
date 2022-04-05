@@ -13,6 +13,7 @@ import todolist.today.today.domain.user.dto.request.ChangeNicknameRequest;
 import todolist.today.today.domain.user.dto.request.ChangePasswordRequest;
 import todolist.today.today.domain.user.dto.request.DeleteUserRequest;
 import todolist.today.today.domain.user.dto.request.ResetTodolistRequest;
+import todolist.today.today.domain.user.exception.AuthenticationFailedException;
 import todolist.today.today.domain.user.exception.UserNotFoundException;
 import todolist.today.today.infra.file.image.ImageUploadFacade;
 
@@ -67,7 +68,13 @@ public class UserSettingService {
     }
 
     public void deleteUser(String userId, DeleteUserRequest request) {
-        checkService.checkPassword(userId, request.getPassword());
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new AuthenticationFailedException();
+        }
+        imageUploadFacade.deleteImage(user.getProfile());
         userRepository.deleteById(userId);
     }
 
