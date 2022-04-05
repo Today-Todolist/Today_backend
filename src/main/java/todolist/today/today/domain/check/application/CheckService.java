@@ -8,6 +8,7 @@ import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository;
 import todolist.today.today.domain.friend.dao.CustomFriendRepository;
 import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException;
 import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException;
+import todolist.today.today.domain.friend.exception.FriendApplyNotFoundException;
 import todolist.today.today.domain.template.dao.TemplateRepository;
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException;
 import todolist.today.today.domain.user.dao.CustomUserRepository;
@@ -75,6 +76,12 @@ public class CheckService {
     public void checkExistsFriend(String userId, String myId) {
         if (customFriendRepository.existsFriend(userId, myId)) {
             throw new FriendAlreadyExistsException(userId, myId);
+        }
+    }
+
+    public void checkNotExistsFriendApply(String userId, String myId) {
+        if (!customFriendApplyRepository.existsFriendApply(userId, myId)) {
+            throw new FriendApplyNotFoundException(userId, myId);
         }
     }
 

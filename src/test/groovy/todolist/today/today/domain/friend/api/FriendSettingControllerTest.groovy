@@ -132,6 +132,9 @@ class FriendSettingControllerTest extends Specification {
                 .build()
         userRepository.save(friend)
 
+        FriendApply friendApply = new FriendApply(friend, user)
+        friendApplyRepository.save(friendApply)
+
         String token = jwtTokenProvider.generateAccessToken(USER_ID)
 
         when:
