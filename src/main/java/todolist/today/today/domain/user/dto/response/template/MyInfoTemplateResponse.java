@@ -12,7 +12,7 @@ public class MyInfoTemplateResponse {
     private String profile;
 
     public MyInfoTemplateResponse(UUID id, String title, String profile) {
-        this.id = id.toString();
+        this.id = id != null ? id.toString() : null;
         this.title = title;
         this.profile = profile;
     }

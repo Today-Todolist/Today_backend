@@ -1,5 +1,6 @@
 package todolist.today.today.domain.user.application
 
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.web.multipart.MultipartFile
 import spock.lang.Specification
 import todolist.today.today.domain.check.application.CheckService
@@ -22,13 +23,15 @@ class UserSettingServiceTest extends Specification {
     TodolistRepository todolistRepository = Stub()
     ImageUploadFacade imageUploadFacade = Stub()
     CheckService checkService = Stub()
+    PasswordEncoder passwordEncoder = Stub()
 
     def setup() {
         userSettingService = new UserSettingService(
                 userRepository,
                 todolistRepository,
                 imageUploadFacade,
-                checkService)
+                checkService,
+                passwordEncoder)
     }
 
     def "test changeProfile" () {

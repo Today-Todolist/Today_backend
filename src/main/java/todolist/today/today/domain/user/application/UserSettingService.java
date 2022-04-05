@@ -1,6 +1,7 @@
 package todolist.today.today.domain.user.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,11 +27,14 @@ public class UserSettingService {
     private final ImageUploadFacade imageUploadFacade;
     private final CheckService checkService;
 
+    private final PasswordEncoder passwordEncoder;
+
     public void changeProfile(String userId, MultipartFile image) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
 
         String imageUrl = imageUploadFacade.uploadImage(image);
+        imageUploadFacade.deleteImage(user.getProfile());
         user.changeProfile(imageUrl);
     }
 
@@ -48,7 +52,7 @@ public class UserSettingService {
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
-        user.changePassword(request.getNewPassword());
+        user.changePassword(passwordEncoder.encode(request.getPassword()));
     }
 
     public void changeEditAvailability(String userId, boolean availability) {
