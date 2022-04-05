@@ -7,5 +7,6 @@ import todolist.today.today.domain.friend.domain.id.FriendRelation;
 public interface FriendApplyRepository extends CrudRepository<FriendApply, FriendRelation> {
 
     long countByFriendEmail(String userEmail);
+    void deleteByIdUserEmailAndIdFriendEmail(String userEmail, String friendEmail);
 
 }

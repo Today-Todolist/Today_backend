@@ -61,8 +61,7 @@ public class FriendSettingService {
     }
 
     public void deleteFriendApply(String userId, String myId) {
-        FriendRelation friendId = new FriendRelation(myId, userId);
-        friendApplyRepository.deleteById(friendId);
+        friendApplyRepository.deleteByIdUserEmailAndIdFriendEmail(myId, userId);
     }
 
 }
