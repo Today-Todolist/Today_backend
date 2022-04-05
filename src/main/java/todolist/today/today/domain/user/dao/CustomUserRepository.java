@@ -96,7 +96,7 @@ public class CustomUserRepository {
                 .from(user)
                 .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                 .where(user.nickname.contains(word))
-                .orderBy(friend1.count().desc())
+                .orderBy(user.receiveFriends.size().desc())
                 .offset(request.getPage())
                 .limit(request.getSize())
                 .fetch();
@@ -114,7 +114,7 @@ public class CustomUserRepository {
                 .from(user)
                 .leftJoin(friend1).on(friend1.user.email.eq(userId).or(friend1.friend.email.eq(userId)))
                 .where(user.email.contains(word))
-                .orderBy(friend1.count().desc())
+                .orderBy(user.receiveFriends.size().desc())
                 .offset(request.getPage())
                 .limit(request.getSize())
                 .fetch();
