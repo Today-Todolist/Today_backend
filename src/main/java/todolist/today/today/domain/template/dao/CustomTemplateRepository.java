@@ -73,7 +73,7 @@ public class CustomTemplateRepository {
                                 template.profile)))
                 .from(template)
                 .leftJoin(template.user, user)
-                .offset(random.nextInt((int) (count/size)))
+                .offset(random.nextInt((int) (count/size) + 1))
                 .limit(size)
                 .fetch();
     }
