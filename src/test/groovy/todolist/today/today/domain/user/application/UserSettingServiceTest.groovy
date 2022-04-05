@@ -147,10 +147,13 @@ class UserSettingServiceTest extends Specification {
 
     def "test deleteUser" () {
         given:
+        final String USER_ID = "today043149@gmail.com"
         DeleteUserRequest request = makeDeleteUserRequest("")
+        userRepository.findById(USER_ID) >> Optional.of(new User())
+        passwordEncoder.matches(_, _) >> true
 
         when:
-        userSettingService.deleteUser("", request)
+        userSettingService.deleteUser(USER_ID, request)
 
         then:
         noExceptionThrown()
