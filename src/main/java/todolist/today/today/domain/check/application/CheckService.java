@@ -78,4 +78,10 @@ public class CheckService {
         }
     }
 
+    public void checkNotExistsFriendApply(String userId, String myId) {
+        if (!customFriendApplyRepository.existsFriendApply(userId, myId)) {
+            throw new FriendApplyAlreadyExistsException(userId, myId);
+        }
+    }
+
 }

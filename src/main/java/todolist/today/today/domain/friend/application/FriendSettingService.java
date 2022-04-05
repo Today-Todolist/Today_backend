@@ -50,7 +50,7 @@ public class FriendSettingService {
                 .orElseThrow(() -> new UserNotFoundException(userId));
         User user2 = userRepository.findById(myId)
                 .orElseThrow(() -> new UserNotFoundException(myId));
-        checkService.checkExistsFriendApply(userId, myId);
+        checkService.checkNotExistsFriendApply(userId, myId);
         checkService.checkExistsFriend(userId, myId);
 
         Friend friend = Friend.builder()
