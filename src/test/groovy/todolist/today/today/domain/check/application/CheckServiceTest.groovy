@@ -245,7 +245,7 @@ class CheckServiceTest extends Specification {
         customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> true
 
         when:
-        checkService.checkNotExistsFriend(USER_ID, MY_ID)
+        checkService.checkNotExistsFriendApply(USER_ID, MY_ID)
 
         then:
         noExceptionThrown()
@@ -258,7 +258,7 @@ class CheckServiceTest extends Specification {
         customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> false
 
         when:
-        checkService.checkNotExistsFriend(USER_ID, MY_ID)
+        checkService.checkNotExistsFriendApply(USER_ID, MY_ID)
 
         then:
         thrown(FriendApplyNotFoundException)
