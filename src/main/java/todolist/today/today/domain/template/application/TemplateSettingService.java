@@ -48,6 +48,7 @@ public class TemplateSettingService {
                 .filter(t -> t.getUser().getEmail().equals(userId))
                 .orElseThrow(() -> new TemplateNotFoundException(templateId));
 
+        imageUploadFacade.deleteImage(template.getProfile());
         template.updateProfile(imageUploadFacade.uploadImage(profile));
     }
 
