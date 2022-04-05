@@ -6,6 +6,7 @@ import todolist.today.today.domain.friend.dao.CustomFriendApplyRepository
 import todolist.today.today.domain.friend.dao.CustomFriendRepository
 import todolist.today.today.domain.friend.exception.FriendAlreadyExistsException
 import todolist.today.today.domain.friend.exception.FriendApplyAlreadyExistsException
+import todolist.today.today.domain.friend.exception.FriendApplyNotFoundException
 import todolist.today.today.domain.template.dao.TemplateRepository
 import todolist.today.today.domain.template.exception.TemplateAlreadyExistException
 import todolist.today.today.domain.user.dao.CustomUserRepository
@@ -236,5 +237,32 @@ class CheckServiceTest extends Specification {
         then:
         thrown(FriendAlreadyExistsException)
     }
+
+    def "test checkNotExistsFriendApply" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> true
+
+        when:
+        checkService.checkNotExistsFriend(USER_ID, MY_ID)
+
+        then:
+        noExceptionThrown()
+    }
+
+    def "test checkNotExistsFriendApply FriendApplyNotFoundException" () {
+        given:
+        final String USER_ID = "today043149@gmail.com"
+        final String MY_ID = "tomorrow043149@gmail.com"
+        customFriendApplyRepository.existsFriendApply(USER_ID, MY_ID) >> false
+
+        when:
+        checkService.checkNotExistsFriend(USER_ID, MY_ID)
+
+        then:
+        thrown(FriendApplyNotFoundException)
+    }
+
 
 }
