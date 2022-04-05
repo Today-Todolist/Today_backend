@@ -1,13 +1,12 @@
 package todolist.today.today.domain.user.dto.response;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import todolist.today.today.domain.user.dto.response.template.UserInfoTemplateResponse;
 
+import java.util.Collections;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class UserInfoResponse {
 
     private String nickname;
@@ -15,5 +14,13 @@ public class UserInfoResponse {
     private long friendsAmount;
     private int status;
     private List<UserInfoTemplateResponse> templates;
+
+    public UserInfoResponse(String nickname, String profile, long friendsAmount, int status, List<UserInfoTemplateResponse> templates) {
+       this.nickname = nickname;
+       this.profile = profile;
+       this.friendsAmount = friendsAmount;
+       this.status = status;
+       this.templates = templates.get(0).getId() != null ? templates : Collections.emptyList();
+    }
 
 }
