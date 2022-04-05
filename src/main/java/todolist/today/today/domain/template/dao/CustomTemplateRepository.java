@@ -55,7 +55,7 @@ public class CustomTemplateRepository {
                 .leftJoin(friend1).on(friend1.user.email.eq(user.email)
                         .or(friend1.friend.email.eq(user.email)))
                 .where(template.title.contains(word))
-                .orderBy(friend1.count().desc())
+                .orderBy(user.receiveFriends.size().desc())
                 .offset(request.getPage())
                 .limit(request.getSize())
                 .fetch();
