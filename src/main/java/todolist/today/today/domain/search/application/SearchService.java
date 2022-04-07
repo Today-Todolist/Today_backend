@@ -33,7 +33,7 @@ public class SearchService {
 
     public SearchAmountResponse getSearchAmount(String word) {
         searchWordRepository.findById(word)
-                .orElseGet(() -> new SearchWord(word))
+                .orElseGet(() -> searchWordRepository.save(new SearchWord(word)))
                 .addValue();
 
         long nickname = userRepository.countByNicknameContains(word);
