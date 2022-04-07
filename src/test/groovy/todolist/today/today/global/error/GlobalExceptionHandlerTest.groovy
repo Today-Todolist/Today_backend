@@ -14,7 +14,6 @@ import todolist.today.today.global.config.ValidatedConfig
 import todolist.today.today.global.error.ingredient.TestController
 import todolist.today.today.global.error.ingredient.TestDto
 import todolist.today.today.global.security.service.JwtTokenProvider
-import todolist.today.today.global.security.service.RequestBucketProvider
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
@@ -32,9 +31,6 @@ class GlobalExceptionHandlerTest extends Specification {
 
     @MockBean
     JwtTokenProvider jwtTokenProvider
-
-    @MockBean
-    RequestBucketProvider requestBucketProvider
 
     @Autowired
     ObjectMapper objectMapper
