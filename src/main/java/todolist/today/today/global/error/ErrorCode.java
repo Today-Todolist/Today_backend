@@ -8,11 +8,11 @@ import lombok.Getter;
 public enum ErrorCode {
 
     INTERNAL_SERVER_ERROR(500, "S001", "Internal Server Error"),
-    IMPOSSIBLE_TO_GET_IP(500, "S002", "Impossible To Get Ip"),
-    CREATE_RANDOM_IMAGE_FAILED(500, "S003", "Create Random Image Failed"),
-    FILE_DELETE_FAILED(500, "S004", "Local File Delete Failed"),
+    CREATE_RANDOM_IMAGE_FAILED(500, "S002", "Create Random Image Failed"),
+    FILE_DELETE_FAILED(500, "S003", "Local File Delete Failed"),
 
-    UNAUTHORIZED_REQUEST(401, "A001", "Unauthorized Request"),
+    INVALID_TOKEN(401, "A001", "Invalid Token"),
+    UNAUTHORIZED_REQUEST(401, "A002", "Unauthorized Request"),
 
     NOT_IN_JSON_FORMAT(415, "C001", "Not In Json Format"),
     MISSING_REQUEST(400, "C002", "Missing Request"),
