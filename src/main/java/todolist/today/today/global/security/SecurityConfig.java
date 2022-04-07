@@ -13,7 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsUtils;
 import todolist.today.today.global.security.filter.FilterConfig;
 import todolist.today.today.global.security.service.JwtTokenProvider;
-import todolist.today.today.global.security.service.RequestBucketProvider;
 
 @Configuration
 @EnableWebSecurity
@@ -22,7 +21,6 @@ import todolist.today.today.global.security.service.RequestBucketProvider;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
-    private final RequestBucketProvider requestBucketProvider;
     private final ObjectMapper objectMapper;
 
     @Override
@@ -34,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 .anyRequest().permitAll()
-                .and().apply(new FilterConfig(jwtTokenProvider, requestBucketProvider, objectMapper));
+                .and().apply(new FilterConfig(jwtTokenProvider, objectMapper));
     }
 
     @Bean
