@@ -41,6 +41,7 @@ class SearchServiceTest extends Specification {
         given:
         final String WORD = "todolist"
         searchWordRepository.findById(WORD) >> searchWord
+        searchWordRepository.save(_) >> new SearchWord("WORD")
 
         when:
         searchService.getSearchAmount(WORD)
