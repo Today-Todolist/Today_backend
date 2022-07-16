@@ -90,8 +90,7 @@ public class GlobalExceptionHandler {
         final SimpleErrorResponse response = new SimpleErrorResponse(WRONG_HTTP_METHOD, reason);
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
-
-
+    
     @ExceptionHandler({BasicException.class, InvoluteException.class, SimpleException.class})
     public <T extends GlobalException<R>, R extends BasicErrorResponse> ResponseEntity<R> handleGlobalException(T e) {
         final R response = e.getErrorResponse();
