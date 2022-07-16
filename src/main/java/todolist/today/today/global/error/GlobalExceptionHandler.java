@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import todolist.today.today.global.error.dto.BasicErrorResponse;
 import todolist.today.today.global.error.dto.InvoluteErrorResponse;
 import todolist.today.today.global.error.dto.SimpleErrorResponse;
@@ -59,16 +60,20 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)
-    public ResponseEntity<SimpleErrorResponse> handleException(MissingServletRequestParameterException e) {
+    public ResponseEntity<SimpleErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        final SimpleErrorResponse response = new SimpleErrorResponse(MISSING_REQUEST, e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    public ResponseEntity<SimpleErrorResponse> handleMissingServletRequestPartException(MissingServletRequestPartException e) {
         final SimpleErrorResponse response = new SimpleErrorResponse(MISSING_REQUEST, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
     public ResponseEntity<SimpleErrorResponse> handleHttpMediaTypeNotSupportedException(HttpMediaTypeNotSupportedException e) {
-        String reason = "The content type must be application/json. But request content type is " + e.getContentType();
-
-        final SimpleErrorResponse response = new SimpleErrorResponse(NOT_IN_JSON_FORMAT, reason);
+        final SimpleErrorResponse response = new SimpleErrorResponse(NOT_IN_JSON_FORMAT, e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -88,7 +93,7 @@ public class GlobalExceptionHandler {
 
 
     @ExceptionHandler({BasicException.class, InvoluteException.class, SimpleException.class})
-    public <T extends GlobalException<R>, R extends BasicErrorResponse> ResponseEntity<BasicErrorResponse> handleGlobalException(T e) {
+    public <T extends GlobalException<R>, R extends BasicErrorResponse> ResponseEntity<R> handleGlobalException(T e) {
         final R response = e.getErrorResponse();
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
