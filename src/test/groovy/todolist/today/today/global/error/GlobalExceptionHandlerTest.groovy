@@ -7,8 +7,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
+import org.springframework.mock.web.MockHttpServletRequest
+import org.springframework.mock.web.MockMultipartFile
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.ResultActions
+import org.springframework.test.web.servlet.request.RequestPostProcessor
 import spock.lang.Specification
 import todolist.today.today.global.config.ValidatedConfig
 import todolist.today.today.global.error.ingredient.TestController
@@ -16,6 +19,7 @@ import todolist.today.today.global.error.ingredient.TestDto
 import todolist.today.today.global.security.service.JwtTokenProvider
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
@@ -104,6 +108,29 @@ class GlobalExceptionHandlerTest extends Specification {
         ResultActions result = mvc.perform(post("/exception")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+
+        then:
+        result.andExpect(status().isBadRequest())
+        checkBasicErrorResponse(result, ErrorCode.MISSING_REQUEST)
+        result.andExpect(jsonPath("reason").isString())
+    }
+
+    def "test handleMissingServletRequestPartException" () {
+        given:
+        MockMultipartFile file = new MockMultipartFile("profile", "image.png", "image/png", "".getBytes())
+
+        when:
+        ResultActions result = mvc.perform(multipart("/multipart-exception")
+                .file(file)
+                .with(new RequestPostProcessor() {
+                    @Override
+                    MockHttpServletRequest postProcessRequest(MockHttpServletRequest request) {
+                        request.setMethod("POST")
+                        return request
+                    }
+                })
+                .contentType(MediaType.MULTIPART_FORM_DATA))
                 .andDo(print())
 
         then:
